@@ -1,0 +1,5 @@
+DESCRIPTION="Control and automation" 
+REQUIRED_BYTES="50000" 
+SCREENSHOTS="https://github.com/jmirasb/opendomo-automation/screenshot1.png" 
+SCHEME="FEFABA FFFFFF" 
+ICON="odauto.png"
