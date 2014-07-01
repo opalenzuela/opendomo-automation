@@ -26,7 +26,7 @@ do_start () {
 		cd $CFGDIR
 		for device in *.conf
 		do
-		   . $device
+		   . ./$device
 		   TMPFILE=/var/opendomo/tmp/$device.tmp
 		   LISTFILE=/var/opendomo/tmp/$device.lst
 		   if wget -q $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
