@@ -1,31 +1,61 @@
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:          newodhal
+# Provides:          odauto
 # Required-Start:    
 # Required-Stop:
 # Should-Start:      
 # Default-Start:     1 2 3 4 5
 # Default-Stop:      0 6
-# Short-Description: Opendomo new odhal
-# Description:       Hardware Abstraction Layer
+# Short-Description: Automation for OpenDomoOS
+# Description:       Automation for OpenDomoOS
 #
 ### END INIT INFO
 ### Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
 
 . /lib/lsb/init-functions
-PIDFILE="/var/opendomo/run/newodhal.pid"
+PIDFILE="/var/opendomo/run/odauto.pid"
 
 do_start () {
-	log_action_begin_msg "Starting new ODHAL service"
+	log_action_begin_msg "Starting ODAUTO service"
 	echo -n >$PIDFILE
-	/usr/local/opendomo/daemons/odhal stop
-	nc -ulvn -p1729 | /usr/local/opendomo/eventhandlers/port1729packetreceived.sh &
+	CFGDIR=/etc/opendomo/control
+	CTRLDIR=/var/opendomo/control
+	while true
+	do
+		cd $CFGDIR
+		for device in *.conf
+		do
+		   . $device
+		   TMPFILE=/var/opendomo/tmp/$device.tmp
+		   LISTFILE=/var/opendomo/tmp/$device.lst
+		   if wget -q $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
+		   then
+			   cut -f1,3 -d: $TMPFILE > $LISTFILE
+		   else
+				wget -q $URL/lst --http-user=$USER --http-password=$PASS -O $TMPFILE
+				 cut -f2,3 -d: $TMPFILE > $LISTFILE
+		   fi
+		   # LSTFILE contiene el listado correcto
+		   for line in `cat $LISTFILE | xargs` ; do
+			   PNAME=`echo $line | cut -f1 -d:`
+			   PVAL=`echo $line | cut -f2 -d:`
+			   if ! test -f $CTRLDIR/$device/$PNAME; then
+				   echo "/usr/local/opendomo/portHandler.sh $device $PNAME \$1" > $CTRLDIR/$device/$PNAME
+				   chmod +x $CTRLDIR/$device/$PNAME  
+			   fi
+			   echo $PVAL  > $CTRLDIR/$device/$PNAME.value
+		   done
+		   # limpieza
+		   rm $TMPFILE $LISTFILE
+		done
+		sleep 10
+	done
 	log_action_end_msg $?
 }
 
 do_stop () {
-	log_action_begin_msg "Stoping new ODHAL service"
+	log_action_begin_msg "Stoping ODAUTO service"
 	rm $PIDFILE 2>/dev/null
 	log_action_end_msg $?
 }
