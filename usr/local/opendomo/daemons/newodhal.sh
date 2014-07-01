@@ -15,12 +15,12 @@
 
 . /lib/lsb/init-functions
 PIDFILE="/var/opendomo/run/odauto.pid"
-
+CFGDIR=/etc/opendomo/control
+CTRLDIR=/var/opendomo/control
+	
 do_start () {
 	log_action_begin_msg "Starting ODAUTO service"
 	echo -n >$PIDFILE
-	CFGDIR=/etc/opendomo/control
-	CTRLDIR=/var/opendomo/control
 	while true
 	do
 		cd $CFGDIR
@@ -46,7 +46,10 @@ do_start () {
 					PVAL=`echo $line | cut -f2 -d:`
 					# Only edit if it does not exist
 					if ! test -f $CTRLDIR/$devname/$PNAME; then
-						echo "/usr/local/opendomo/portHandler.sh $device $PNAME \$1" > $CTRLDIR/$devname/$PNAME
+						echo "#!/bin/sh 
+						. $CFGDIR/$device 
+						wget -q http://$URL/set+$PNAME+\$1 --http-user=$USER --http-password=$PASS -O-
+						" > $CTRLDIR/$devname/$PNAME
 						chmod +x $CTRLDIR/$devname/$PNAME  
 					fi
 					echo $PVAL  > $CTRLDIR/$devname/$PNAME.value
@@ -62,6 +65,7 @@ do_start () {
 
 do_stop () {
 	log_action_begin_msg "Stoping ODAUTO service"
+	rm -fr $CTRLDIR/*
 	rm $PIDFILE 2>/dev/null
 	log_action_end_msg $?
 }
@@ -77,24 +81,24 @@ do_status () {
 }
 
 case "$1" in
-  start|"")
-	do_start
-        ;;
-  restart|reload|force-reload)
-	do_start
-	do_stop
-        exit 3
-        ;;
-  stop)
-	do_stop
-        exit 3
+	start)
+		do_start
+		;;
+	restart|reload|force-reload)
+		do_stop
+		do_start
+		exit 3
+		;;
+	stop)
+		do_stop
+		exit 3
 	;;
-  status)
-        do_status
-        exit $?
-        ;;
-  *)
-        echo "Usage: newodhal [start|stop|restart|status]" >&2
-        exit 3
-        ;;
+	status)
+		do_status
+		exit $?
+		;;
+	*)
+		echo "Usage: $0 [start|stop|restart|status]" >&2
+		exit 3
+		;;
 esac
