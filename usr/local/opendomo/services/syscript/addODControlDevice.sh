@@ -29,6 +29,7 @@ else
         echo "URL=$URL" > $CFGFILE
         echo "USER=$USER" >> $CFGFILE
         echo "PASS=$PASS" >> $CFGFILE
+		echo "TYPE=ODControl" >> $CFGFILE
 	else
         echo "#ERROR"
 	fi

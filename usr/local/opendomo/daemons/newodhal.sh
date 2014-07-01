@@ -26,29 +26,34 @@ do_start () {
 		cd $CFGDIR
 		for device in *.conf
 		do
-		   . ./$device
-		   devname=`basename $device | cut -f1 -d.`
-		   TMPFILE=/var/opendomo/tmp/$device.tmp
-		   LISTFILE=/var/opendomo/tmp/$device.lst
-		   if wget -q $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
-		   then
-			   cut -f1,3 -d: $TMPFILE > $LISTFILE
-		   else
+			. ./$device
+			devname=`basename $device | cut -f1 -d.`
+			TMPFILE=/var/opendomo/tmp/$device.tmp
+			LISTFILE=/var/opendomo/tmp/$device.lst
+			if wget -q $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
+			then
+				cut -f1,3 -d: $TMPFILE > $LISTFILE
+			else
 				wget -q $URL/lst --http-user=$USER --http-password=$PASS -O $TMPFILE
-				 cut -f2,3 -d: $TMPFILE > $LISTFILE
-		   fi
-		   # LSTFILE contiene el listado correcto
-		   for line in `cat $LISTFILE | xargs` ; do
-			   PNAME=`echo $line | cut -f1 -d:`
-			   PVAL=`echo $line | cut -f2 -d:`
-			   if ! test -f $CTRLDIR/$devname/$PNAME; then
-				   echo "/usr/local/opendomo/portHandler.sh $device $PNAME \$1" > $CTRLDIR/$devname/$PNAME
-				   chmod +x $CTRLDIR/$devname/$PNAME  
-			   fi
-			   echo $PVAL  > $CTRLDIR/$devname/$PNAME.value
-		   done
-		   # limpieza
-		   rm $TMPFILE $LISTFILE
+				cut -f2,3 -d: $TMPFILE > $LISTFILE
+			fi
+			if grep DONE $TMPFILE
+			then
+				mkdir -p $CTRLDIR/$devname/
+				# LSTFILE contiene el listado correcto
+				for line in `cat $LISTFILE | xargs` ; do
+					PNAME=`echo $line | cut -f1 -d:`
+					PVAL=`echo $line | cut -f2 -d:`
+					# Only edit if it does not exist
+					if ! test -f $CTRLDIR/$devname/$PNAME; then
+						echo "/usr/local/opendomo/portHandler.sh $device $PNAME \$1" > $CTRLDIR/$devname/$PNAME
+						chmod +x $CTRLDIR/$devname/$PNAME  
+					fi
+					echo $PVAL  > $CTRLDIR/$devname/$PNAME.value
+				done
+			fi
+			# limpieza
+			rm $TMPFILE $LISTFILE
 		done
 		sleep 10
 	done
