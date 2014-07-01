@@ -1,6 +1,6 @@
 #!/bin/sh
 #desc:Manage scenes
-#package:odcommon
+#package:odauto
 #type:local
 
 # Copyright(c) 2011 OpenDomo Services SL. Licensed under GPL v3 or later
