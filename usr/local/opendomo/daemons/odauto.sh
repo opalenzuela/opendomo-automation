@@ -47,6 +47,7 @@ wget -q http://$URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O 
 " > $CTRLDIR/$DEVNAME/$PNAME
 				chmod +x $CTRLDIR/$DEVNAME/$PNAME  
 			fi
+			echo "" > $CFGDIR/$DEVNAME/$PNAME.info
 			echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
 		done
 	fi
