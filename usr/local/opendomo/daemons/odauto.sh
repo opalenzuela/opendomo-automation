@@ -35,28 +35,36 @@ process_odcontrol() {
 	if grep -q DONE $TMPFILE
 	then
 		mkdir -p $CTRLDIR/$DEVNAME/
+		echo "{" > /var/www/data/$DEVNAME.odauto
+		
 		# LSTFILE contiene el listado correcto
-		for line in `cat $LISTFILE | xargs` ; do
-			PNAME=`echo $line | cut -f1 -d:`
-			PVAL=`echo $line | cut -f2 -d:`
-			# Only edit if it does not exist
-			if ! test -f $CTRLDIR/$DEVNAME/$PNAME; then
-				echo "#!/bin/sh 
-. $CFGDIR/$device 
-wget -q http://$URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null
-" > $CTRLDIR/$DEVNAME/$PNAME
-				chmod +x $CTRLDIR/$DEVNAME/$PNAME  
+		for line in `cat $LISTFILE | xargs` 
+		do
+			if test "$line" != "DONE"
+			then
+				PNAME=`echo $line | cut -f1 -d:`
+				PVAL=`echo $line | cut -f2 -d:`
+				# Only edit if it does not exist
+				if ! test -f $CTRLDIR/$DEVNAME/$PNAME; then
+					echo "#!/bin/sh 
+	. $CFGDIR/$device 
+	wget -q http://$URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null
+	" > $CTRLDIR/$DEVNAME/$PNAME
+					chmod +x $CTRLDIR/$DEVNAME/$PNAME  
+				fi
+				echo "" > $CFGDIR/$DEVNAME/$PNAME.info
+				echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
+				echo -n "[{Name:$PNAME,Value:$PVAL}]," >> /var/www/data/$DEVNAME.odauto
 			fi
-			echo "" > $CFGDIR/$DEVNAME/$PNAME.info
-			echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
 		done
+		echo "}" >> /var/www/data/$DEVNAME.odauto
 	fi
 	# limpieza
 	rm $TMPFILE $LISTFILE	
 }
 	
 do_background() {
-echo -n >$PIDFILE
+	echo -n >$PIDFILE
 	while test -f $PIDFILE
 	do
 		cd $CFGDIR
