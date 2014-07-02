@@ -24,7 +24,7 @@ else
 	wget -q $URL/ver --http-user=$USER --http-password=$PASS -O $TMPFILE
 	if grep -q DONE $TMPFILE; then
         DEVICENAME=`cut -f1 -d' ' $TMPFILE | head -n1`
-        mkdir /etc/opendomo/control/$DEVICENAME
+        mkdir -p /etc/opendomo/control/$DEVICENAME
         CFGFILE="/etc/opendomo/control/$DEVICENAME.conf"
         echo "URL=$URL" > $CFGFILE
         echo "USER=$USER" >> $CFGFILE

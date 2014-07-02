@@ -1,4 +1,4 @@
-﻿#!/bin/sh
+#!/bin/sh
 ### BEGIN INIT INFO
 # Provides:          odauto
 # Required-Start:    
@@ -11,7 +11,6 @@
 #
 ### END INIT INFO
 ### Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
-
 
 . /lib/lsb/init-functions
 PIDFILE="/var/opendomo/run/odauto.pid"
@@ -66,7 +65,7 @@ do_start () {
 			TYPE="undefined";
 			. ./$device
 			DEVNAME=`basename $device | cut -f1 -d.`
-			case ($TYPE) in
+			case "$TYPE" in
 				"ODControl")
 					process_odcontrol $URL $USER $PASS $DEVNAME
 				;;
