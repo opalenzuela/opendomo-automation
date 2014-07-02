@@ -44,7 +44,7 @@ process_odcontrol() {
 				echo "#!/bin/sh 
 . $CFGDIR/$device 
 wget -q http://$URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null
-" > $CTRLDIR/$devname/$PNAME
+" > $CTRLDIR/$DEVNAME/$PNAME
 				chmod +x $CTRLDIR/$DEVNAME/$PNAME  
 			fi
 			echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
