@@ -45,9 +45,9 @@ process_odcontrol() {
 . $CFGDIR/$device 
 wget -q http://$URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null
 " > $CTRLDIR/$devname/$PNAME
-				chmod +x $CTRLDIR/$devname/$PNAME  
+				chmod +x $CTRLDIR/$DEVNAME/$PNAME  
 			fi
-			echo $PVAL  > $CTRLDIR/$devname/$PNAME.value
+			echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
 		done
 	fi
 	# limpieza
