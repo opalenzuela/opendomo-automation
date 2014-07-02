@@ -23,8 +23,8 @@ process_odcontrol() {
 	USER=$2
 	PASS=$3
 	DEVNAME=$4
-	TMPFILE=/var/opendomo/tmp/$device.tmp
-	LISTFILE=/var/opendomo/tmp/$device.lst
+	TMPFILE=/var/opendomo/tmp/$DEVNAME.tmp
+	LISTFILE=/var/opendomo/tmp/$DEVNAME.lst
 	if wget -q $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
 	then
 		cut -f1,3 -d: $TMPFILE > $LISTFILE
@@ -65,9 +65,11 @@ do_start () {
 			TYPE="undefined";
 			. ./$device
 			DEVNAME=`basename $device | cut -f1 -d.`
+			echo -n "($DEVNAME)"
 			case "$TYPE" in
 				"ODControl")
-					process_odcontrol $URL $USER $PASS $DEVNAME
+					logevent odauto debug "calling with $URL $USR $PASS $DEVNAME"
+					process_odcontrol "$URL" "$USER" "$PASS" "$DEVNAME"
 				;;
 				*)
 					logevent odauto error "Unknown device type $TYPE"
@@ -80,7 +82,13 @@ do_start () {
 
 do_stop () {
 	log_action_begin_msg "Stoping ODAUTO service"
-	rm -fr $CTRLDIR/*
+	for device in *.conf
+		do
+			DEVNAME=`basename $device | cut -f1 -d.`
+			echo -n "($DEVNAME)"
+			rm -fr $CTRLDIR/$DEVNAME
+		done	
+	
 	rm $PIDFILE 2>/dev/null
 	log_action_end_msg $?
 }
