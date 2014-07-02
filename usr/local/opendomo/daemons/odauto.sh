@@ -35,7 +35,7 @@ process_odcontrol() {
 	if grep -q DONE $TMPFILE
 	then
 		mkdir -p $CTRLDIR/$DEVNAME/
-		echo "{" > /var/www/data/$DEVNAME.odauto
+		echo "[" > /var/www/data/$DEVNAME.odauto
 		
 		# LSTFILE contiene el listado correcto
 		for line in `cat $LISTFILE | xargs` 
@@ -54,10 +54,10 @@ process_odcontrol() {
 				fi
 				echo "" > $CFGDIR/$DEVNAME/$PNAME.info
 				echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
-				echo -n "[{Name:$PNAME,Value:$PVAL}]," >> /var/www/data/$DEVNAME.odauto
+				echo -n "[{Name:'$PNAME',Value:'$PVAL'}]," >> /var/www/data/$DEVNAME.odauto
 			fi
 		done
-		echo "}" >> /var/www/data/$DEVNAME.odauto
+		echo "]" >> /var/www/data/$DEVNAME.odauto
 	fi
 	# limpieza
 	rm $TMPFILE $LISTFILE	
