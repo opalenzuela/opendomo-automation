@@ -17,7 +17,7 @@ PIDFILE="/var/opendomo/run/odauto.pid"
 CFGDIR=/etc/opendomo/control
 CTRLDIR=/var/opendomo/control
 	
-	
+# If the device is an ODControl 
 process_odcontrol() {
 	URL=$1
 	USER=$2
@@ -54,9 +54,8 @@ wget -q http://$URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O 
 	rm $TMPFILE $LISTFILE	
 }
 	
-do_start () {
-	log_action_begin_msg "Starting ODAUTO service"
-	echo -n >$PIDFILE
+do_background() {
+echo -n >$PIDFILE
 	while test -f $PIDFILE
 	do
 		cd $CFGDIR
@@ -70,7 +69,7 @@ do_start () {
 			DEVNAME=`basename $devicecfg | cut -f1 -d.`
 			# Load config file
 			. ./$devicecfg
-			echo -n "($DEVNAME)"
+			#echo -n "($DEVNAME)"
 			case "$TYPE" in
 				ODControl)
 					logevent odauto debug "calling with $URL $USER $PASS $DEVNAME"
@@ -82,6 +81,11 @@ do_start () {
 		done
 		sleep 10
 	done
+}
+	
+do_start () {
+	log_action_begin_msg "Starting ODAUTO service"
+	$0 background &
 	log_action_end_msg $?
 }
 
@@ -109,6 +113,9 @@ do_status () {
 }
 
 case "$1" in
+	background)
+		do_background
+		;;
 	start)
 		do_start
 		;;
