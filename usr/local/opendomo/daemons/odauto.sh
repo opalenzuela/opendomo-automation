@@ -91,6 +91,7 @@ do_start () {
 
 do_stop () {
 	log_action_begin_msg "Stoping ODAUTO service"
+	cd $CFGDIR
 	for device in *.conf
 		do
 			DEVNAME=`basename $device | cut -f1 -d.`
