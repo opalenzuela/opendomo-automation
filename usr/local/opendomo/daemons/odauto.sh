@@ -57,21 +57,26 @@ wget -q http://$URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O 
 do_start () {
 	log_action_begin_msg "Starting ODAUTO service"
 	echo -n >$PIDFILE
-	while true
+	while test -f $PIDFILE
 	do
 		cd $CFGDIR
-		for device in *.conf
+		for devicecfg in *.conf
 		do
+			# Init variables
 			TYPE="undefined";
-			. ./$device
-			DEVNAME=`basename $device | cut -f1 -d.`
+			URL=""
+			USER=""
+			PASS=""
+			DEVNAME=`basename $devicecfg | cut -f1 -d.`
+			# Load config file
+			. ./$devicecfg
 			echo -n "($DEVNAME)"
 			case "$TYPE" in
-				"ODControl")
-					logevent odauto debug "calling with $URL $USR $PASS $DEVNAME"
+				ODControl)
+					logevent odauto debug "calling with $URL $USER $PASS $DEVNAME"
 					process_odcontrol "$URL" "$USER" "$PASS" "$DEVNAME"
 				;;
-				*)
+				undefined|*)
 					logevent odauto error "Unknown device type $TYPE"
 			esac
 		done
