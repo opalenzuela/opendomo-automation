@@ -54,7 +54,7 @@ process_odcontrol() {
 				fi
 				echo "" > $CFGDIR/$DEVNAME/$PNAME.info
 				echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
-				echo -n "[{Name:'$PNAME',Value:'$PVAL'}]," >> /var/www/data/$DEVNAME.odauto
+				echo -n "{Name:'$PNAME',Value:'$PVAL'}," >> /var/www/data/$DEVNAME.odauto
 			fi
 		done
 		echo "]" >> /var/www/data/$DEVNAME.odauto
