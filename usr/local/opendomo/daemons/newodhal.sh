@@ -1,4 +1,4 @@
-#!/bin/sh
+﻿#!/bin/sh
 ### BEGIN INIT INFO
 # Provides:          odauto
 # Required-Start:    
@@ -18,6 +18,43 @@ PIDFILE="/var/opendomo/run/odauto.pid"
 CFGDIR=/etc/opendomo/control
 CTRLDIR=/var/opendomo/control
 	
+	
+process_odcontrol() {
+	URL=$1
+	USER=$2
+	PASS=$3
+	DEVNAME=$4
+	TMPFILE=/var/opendomo/tmp/$device.tmp
+	LISTFILE=/var/opendomo/tmp/$device.lst
+	if wget -q $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
+	then
+		cut -f1,3 -d: $TMPFILE > $LISTFILE
+	else
+		wget -q $URL/lst --http-user=$USER --http-password=$PASS -O $TMPFILE
+		cut -f2,3 -d: $TMPFILE > $LISTFILE
+	fi
+	if grep -q DONE $TMPFILE
+	then
+		mkdir -p $CTRLDIR/$DEVNAME/
+		# LSTFILE contiene el listado correcto
+		for line in `cat $LISTFILE | xargs` ; do
+			PNAME=`echo $line | cut -f1 -d:`
+			PVAL=`echo $line | cut -f2 -d:`
+			# Only edit if it does not exist
+			if ! test -f $CTRLDIR/$DEVNAME/$PNAME; then
+				echo "#!/bin/sh 
+. $CFGDIR/$device 
+wget -q http://$URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null
+" > $CTRLDIR/$devname/$PNAME
+				chmod +x $CTRLDIR/$devname/$PNAME  
+			fi
+			echo $PVAL  > $CTRLDIR/$devname/$PNAME.value
+		done
+	fi
+	# limpieza
+	rm $TMPFILE $LISTFILE	
+}
+	
 do_start () {
 	log_action_begin_msg "Starting ODAUTO service"
 	echo -n >$PIDFILE
@@ -26,37 +63,16 @@ do_start () {
 		cd $CFGDIR
 		for device in *.conf
 		do
+			TYPE="undefined";
 			. ./$device
-			devname=`basename $device | cut -f1 -d.`
-			TMPFILE=/var/opendomo/tmp/$device.tmp
-			LISTFILE=/var/opendomo/tmp/$device.lst
-			if wget -q $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
-			then
-				cut -f1,3 -d: $TMPFILE > $LISTFILE
-			else
-				wget -q $URL/lst --http-user=$USER --http-password=$PASS -O $TMPFILE
-				cut -f2,3 -d: $TMPFILE > $LISTFILE
-			fi
-			if grep DONE $TMPFILE
-			then
-				mkdir -p $CTRLDIR/$devname/
-				# LSTFILE contiene el listado correcto
-				for line in `cat $LISTFILE | xargs` ; do
-					PNAME=`echo $line | cut -f1 -d:`
-					PVAL=`echo $line | cut -f2 -d:`
-					# Only edit if it does not exist
-					if ! test -f $CTRLDIR/$devname/$PNAME; then
-						echo "#!/bin/sh 
-						. $CFGDIR/$device 
-						wget -q http://$URL/set+$PNAME+\$1 --http-user=$USER --http-password=$PASS -O-
-						" > $CTRLDIR/$devname/$PNAME
-						chmod +x $CTRLDIR/$devname/$PNAME  
-					fi
-					echo $PVAL  > $CTRLDIR/$devname/$PNAME.value
-				done
-			fi
-			# limpieza
-			rm $TMPFILE $LISTFILE
+			DEVNAME=`basename $device | cut -f1 -d.`
+			case ($TYPE) in
+				"ODControl")
+					process_odcontrol $URL $USER $PASS $DEVNAME
+				;;
+				*)
+					logevent odauto error "Unknown device type $TYPE"
+			esac
 		done
 		sleep 10
 	done
