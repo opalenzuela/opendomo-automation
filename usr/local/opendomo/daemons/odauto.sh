@@ -80,7 +80,7 @@ do_background() {
 			. ./$devicecfg
 			#echo -n "($DEVNAME)"
 			case "$TYPE" in
-				ODControl)
+				ODControl2)
 					logevent odauto debug "calling with $URL $USER $PASS $DEVNAME"
 					process_odcontrol "$URL" "$USER" "$PASS" "$DEVNAME"
 				;;

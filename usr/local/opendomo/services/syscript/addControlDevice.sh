@@ -15,7 +15,7 @@ if test -z "$3"; then
 	echo "	ipaddress	IP address	text	$1"
 	echo "	username	Username	text	$2"
 	echo "	password	Password	text	$3"
-	echo "	type	Type	list[ODControl]	ODControl"
+	echo "	type	Type	list[ODControl,ODControl2]	ODControl2"
 	echo
 else
 	URL="$1"
@@ -36,7 +36,7 @@ else
 					echo "URL=$URL" > $CFGFILE
 					echo "USER=$USER" >> $CFGFILE
 					echo "PASS=$PASS" >> $CFGFILE
-					echo "TYPE=ODControl" >> $CFGFILE
+					echo "TYPE=ODControl2" >> $CFGFILE
 					echo "#INFO The device was created and it will be available after the service is restarted"
 				else
 					echo "#ERROR Invalid response from device"
