@@ -92,7 +92,7 @@ do_background() {
 		echo -n "[" > /var/www/data/odauto.json
 		cat /var/www/data/*.odauto >> /var/www/data/odauto.json
 		echo "]" >> /var/www/data/odauto.json
-		ln -s /var/www/data/odauto.json /var/www/data/odauto.txt
+		# ln -s /var/www/data/odauto.json /var/www/data/odauto.txt
 	done
 }
 	
