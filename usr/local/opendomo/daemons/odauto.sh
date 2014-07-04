@@ -89,7 +89,7 @@ do_background() {
 			esac
 		done
 		sleep 10
-		echo -n "{\"ports:\":[" > /var/www/data/odauto.json
+		echo -n "{\"ports\":[" > /var/www/data/odauto.json
 		cat /var/www/data/*.odauto  >> /var/www/data/odauto.json
 		echo "0]}" >> /var/www/data/odauto.json
 		# ln -s /var/www/data/odauto.json /var/www/data/odauto.txt
