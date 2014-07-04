@@ -55,7 +55,7 @@ process_odcontrol() {
 				echo "" > $CFGDIR/$DEVNAME/$PNAME.info
 				echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
 				
-				echo -n "{\"Name\":\"$PNAME\",\"Value\":\"$PVAL\",\"Id\":\"$DEVNAME-$PNAME\"}," >> /var/www/data/$DEVNAME.odauto
+				echo -n "[{\"Name\":\"$PNAME\",\"Value\":\"$PVAL\",\"Id\":\"$DEVNAME-$PNAME\"}]," >> /var/www/data/$DEVNAME.odauto
 			fi
 		done
 	fi
@@ -89,9 +89,9 @@ do_background() {
 			esac
 		done
 		sleep 10
-		echo -n "[" > /var/www/data/odauto.json
+		echo -n "{\"ports:\":" > /var/www/data/odauto.json
 		cat /var/www/data/*.odauto  >> /var/www/data/odauto.json
-		echo "]" >> /var/www/data/odauto.json
+		echo "0}" >> /var/www/data/odauto.json
 		# ln -s /var/www/data/odauto.json /var/www/data/odauto.txt
 	done
 }
