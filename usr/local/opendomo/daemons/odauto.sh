@@ -35,7 +35,7 @@ process_odcontrol() {
 	if grep -q DONE $TMPFILE
 	then
 		mkdir -p $CTRLDIR/$DEVNAME/
-		echo "" > /var/www/data/$DEVNAME.odauto
+		rm /var/www/data/$DEVNAME.odauto
 		
 		# LSTFILE contiene el listado correcto
 		for line in `cat $LISTFILE | xargs` 
@@ -55,7 +55,7 @@ process_odcontrol() {
 				echo "" > $CFGDIR/$DEVNAME/$PNAME.info
 				echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
 				
-				echo -n "{Name:'$PNAME',Value:'$PVAL',Id:'$DEVNAME-$PNAME'}," >> /var/www/data/$DEVNAME.odauto
+				echo -n "{'Name':'$PNAME','Value':'$PVAL','Id':'$DEVNAME-$PNAME'}," >> /var/www/data/$DEVNAME.odauto
 			fi
 		done
 	fi
@@ -89,7 +89,7 @@ do_background() {
 			esac
 		done
 		sleep 10
-		echo "[" > /var/www/data/odauto.json
+		echo -n "[" > /var/www/data/odauto.json
 		cat /var/www/data/*.odauto >> /var/www/data/odauto.json
 		echo "]" >> /var/www/data/odauto.json
 		ln -s /var/www/data/odauto.json /var/www/data/odauto.txt
