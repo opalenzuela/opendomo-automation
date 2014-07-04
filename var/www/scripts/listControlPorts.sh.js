@@ -7,7 +7,15 @@ var portdata;
 function updatePorts()
 {
 	var url= "/data/odauto.json";
+	var list = document.getElementById("listControlPorts");
 	portdata = loadJSON(url);
+	list.innerHTML = "";
+	for(var i=0;i<portdata.ports.lenght;i++) {
+		var p = portdata.ports[i];
+		var li = document.createElement("li");
+		li.innerHTML="<a>"+ p.Name + "</a>";
+		list.appendChild(li);
+	}
 }
 
 function loadJSON(filePath) {
