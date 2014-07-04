@@ -10,7 +10,7 @@ function updatePorts()
 	var list = document.getElementById("listControlPorts");
 	portdata = loadJSON(url);
 	list.innerHTML = "";
-	for(var i=0;i<portdata.ports.lenght;i++) {
+	for(var i=0;i<portdata.ports.length;i++) {
 		var p = portdata.ports[i];
 		var li = document.createElement("li");
 		li.innerHTML="<a>"+ p.Name + "</a>";
