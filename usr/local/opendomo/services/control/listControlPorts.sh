@@ -21,6 +21,8 @@ then
 fi
 
 echo "list:listControlPorts.sh"
+#Note that in this version, the population of the ports will be entirely JavaScript
+#Hence, no server-side processing is needed here.
 echo "	loading	loading	loading"
 echo "actions:"
 if test -x /usr/local/opendomo/manageTags.sh; then
