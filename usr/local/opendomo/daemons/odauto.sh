@@ -80,7 +80,7 @@ do_background() {
 			. ./$devicecfg
 			#echo -n "($DEVNAME)"
 			case "$TYPE" in
-				ODControl2)
+				ODControl|ODControl2)
 					logevent odauto debug "calling with $URL $USER $PASS $DEVNAME"
 					process_odcontrol "$URL" "$USER" "$PASS" "$DEVNAME"
 				;;
@@ -90,7 +90,7 @@ do_background() {
 		done
 		sleep 10
 		echo -n "[" > /var/www/data/odauto.json
-		cat /var/www/data/*.odauto >> /var/www/data/odauto.json
+		cat /var/www/data/*.odauto | sed 's/\'/\"/' >> /var/www/data/odauto.json
 		echo "]" >> /var/www/data/odauto.json
 		# ln -s /var/www/data/odauto.json /var/www/data/odauto.txt
 	done
