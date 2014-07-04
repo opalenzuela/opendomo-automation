@@ -76,6 +76,7 @@ do_background() {
 			USER=""
 			PASS=""
 			DEVNAME=`basename $devicecfg | cut -f1 -d.`
+			echo "Processing $DEVNAME ..."
 			# Load config file
 			. ./$devicecfg
 			#echo -n "($DEVNAME)"
@@ -89,6 +90,7 @@ do_background() {
 			esac
 		done
 		sleep 10
+		echo "Compacting information ..."
 		echo -n "{\"ports\":[" > /var/www/data/odauto.json
 		cat /var/www/data/*.odauto  >> /var/www/data/odauto.json
 		echo "0]}" >> /var/www/data/odauto.json
@@ -98,7 +100,7 @@ do_background() {
 	
 do_start () {
 	log_action_begin_msg "Starting ODAUTO service"
-	$0 background &
+	$0 background > /dev/null &
 	log_action_end_msg $?
 }
 
