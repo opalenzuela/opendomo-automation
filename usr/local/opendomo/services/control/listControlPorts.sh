@@ -20,6 +20,7 @@ then
 	fi
 fi
 
+echo "#> Control ports"
 echo "list:listControlPorts.sh"
 #Note that in this version, the population of the ports will be entirely JavaScript
 #Hence, no server-side processing is needed here.
