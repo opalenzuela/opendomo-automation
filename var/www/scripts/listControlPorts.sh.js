@@ -15,9 +15,9 @@ function updatePorts()
 		if (p.Value && p.Value !="") {
 			var li = document.createElement("li");
 			li.setAttribute("title",p.Id);
-			li.setAttribute("value",p.Value=="ON"?"off":"on");
+			li.setAttribute("value",p.Value=="ON"?"OFF":"ON");
 			li.onclick = function() {
-				var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port=odctl/DO000&value=ON";
+				var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port="+this.title+"&value="+this.getAttribute("value");
 				$.get(uri)
 				updatePorts();
 			}
