@@ -3,6 +3,8 @@
 #type:local
 #package:odauto
 
+# Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
+
 TMPDIR="/var/opendomo/tmp"
 if test -f $TMPDIR/exitscene.tmp
 then

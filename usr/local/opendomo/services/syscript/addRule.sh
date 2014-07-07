@@ -1,7 +1,9 @@
 #!/bin/sh
 #desc:Add rules
 #type:local
-#package:odhal
+#package:odauto
+
+# Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
 echo "#> Add"
 echo "form:`basename $0`"

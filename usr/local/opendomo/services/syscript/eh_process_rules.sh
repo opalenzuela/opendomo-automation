@@ -1,7 +1,10 @@
 #!/bin/sh
 #desc:Process rules
 #type:local
-#package:odcommon
+#package:odauto
+
+# Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
+
 RULESDIR="/etc/opendomo/rules"
 BINDIR="/usr/local/bin"
 PORTDIR="/var/opendomo/control"

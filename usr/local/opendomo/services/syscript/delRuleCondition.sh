@@ -1,9 +1,9 @@
 #!/bin/sh
 #desc: Delete rule condition
-#package:odai
+#package:odauto
 #type:local
 
-# Copyright(c) 2011 OpenDomo Services SL. Licensed under GPL v3 or later
+# Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
 RULEPATH="/etc/opendomo/rules"
 
