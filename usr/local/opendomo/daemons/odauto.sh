@@ -27,10 +27,10 @@ process_odcontrol() {
 	LISTFILE=/var/opendomo/tmp/$DEVNAME.lst
 	if wget -q $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
 	then
-		cut -f1,3 -d: $TMPFILE > $LISTFILE
+		cut -f1,2,3 -d: $TMPFILE > $LISTFILE
 	else
 		wget -q $URL/lst --http-user=$USER --http-password=$PASS -O $TMPFILE
-		cut -f2,3 -d: $TMPFILE > $LISTFILE
+		cut -f2,3,1 -d: $TMPFILE > $LISTFILE
 	fi
 	if grep -q DONE $TMPFILE
 	then
@@ -43,7 +43,8 @@ process_odcontrol() {
 			if test "$line" != "DONE"
 			then
 				PNAME=`echo $line | cut -f1 -d:`
-				PVAL=`echo $line | cut -f2 -d:`
+				PTYPE=`echo $line | cut -f2 -d:`
+				PVAL=`echo $line | cut -f3 -d:`
 				# Only edit if it does not exist
 				if ! test -f $CTRLDIR/$DEVNAME/$PNAME; then
 					echo "#!/bin/sh 
@@ -55,7 +56,7 @@ process_odcontrol() {
 				echo "" > $CFGDIR/$DEVNAME/$PNAME.info
 				echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
 				
-				echo -n "{\"Name\":\"$PNAME\",\"Value\":\"$PVAL\",\"Id\":\"$DEVNAME/$PNAME\"}," >> /var/www/data/$DEVNAME.odauto
+				echo -n "{\"Name\":\"$PNAME\",\"Type\":\"$PTYPE\",\"Value\":\"$PVAL\",\"Id\":\"$DEVNAME/$PNAME\"}," >> /var/www/data/$DEVNAME.odauto
 			fi
 		done
 	fi
