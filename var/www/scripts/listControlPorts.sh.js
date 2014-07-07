@@ -19,7 +19,7 @@ function updatePorts()
 			li.onclick = function() {
 				var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port=odctl/DO000&value=ON";
 				$.get(uri)
-				alert(uri);
+				updatePorts();
 			}
 			li.innerHTML="<label>"+p.Name+ "</label><a>" + p.Value + "</a>";
 			list.appendChild(li);
