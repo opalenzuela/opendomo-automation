@@ -21,7 +21,7 @@ function updatePorts()
 				var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port="+this.title+"&value="+this.getAttribute("value");
 				$.get(uri,updatePorts);
 			}
-			li.innerHTML="<label>"+p.Name+ "</label><p class='DO " + p.Value + "'><a class='sw-" + p.Value.toLowerCase() + "'>" + p.Value + "</a></p>";
+			li.innerHTML="<label>"+p.Name+ "</label><p class='DO " + p.Value.toLowerCase() + "'><a class='sw-" + p.Value.toLowerCase() + "'>" + p.Value + "</a></p>";
 			list.appendChild(li);
 		}
 	}

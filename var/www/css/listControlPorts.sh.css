@@ -1,0 +1,13 @@
+p.on .sw-on {
+	background: transparent url('/images/default/on.png') center center no-repeat;
+	display: block;
+	width: 94px;
+	height: 27px;
+}
+
+.off .sw-off {
+	background: transparent url('/images/default/off.png') center center no-repeat;
+	display: block;
+	width: 94px;
+	height: 27px;
+}
