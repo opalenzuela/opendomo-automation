@@ -16,6 +16,7 @@ then
 	then
 		echo "# Setting port $1 to $2"
 		$CTRLPATH/$1 $2
+		echo "$2" > $CTRLPATH/$1.value
 	else
 		echo "#ERROR Port $1 does not exist"
 	fi
