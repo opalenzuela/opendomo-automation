@@ -14,6 +14,7 @@ if ! test -z "$2"
 then
 	if test -x $CTRLPATH/$1
 	then
+		echo "# Setting port $1 to $2"
 		$CTRLPATH/$1 $2
 	else
 		echo "#ERROR Port $1 does not exist"
