@@ -12,14 +12,16 @@ function updatePorts()
 	list.innerHTML = "";
 	for(var i=0;i<portdata.ports.length;i++) {
 		var p = portdata.ports[i];
-		var li = document.createElement("li");
-		li.setAttribute("title",p.ID);
-		li.setAttribute("value",p.Value=="ON"?"off":"on");
-		li.click = function() {
-			alert("Setting " + this.title + " to " + this.value);
+		if (p.Id) {
+			var li = document.createElement("li");
+			li.setAttribute("title",p.Id);
+			li.setAttribute("value",p.Value=="ON"?"off":"on");
+			li.onclick = function() {
+				alert("Setting " + this.title + " to " + this.value);
+			}
+			li.innerHTML="<a>"+ p.Name + ": " + p.Value + "</a>";
+			list.appendChild(li);
 		}
-		li.innerHTML="<a>"+ p.Name + ": " + p.Value + "</a>";
-		list.appendChild(li);
 	}
 }
 
