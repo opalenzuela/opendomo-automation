@@ -1,15 +1,16 @@
 #!/bin/sh
 #desc:Exit current scene
 #type:local
-#package:odhal
+#package:odauto
 
-if test -f /tmp/exitscene.tmp
+TMPDIR="/var/opendomo/tmp"
+if test -f $TMPDIR/exitscene.tmp
 then
 	echo "#INFO Exiting previous scene"
 	# Execute the recovery script created by setScene
-	/bin/sh /tmp/exitscene.tmp
-	rm /tmp/exitscene.tmp
-	rm /tmp/lastscene.tmp
+	/bin/sh $TMPDIR/exitscene.tmp
+	rm $TMPDIR/exitscene.tmp
+	rm $TMPDIR/lastscene.tmp
 	# Display the available scenes
 	/usr/local/opendomo/setScene.sh
 else
