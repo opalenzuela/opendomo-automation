@@ -47,7 +47,7 @@ process_odcontrol() {
 				# Only edit if it does not exist
 				if ! test -f $CTRLDIR/$DEVNAME/$PNAME; then
 					echo "#!/bin/sh 
-	. $CFGDIR/$device 
+	. $CFGDIR/$DEVNAME.conf 
 	wget -q http://$URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null
 	" > $CTRLDIR/$DEVNAME/$PNAME
 					chmod +x $CTRLDIR/$DEVNAME/$PNAME  
