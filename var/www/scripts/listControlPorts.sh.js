@@ -19,9 +19,12 @@ function updatePorts()
 			li.setAttribute("value",p.Value=="ON"?"OFF":"ON");
 			li.onclick = function() {
 				var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port="+this.title+"&value="+this.getAttribute("value");
-				$.get(uri,updatePorts);
+				$.get(uri,function(){
+					setTimeout(updatePorts,1000);
+					}
+				);
 			}
-			li.innerHTML="<label>"+p.Name+ "</label><p class='DO " + p.Value.toLowerCase() + "'><a class='sw-" + p.Value.toLowerCase() + "'>" + p.Value + "</a></p>";
+			li.innerHTML="<label>"+p.Name+ "</label><p class='DO " + p.Value.toLowerCase() + "'><a class='sw-" + p.Value.toLowerCase() + "'> </a></p>";
 			list.appendChild(li);
 		}
 	}
