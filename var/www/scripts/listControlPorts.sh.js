@@ -15,13 +15,13 @@ function updatePorts()
 		if (p.Value && p.Value !="") {
 			var li = document.createElement("li");
 			li.setAttribute("title",p.Id);
+			li.className="subcommand";
 			li.setAttribute("value",p.Value=="ON"?"OFF":"ON");
 			li.onclick = function() {
 				var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port="+this.title+"&value="+this.getAttribute("value");
-				$.get(uri)
-				updatePorts();
+				$.get(uri,updatePorts);
 			}
-			li.innerHTML="<label>"+p.Name+ "</label><a>" + p.Value + "</a>";
+			li.innerHTML="<label>"+p.Name+ "</label><p class='DO " + p.Value + "'><a class='sw-" + p.Value.toLowerCase() + "'>" + p.Value + "</a></p>";
 			list.appendChild(li);
 		}
 	}
