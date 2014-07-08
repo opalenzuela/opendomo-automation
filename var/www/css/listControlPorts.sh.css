@@ -1,13 +1,27 @@
-p.on .sw-on {
-	background: transparent url('/images/default/on.png') center center no-repeat;
+p.DO a.sw-on {
+	background: transparent url('/images/on.png') center center no-repeat;
 	display: block;
 	width: 94px;
 	height: 27px;
 }
 
-.off .sw-off {
-	background: transparent url('/images/default/off.png') center center no-repeat;
+p.DO a.sw-off {
+	background: transparent url('/images/off.png') center center no-repeat;
 	display: block;
 	width: 94px;
 	height: 27px;
+}
+
+p.DI a.sw-off{
+	background: transparent url('/images/di_off.png') center center no-repeat;
+	display: block;
+	width: 94px;
+	height: 27px;	
+}
+
+p.DI a.sw-on{
+	background: transparent url('/images/di_on.png') center center no-repeat;
+	display: block;
+	width: 94px;
+	height: 27px;	
 }

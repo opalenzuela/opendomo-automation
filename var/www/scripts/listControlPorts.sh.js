@@ -84,4 +84,4 @@ function loadTextFileAjaxSync(filePath, mimeType)
 
 
 
-
+setInterval(updatePorts,5000);
