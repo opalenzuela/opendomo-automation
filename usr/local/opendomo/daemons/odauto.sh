@@ -45,15 +45,18 @@ process_odcontrol() {
 				PNAME=`echo $line | cut -f1 -d:`
 				PTYPE=`echo $line | cut -f2 -d:`
 				PVAL=`echo $line | cut -f3 -d:`
-				# Only edit if it does not exist
-				if ! test -f $CTRLDIR/$DEVNAME/$PNAME; then
-					echo "#!/bin/sh 
-	. $CFGDIR/$DEVNAME.conf 
-	wget -q http://$URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null
-	" > $CTRLDIR/$DEVNAME/$PNAME
-					chmod +x $CTRLDIR/$DEVNAME/$PNAME  
+
+				if echo $PTYPE | grep -qE "DO|DV|Dv"
+				then
+					echo "way='out'" > $CFGDIR/$DEVNAME/$PNAME.info
+					# Only edit if it does not exist
+					if ! test -f $CTRLDIR/$DEVNAME/$PNAME; then
+						echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf  \n wget -q http://$URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null " > $CTRLDIR/$DEVNAME/$PNAME
+						chmod +x $CTRLDIR/$DEVNAME/$PNAME  
+					fi					
+				else
+					echo "way='in'" > $CFGDIR/$DEVNAME/$PNAME.info
 				fi
-				echo "" > $CFGDIR/$DEVNAME/$PNAME.info
 				echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
 				
 				echo -n "{\"Name\":\"$PNAME\",\"Type\":\"$PTYPE\",\"Value\":\"$PVAL\",\"Id\":\"$DEVNAME/$PNAME\"}," >> /var/www/data/$DEVNAME.odauto
