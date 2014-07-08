@@ -59,7 +59,7 @@ process_odcontrol() {
 				fi
 				echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
 				
-				echo -n "{\"Name\":\"$PNAME\",\"Type\":\"$PTYPE\",\"Value\":\"$PVAL\",\"Id\":\"$DEVNAME/$PNAME\"}," >> /var/www/data/$DEVNAME.odauto
+				echo "{\"Name\":\"$PNAME\",\"Type\":\"$PTYPE\",\"Value\":\"$PVAL\",\"Id\":\"$DEVNAME/$PNAME\"}," >> /var/www/data/$DEVNAME.odauto
 			fi
 		done
 	fi
