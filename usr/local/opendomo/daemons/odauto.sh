@@ -93,12 +93,13 @@ do_background() {
 					logevent odauto error "Unknown device type $TYPE"
 			esac
 		done
-		sleep 10
+		
 		echo "Compacting information ..."
 		echo -n "{\"ports\":[" > /var/www/data/odauto.json
 		cat /var/www/data/*.odauto  >> /var/www/data/odauto.json
 		echo "0]}" >> /var/www/data/odauto.json
 		# ln -s /var/www/data/odauto.json /var/www/data/odauto.txt
+		sleep 10
 	done
 }
 	
