@@ -2,7 +2,7 @@
 #desc:Configure control ports
 #package:odauto
 #type:local
-
+ 
 # Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
 CTRLPATH="/var/opendomo/control"

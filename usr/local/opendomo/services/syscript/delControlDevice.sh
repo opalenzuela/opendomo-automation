@@ -2,7 +2,7 @@
 #desc:Delete control device
 #package:odauto
 #type:local
-
+ 
 # Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
 CFGPATH="/etc/opendomo/control"
