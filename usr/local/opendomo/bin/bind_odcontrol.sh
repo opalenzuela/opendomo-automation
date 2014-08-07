@@ -23,7 +23,7 @@ then
 	rm /var/www/data/$DEVNAME.odauto
 	
 	# LSTFILE contiene el listado correcto
-	for line in `cat $LISTFILE | xargs` 
+	for line in `grep -v '\$' $LISTFILE | xargs` 
 	do
 		if test "$line" != "DONE"
 		then
