@@ -20,7 +20,7 @@ else
 fi
 
 #Repeated query error
-if grep -q E003
+if grep -q E003 $TMPFILE
 then
 	wget -q $URL/ver --http-user=$USER --http-password=$PASS -O - > /dev/null
 	wget -q $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
