@@ -12,18 +12,27 @@ TMPFILE=/var/opendomo/tmp/$DEVNAME.tmp
 LISTFILE=/var/opendomo/tmp/$DEVNAME.lst
 if wget -q $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
 then
-	cut -f1,2,3 -d: $TMPFILE > $LISTFILE
+	#cutting columns and removing system ports
+	cut -f1,2,3 -d: $TMPFILE  | grep -v '\$' > $LISTFILE
 else
 	wget -q $URL/lst --http-user=$USER --http-password=$PASS -O $TMPFILE
 	cut -f2,3,1 -d: $TMPFILE > $LISTFILE
 fi
+
+#Repeated query error
+if grep -q E003
+then
+	wget -q $URL/ver --http-user=$USER --http-password=$PASS -O - > /dev/null
+	wget -q $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
+fi
+
 if grep -q DONE $TMPFILE
 then
 	mkdir -p $CTRLDIR/$DEVNAME/
 	rm /var/www/data/$DEVNAME.odauto
 	
 	# LSTFILE contiene el listado correcto
-	for line in `grep -v '\$' $LISTFILE | xargs` 
+	for line in `cat $LISTFILE | xargs` 
 	do
 		if test "$line" != "DONE"
 		then
@@ -47,6 +56,8 @@ then
 			echo "{\"Name\":\"$PNAME\",\"Type\":\"$PTYPE\",\"Value\":\"$PVAL\",\"Id\":\"$DEVNAME/$PNAME\"}," >> /var/www/data/$DEVNAME.odauto
 		fi
 	done
+else	
+	echo "#ERR: The query ended with an error"
 fi
 # limpieza
 rm $TMPFILE $LISTFILE	
