@@ -10,6 +10,9 @@ PASS=$3
 DEVNAME=$4
 TMPFILE=/var/opendomo/tmp/$DEVNAME.tmp
 LISTFILE=/var/opendomo/tmp/$DEVNAME.lst
+CFGDIR=/etc/opendomo/control
+CTRLDIR=/var/opendomo/control
+
 if wget -q $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
 then
 	#cutting columns and removing system ports
