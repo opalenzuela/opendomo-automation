@@ -37,20 +37,25 @@ then
 		if test "$line" != "DONE"
 		then
 			PNAME=`echo $line | cut -f1 -d:`
-			PTYPE=`echo $line | cut -f2 -d:`
+			PTYPE=`echo $line | cut -f2 -d:  | cut -b1-2`
 			PVAL=`echo $line | cut -f3 -d:`
-
-			if echo $PTYPE | grep -qE "DO|DV|Dv"
-			then
-				echo "way='out'" > $CFGDIR/$DEVNAME/$PNAME.info
-				# Only edit if it does not exist
-				if ! test -f $CTRLDIR/$DEVNAME/$PNAME; then
-					echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf  \n wget -q http://$URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null " > $CTRLDIR/$DEVNAME/$PNAME
-					chmod +x $CTRLDIR/$DEVNAME/$PNAME  
-				fi					
-			else
-				echo "way='in'" > $CFGDIR/$DEVNAME/$PNAME.info
-			fi
+			
+			case "$PTYPE" in
+				DO|DV|Dv)
+					echo "way='out'" > $CFGDIR/$DEVNAME/$PNAME.info
+					# Only edit if it does not exist
+					if ! test -f $CTRLDIR/$DEVNAME/$PNAME; then
+						echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf  \n wget -q http://$URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null " > $CTRLDIR/$DEVNAME/$PNAME
+						chmod +x $CTRLDIR/$DEVNAME/$PNAME  
+					fi					
+				;;
+				DI|AI)
+					echo "way='in'" > $CFGDIR/$DEVNAME/$PNAME.info
+				;;
+				*)
+					echo "way='disabled'" > $CFGDIR/$DEVNAME/$PNAME.info
+				;;
+			esac
 			echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
 			
 			echo "{\"Name\":\"$PNAME\",\"Type\":\"$PTYPE\",\"Value\":\"$PVAL\",\"Id\":\"$DEVNAME/$PNAME\"}," >> /var/www/data/$DEVNAME.odauto
