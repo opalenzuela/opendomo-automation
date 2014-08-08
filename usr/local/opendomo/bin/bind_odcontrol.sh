@@ -48,7 +48,7 @@ then
 					echo "way='out'" > $CFGDIR/$DEVNAME/$PNAME.info
 					# Only edit if it does not exist
 					if ! test -f $CTRLDIR/$DEVNAME/$PNAME; then
-						echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf  \n wget -q http://$URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null " > $CTRLDIR/$DEVNAME/$PNAME
+						echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf  \n wget -q $URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null " > $CTRLDIR/$DEVNAME/$PNAME
 						chmod +x $CTRLDIR/$DEVNAME/$PNAME  
 					fi					
 				;;
