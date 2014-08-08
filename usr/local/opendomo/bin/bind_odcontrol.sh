@@ -42,7 +42,7 @@ then
 			PNAME=`echo $line | cut -f1 -d:`
 			PTYPE=`echo $line | cut -f2 -d:  | cut -b1-2`
 			PVAL=`echo $line | cut -f3 -d:`
-			
+			PTAG=`echo $line | cut -f2 -d:  | cut -b4`
 			case "$PTYPE" in
 				DO|DV|Dv)
 					echo "way='out'" > $CFGDIR/$DEVNAME/$PNAME.info
@@ -61,7 +61,7 @@ then
 			esac
 			echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
 			
-			echo "{\"Name\":\"$PNAME\",\"Type\":\"$PTYPE\",\"Value\":\"$PVAL\",\"Id\":\"$DEVNAME/$PNAME\"}," >> /var/www/data/$DEVNAME.odauto
+			echo "{\"Name\":\"$PNAME\",\"Type\":\"$PTYPE-$PTAG\",\"Value\":\"$PVAL\",\"Id\":\"$DEVNAME/$PNAME\"}," >> /var/www/data/$DEVNAME.odauto
 		fi
 	done
 else	
