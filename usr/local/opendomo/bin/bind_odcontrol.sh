@@ -22,11 +22,13 @@ CFGDIR=/etc/opendomo/control
 CTRLDIR=/var/opendomo/control
 while test -f $PIDFILE
 do
+	# ODControl2 syntax (lsc)
 	if wget -q $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
 	then
 		#cutting columns and removing system ports
 		cut -f1,2,3 -d: $TMPFILE  | grep -v '\$' > $LISTFILE
 	else
+		# ODControl1.6 syntax (lst)
 		wget -q $URL/lst --http-user=$USER --http-password=$PASS -O $TMPFILE
 		cut -f2,3,1 -d: $TMPFILE > $LISTFILE
 	fi
