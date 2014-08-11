@@ -20,32 +20,35 @@ CTRLDIR=/var/opendomo/control
 
 	
 do_background() {
+	# 1. Saving PID file
 	echo -n >$PIDFILE
+	
+	# 2. Starting device bindings
+	cd $CFGDIR
+	for devicecfg in *.conf
+	do
+		# Init variables
+		TYPE="undefined";
+		URL=""
+		USER=""
+		PASS=""
+		DEVNAME=`basename $devicecfg | cut -f1 -d.`
+		echo "Processing $DEVNAME ..."
+		# Load config file
+		. ./$devicecfg
+		#echo -n "($DEVNAME)"
+		case "$TYPE" in
+			ODControl|ODControl2)
+				/bin/sh /usr/local/opendomo/bin/bind_odcontrol.sh /etc/opendomo/control/$DEVNAME.conf
+			;;
+			undefined|*)
+				logevent odauto error "Unknown device type $TYPE"
+		esac
+	done	
+	
+	# 3. Preparing JSON information
 	while test -f $PIDFILE
 	do
-		cd $CFGDIR
-		for devicecfg in *.conf
-		do
-			# Init variables
-			TYPE="undefined";
-			URL=""
-			USER=""
-			PASS=""
-			DEVNAME=`basename $devicecfg | cut -f1 -d.`
-			echo "Processing $DEVNAME ..."
-			# Load config file
-			. ./$devicecfg
-			#echo -n "($DEVNAME)"
-			case "$TYPE" in
-				ODControl|ODControl2)
-					logevent odauto debug "calling with $URL $USER $PASS $DEVNAME"
-					/bin/sh /usr/local/opendomo/bin/bind_odcontrol.sh "$URL" "$USER" "$PASS" "$DEVNAME"
-				;;
-				undefined|*)
-					logevent odauto error "Unknown device type $TYPE"
-			esac
-		done
-		
 		echo "Compacting information ..."
 		echo -n "{\"ports\":[" > /var/www/data/odauto.json
 		cat /var/www/data/*.odauto  >> /var/www/data/odauto.json

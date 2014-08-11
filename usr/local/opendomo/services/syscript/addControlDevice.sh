@@ -7,6 +7,9 @@
 
 CFGPATH="/etc/opendomo/control"
 
+#TODO: Generate dynamically from the installed bindings
+DEVICETYPELIST="odcontrol:ODControl,odcontrol2:ODControl2"
+
 # GUI that creates the configuration file
 if test -z "$3"; then
 	# No parameters
@@ -15,42 +18,53 @@ if test -z "$3"; then
 	echo "	ipaddress	URL	text	$1"
 	echo "	username	Username	text	$2"
 	echo "	password	Password	text	$3"
-	echo "	type	Type	list[ODControl,ODControl2]	ODControl2"
+	echo "	type	Type	list[$DEVICETYPELIST]	odcontrol2"
+	echo "	refresh	Refresh	text	5"
 	echo
 else
 	URL="$1"
 	USER="$2"
 	PASS="$3"
 	TYPE="$4"
+	REFRESH="$5"
 	TMPFILE="/var/opendomo/tmp/controlconfig.tmp"
 	
+	# For certain devices, we need additional information
 	case "$TYPE" in
-		ODControl|ODControl2)
+		odcontrol|odcontrol2)
 			if wget -q $URL/ver --http-user=$USER --http-password=$PASS -O $TMPFILE
 			then
 				if grep -q DONE $TMPFILE
 				then
 					DEVICENAME=`cut -f1 -d' ' $TMPFILE | head -n1`
-					mkdir -p /etc/opendomo/control/$DEVICENAME
-					CFGFILE="/etc/opendomo/control/$DEVICENAME.conf"
-					echo "URL=$URL" > $CFGFILE
-					echo "USER=$USER" >> $CFGFILE
-					echo "PASS=$PASS" >> $CFGFILE
-					echo "TYPE=ODControl2" >> $CFGFILE
-					echo "#INFO The device was created and it will be available after the service is restarted"
 				else
 					echo "#ERR: Invalid response from device"
+					exit 1
 				fi	
 			else
 				echo "#ERR: The device is not available at this moment or credentials were wrong"
+				exit 2
 			fi
 			rm $TMPFILE
 		;;
 		*)
-			echo "#ERR: Unknown device type [$TYPE]"
-			exit 1
+			DEVICENAME=`basename $URL`
+			echo "#WARN: Unknown device type [$TYPE]"
 		;;
 	esac
+	
+	# Saving configuration
+	mkdir -p /etc/opendomo/control/$DEVICENAME
+	CFGFILE="/etc/opendomo/control/$DEVICENAME.conf"
+	echo "URL=$URL" > $CFGFILE
+	echo "USER=$USER" >> $CFGFILE
+	echo "PASS=$PASS" >> $CFGFILE
+	echo "TYPE=$TYPE" >> $CFGFILE
+	echo "REFRESH=$REFRESH" >> $CFGFILE
+	echo "DEVNAME=$DEVICENAME" >> $CFGFILE
+	echo "#INFO The device was created and it will be available soon"			
+	/usr/local/opendomo/daemons/odauto.sh restart > /dev/null
+	/usr/local/opendomo/manageControlDevices.sh
 	echo
 fi
 
