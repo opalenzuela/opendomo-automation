@@ -76,8 +76,13 @@ do
 					esac
 					
 					#Obtain tag
-					cd /etc/opendomo/tags/
-					TAG=`ls $PTAG*`
+					if test "$PTAG" != "_"
+					then
+						cd /etc/opendomo/tags/
+						TAG=`ls $PTAG*`
+					else
+						TAG=""
+					fi
 					echo "tag='$TAG'" >> $INFOFILE
 					
 				fi
