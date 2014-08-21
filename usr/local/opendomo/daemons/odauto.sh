@@ -55,7 +55,7 @@ do_background() {
 	do
 		echo "Compacting information ..."
 		echo -n "{\"ports\":[" > /var/www/data/odauto.json
-		cat /var/www/data/*.odauto  >> /var/www/data/odauto.json
+		cat /var/www/data/*.odauto  >> /var/www/data/odauto.json 2>/dev/null
 		echo "0]}" >> /var/www/data/odauto.json
 		sleep 1
 	done
