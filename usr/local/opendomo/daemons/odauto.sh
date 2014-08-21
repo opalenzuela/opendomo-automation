@@ -27,26 +27,30 @@ do_background() {
 	cd $CFGDIR
 	for devicecfg in *.conf
 	do
-		# Init variables
-		TYPE="undefined";
-		URL=""
-		USER=""
-		PASS=""
-		DEVNAME=`basename $devicecfg | cut -f1 -d.`
-		echo "Processing $DEVNAME ..."
-		# Load config file
-		. ./$devicecfg
-		#echo -n "($DEVNAME)"
-		case "$TYPE" in
-			ODControl|ODControl2)
-				/bin/sh /usr/local/opendomo/bin/bind_odcontrol.sh /etc/opendomo/control/$DEVNAME.conf
-			;;
-			undefined|*)
-				logevent odauto error "Unknown device type $TYPE"
-		esac
+		if test "$devicecfg" != "*.conf"
+		then
+			# Init variables
+			TYPE="undefined";
+			URL=""
+			USER=""
+			PASS=""
+			DEVNAME=`basename $devicecfg | cut -f1 -d.`
+			echo "Processing $DEVNAME ..."
+			# Load config file
+			. ./$devicecfg
+			#echo -n "($DEVNAME)"
+			case "$TYPE" in
+				ODControl|ODControl2)
+					/bin/sh /usr/local/opendomo/bin/bind_odcontrol.sh /etc/opendomo/control/$DEVNAME.conf
+				;;
+				undefined|*)
+					logevent odauto error "Unknown device type $TYPE"
+			esac
+		fi
 	done	
 	
 	# 3. Preparing JSON information
+	test -d /var/www/data/ || mkdir -p /var/www/data/
 	while test -f $PIDFILE
 	do
 		echo "Compacting information ..."
