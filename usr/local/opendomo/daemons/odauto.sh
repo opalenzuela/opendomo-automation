@@ -40,7 +40,7 @@ do_background() {
 			. ./$devicecfg
 			#echo -n "($DEVNAME)"
 			case "$TYPE" in
-				ODControl|ODControl2)
+				odcontrol|odcontrol2)
 					/bin/sh /usr/local/opendomo/bin/bind_odcontrol.sh /etc/opendomo/control/$DEVNAME.conf
 				;;
 				undefined|*)
