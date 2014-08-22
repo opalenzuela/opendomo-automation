@@ -43,3 +43,16 @@ li.AO .preview {
 	min-width: 35px;
 	vertical-align: middle
 }
+
+li.energy {
+	background: url("/images/energy.png") no-repeat left center;
+}
+li.climate {
+	background: url("/images/climate.png") no-repeat left center;
+}
+li.light{
+	background: url("/images/light.png") no-repeat left center;
+}
+li.security {
+	background: url("/images/security.png") no-repeat left center;
+}
