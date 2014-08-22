@@ -79,10 +79,13 @@ do
 						echo "Missing $INFOFILE"
 						# Obtain type
 						case "$PTYPE" in
-							DO|DV|Dv)
+							DO|DV|Dv|AO|AV)
 								echo "way='out'" > $INFOFILE
 								# Only write customport if it does not exist
-								if ! test -f $CTRLDIR/$DEVNAME/$PNAME; then
+								if test -f $CTRLDIR/$DEVNAME/$PNAME; then
+									echo "Port $PNAME exists"
+								else
+									echo "Creating $CTRLDIR/$DEVNAME/$PNAME"
 									echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf  \n wget -q $URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null " > $CTRLDIR/$DEVNAME/$PNAME
 									chmod +x $CTRLDIR/$DEVNAME/$PNAME  
 								fi					
