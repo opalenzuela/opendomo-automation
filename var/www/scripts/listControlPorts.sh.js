@@ -15,21 +15,19 @@ function updatePorts()
 		
 		for(var i=0;i<portdata.ports.length;i++) {
 			var p = portdata.ports[i];
-			var li = $("[title='odctl/DO000']");
-			if (li) { // It already exists. Just update value if required
+			var li = $("[title='" + p.Id+ "']");
+			if (li.length==1) { // It already exists. Just update value if required
 				if ((p.Value) && (p.Value !="") && (p.Name.indexOf("$")==-1)) {
 					switch(p.Type.toUpperCase()) {
 						case "DV":
 						case "DO":
 						case "DI":
-							li.setAttribute("value",p.Value=="ON"?"OFF":"ON");
+							li.find("a").attr("class","sw-"+p.Value.toLowerCase());
 							break;
 						case "AI":
 						case "AO":
-							li.setAttribute("value",p.Value);
-							break;
 						case "TXT":
-							li.innerHTML = p.Value;
+							li.find("input").setAttribute("value",p.Value);
 							break;
 					}
 				}
