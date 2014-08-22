@@ -56,7 +56,8 @@ PORT=`echo $1 | sed 's/\./\//'`
 # No params -> first execution: display port list
 # -----------------------------------------------------------------------------
 found=0
-if test -z "$PORT" || ! test -e "/var/opendomo/control/$PORT"; then
+if test -z "$PORT"
+then
 	echo "#> Select port"
 	echo "list:`basename $0`	listbox selectable"
 	cd $CTRLPATH
