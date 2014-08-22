@@ -107,8 +107,9 @@ do
 							TAG=""
 						fi
 						echo "tag='$TAG'" >> $INFOFILE
-						
-					fi
+					fi					
+					
+					source $INFOFILE
 					
 					# Always, refresh the port value
 					echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value

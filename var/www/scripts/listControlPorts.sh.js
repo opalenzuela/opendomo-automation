@@ -28,7 +28,7 @@ function updatePorts()
 							li.find("p").innerHTML =  parseFloat(p.Value);
 							break;
 						case "AO":
-							li.find("input").val(p.Value);
+							li.find("input").val(parseFloat(p.Value));
 							li.trigger("change");
 							break;
 						case "TXT":							
@@ -73,23 +73,14 @@ function updatePorts()
 							
 						case "AO":
 							li.className="AO " + p.Tag;
-/*							var rng = document.createElement("input");
-							rng.setAttribute("type","range");
-							//rng.setAttribute("title",p.Id);
-							rng.setAttribute("name",p.Id);
-							rng.className="range";
-							rng.setAttribute("step","10");
-							rng.value =  p.Value;
-							var li = document.createElement("li");
-							
-*/
 							li.innerHTML = "<label>"+p.Name+ "</label><p class='AO' id='"+p.Name+"_cont'>" + 
-								"<input class='preview' type='tel' pattern='[0-9]' id='" + p.Name + "_disp' value='" + p.Value+ "' size='3'>" +
-								"<input class='range' type='range' id='"+ p.Name + "' step='10' min='0' max='100' value='" + p.Value+ "' ></p>";
+								"<input class='preview' type='text' pattern='[0-9]' id='" + p.Name + "_disp' value='" + p.Value+ "' size='3'>" +
+								"<input class='range' name='" + p.Id + "' type='range' id='"+ p.Name + "' step='10' min='0' max='100' value='" + p.Value+ "' ></p>";
 							
 							var rng = document.getElementById(p.Name);
 							rng.onchange = function() {
 								var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port="+this.name +"&value="+this.value;
+								$("#" + this.id + "_disp").val(this.value);
 								$.get(uri,function(){
 									setTimeout(updatePorts,1000);
 									}
