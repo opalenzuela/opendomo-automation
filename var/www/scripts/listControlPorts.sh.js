@@ -28,18 +28,24 @@ function updatePorts()
 							li.find("p").innerHTML =  parseFloat(p.Value);
 							break;
 						case "AO":
-						case "TXT":
-							li.setAttribute("value",p.Value);
+							li.find("input").attr("value",p.Value);
+							li.trigger("change");
+							break;
+						case "TXT":							
+							li.find("p").innerHTML =  p.Value;
 							break;
 					}
 				}
 			} else {  // It does not exists, we create it:	
 				if ((p.Value) && (p.Value !="") && (p.Name.indexOf("$")==-1)) {
+					
+					var li = document.createElement("li");
+					li.setAttribute("title",p.Id);
+					list.appendChild(li);
+					
 					switch(p.Type.toUpperCase()) {
 						case "DV":
 						case "DO":
-							var li = document.createElement("li");
-							li.setAttribute("title",p.Id);
 							li.className="subcommand";
 							li.setAttribute("value",p.Value=="ON"?"OFF":"ON");
 							li.onclick = function() {
@@ -49,52 +55,44 @@ function updatePorts()
 									}
 								);
 							}
-							li.innerHTML="<label>"+p.Name+ "</label><p class='DO " + p.Value.toLowerCase() + "'><a class='sw-" + p.Value.toLowerCase() + "'> </a></p>";
-							list.appendChild(li);
+							li.html("<label>"+p.Name+ "</label><p class='DO " + p.Value.toLowerCase() + "'><a class='sw-" + p.Value.toLowerCase() + "'> </a></p>");
 							break;
+							
 						case "DI":
-							var li = document.createElement("li");
-							li.setAttribute("title",p.Id);
 							li.className="DI";
 							li.setAttribute("value",p.Value=="ON"?"OFF":"ON");
-							li.innerHTML="<label>"+p.Name+ "</label><p class='DI " + p.Value.toLowerCase() + "'><a class='sw-" + p.Value.toLowerCase() + "'> </a></p>";
-							list.appendChild(li);				
+							li.html("<label>"+p.Name+ "</label><p class='DI " + p.Value.toLowerCase() + "'><a class='sw-" + p.Value.toLowerCase() + "'> </a></p>");
 							break;
+							
 						case "AI":
-							var li = document.createElement("li");
-							li.setAttribute("title",p.Id);
-							li.className="subcommand";
-							li.setAttribute("value",p.Value=="ON"?"OFF":"ON");
-							li.innerHTML="<label>"+p.Name+ "</label><p class='ro'>" + parseFloat(p.Value) + "</p>";
-							list.appendChild(li);				
+							li.html("<label>"+p.Name+ "</label><p class='ro'>" + parseFloat(p.Value) + "</p>");
 							break;
+							
 						case "AO":
 							var rng = document.createElement("input");
 							rng.setAttribute("type","range");
-							rng.setAttribute("title",p.Id);
-							rng.setAttribute("name",p.Name);
+							//rng.setAttribute("title",p.Id);
+							rng.setAttribute("name",p.Id);
 							rng.className="range";
 							rng.setAttribute("step","10");
 							rng.value =  p.Value;
 							var li = document.createElement("li");
 							
 							rng.onchange = function() {
-								var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port="+this.title+"&value="+this.value;
+								var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port="+this.name +"&value="+this.value;
 								$.get(uri,function(){
 									setTimeout(updatePorts,1000);
 									}
 								);
 							}
-							li.innerHTML="<label>"+p.Name+ "</label><p class='AO' id='"+p.Name+"_cont'></p>";
-							list.appendChild(li);
+							li.html("<label>"+p.Name+ "</label><p class='AO' id='"+p.Name+"_cont'></p>");
 							var c = document.getElementById(p.Name+"_cont");
+							
 							c.appendChild(rng);
 							break;
+							
 						case "TXT":
-							case "AI":
-							var li = document.createElement("li");
-							li.innerHTML="<label>"+p.Name+ "</label><p class='ro'>" + p.Value + "</p>";
-							list.appendChild(li);				
+							li.html("<label>"+p.Name+ "</label><p class='ro'>" + p.Value + "</p>");
 							break;
 					}
 				}
