@@ -68,8 +68,8 @@ then
 				echo "	$device	$device	separator"
 				for port in *.info; do
 					if test -f $port; then
-						desc="$port"
-						. $CFGPATH/$device/$port.info
+						desc=`echo "$port" | cut -f1 -d.`
+						source $CFGPATH/$device/$port
 						echo "	-$device/$port	$desc	port sub $tag"
 						found=1
 					fi
