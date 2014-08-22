@@ -25,9 +25,11 @@ function updatePorts()
 							li.find("a").attr("class","sw-"+p.Value.toLowerCase());
 							break;
 						case "AI":
+							li.find("p").innerHTML =  parseFloat(p.Value);
+							break;
 						case "AO":
 						case "TXT":
-							li.find("input").setAttribute("value",p.Value);
+							li.setAttribute("value",p.Value);
 							break;
 					}
 				}
