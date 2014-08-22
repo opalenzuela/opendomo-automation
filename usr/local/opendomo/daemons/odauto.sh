@@ -41,7 +41,7 @@ do_background() {
 			#echo -n "($DEVNAME)"
 			case "$TYPE" in
 				odcontrol|odcontrol2)
-					/bin/sh /usr/local/opendomo/bin/bind_odcontrol.sh /etc/opendomo/control/$DEVNAME.conf >/dev/null
+					/bin/sh /usr/local/opendomo/bin/bind_odcontrol.sh /etc/opendomo/control/$DEVNAME.conf >/dev/null 2>/dev/null &
 				;;
 				undefined|*)
 					logevent odauto error "Unknown device type $TYPE"
