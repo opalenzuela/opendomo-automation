@@ -42,8 +42,8 @@ do
 
 	if grep -q DONE $TMPFILE
 	then
-		mkdir -p $CTRLDIR/$DEVNAME/
-		rm /var/www/data/$DEVNAME.odauto
+		test -d $CTRLDIR/$DEVNAME/ || mkdir -p $CTRLDIR/$DEVNAME/
+		echo >  /var/www/data/$DEVNAME.odauto
 		
 		# LSTFILE contiene el listado correcto
 		for line in `cat $LISTFILE | xargs` 
@@ -59,6 +59,7 @@ do
 				# Only if the port was never configured, generate INFOFILE
 				if ! test -f $INFOFILE
 				then
+					echo "Missing $INFOFILE"
 					# Obtain type
 					case "$PTYPE" in
 						DO|DV|Dv)
