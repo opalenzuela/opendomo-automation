@@ -111,7 +111,7 @@ do
 					echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
 					
 					# Finally, generate JSON fragment
-					echo "{\"Name\":\"$PNAME\",\"Type\":\"$PTYPE-$PTAG\",\"Tag\":\"$tag\",\"Value\":\"$PVAL\",\"Id\":\"$DEVNAME/$PNAME\"}," >> /var/www/data/$DEVNAME.odauto.tmp
+					echo "{\"Name\":\"$PNAME\",\"Type\":\"$PTYPE\",\"Tag\":\"$tag\",\"Value\":\"$PVAL\",\"Id\":\"$DEVNAME/$PNAME\"}," >> /var/www/data/$DEVNAME.odauto.tmp
 				fi
 			done
 		else	
