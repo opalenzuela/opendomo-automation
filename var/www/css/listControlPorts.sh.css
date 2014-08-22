@@ -27,11 +27,19 @@ li.DI a.on{
 }
 
 li.AO .range {
+	width: 80% !important;
 	max-width: 300px;
 	display: inline-block;
+	vertical-align: middle
 }
 
 li.AO .preview {
-	width: 10px !important;
+	width: 20% !important;
 	display: inline-block;
+	padding: 0px;
+	margin: 0px;
+	background: transparent;
+	border: none;
+	min-width: 35px;
+	vertical-align: middle
 }

@@ -28,7 +28,7 @@ function updatePorts()
 							li.find("p").innerHTML =  parseFloat(p.Value);
 							break;
 						case "AO":
-							li.find("input").attr("value",p.Value);
+							li.find("input").val(p.Value);
 							li.trigger("change");
 							break;
 						case "TXT":							
@@ -84,7 +84,7 @@ function updatePorts()
 							
 */
 							li.innerHTML = "<label>"+p.Name+ "</label><p class='AO' id='"+p.Name+"_cont'>" + 
-								"<input class='preview' type='number' id='" + p.Name + "_disp' value='" + p.Value+ "' size='3'>" +
+								"<input class='preview' type='tel' pattern='[0-9]' id='" + p.Name + "_disp' value='" + p.Value+ "' size='3'>" +
 								"<input class='range' type='range' id='"+ p.Name + "' step='10' min='0' max='100' value='" + p.Value+ "' ></p>";
 							
 							var rng = document.getElementById(p.Name);
