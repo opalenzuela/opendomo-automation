@@ -1,3 +1,4 @@
+
 li.DO a.on {
 	background: transparent url('/images/on.png') center center no-repeat;
 	display: block;
@@ -44,15 +45,19 @@ li.AO .preview {
 	vertical-align: middle
 }
 
-li.energy {
+/** Adding some icons for the tags */
+li.energy label {
 	background: url("/images/energy.png") no-repeat left center;
 }
-li.climate {
+li.climate label {
 	background: url("/images/climate.png") no-repeat left center;
 }
-li.light{
+li.light label{
 	background: url("/images/light.png") no-repeat left center;
 }
-li.security {
+li.security label{
 	background: url("/images/security.png") no-repeat left center;
+}
+li label {
+	padding-left: 32px;
 }
