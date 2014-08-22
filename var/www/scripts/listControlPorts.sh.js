@@ -43,34 +43,36 @@ function updatePorts()
 					li.setAttribute("title",p.Id);
 					list.appendChild(li);
 					
+					
 					switch(p.Type.toUpperCase()) {
 						case "DV":
 						case "DO":
-							li.className="DO";
+							li.className="DO " + p.Tag;
 							//li.setAttribute("value",p.Value=="ON"?"OFF":"ON");
 							li.onclick = function() {
-								var value = $(this).find("p").className;
-								var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port="+this.title+"&value="+value=="on"?"OFF":"ON";
+								var value = $(this).find("a").attr("class");
+								var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port="+this.title+"&value="+(value=="on"?"OFF":"ON");
 								$.get(uri,function(){
 									setTimeout(updatePorts,1000);
 									}
 								);
 							}
-							li.innerHTML="<label>"+p.Name+ "</label><p class='" + p.Value.toLowerCase() + "'><a class='" + p.Value.toLowerCase() + "'> </a></p>";
+							li.innerHTML="<label>"+p.Name+ "</label><p><a class='" + p.Value.toLowerCase() + "'> </a></p>";
 							break;
 							
 						case "DI":
-							li.className="DI";
+							li.className="DI " + p.Tag;
 							//li.setAttribute("value",p.Value=="ON"?"OFF":"ON");
-							li.innerHTML="<label>"+p.Name+ "</label><p class='" + p.Value.toLowerCase() + "'><a class='" + p.Value.toLowerCase() + "'> </a></p>";
+							li.innerHTML="<label>"+p.Name+ "</label><p><a class='" + p.Value.toLowerCase() + "'> </a></p>";
 							break;
 							
 						case "AI":
+							li.className="AI " + p.Tag;
 							li.innerHTML = "<label>"+p.Name+ "</label><p class='ro'>" + parseFloat(p.Value) + "</p>";
 							break;
 							
 						case "AO":
-							li.className="AO";
+							li.className="AO " + p.Tag;
 /*							var rng = document.createElement("input");
 							rng.setAttribute("type","range");
 							//rng.setAttribute("title",p.Id);
@@ -96,7 +98,7 @@ function updatePorts()
 							break;
 							
 						case "TXT":
-							li.className="TXT";
+							li.className="TXT " + p.Tag;
 							li.innerHTML="<label>"+p.Name+ "</label><p class='ro'>" + p.Value + "</p>";
 							break;
 					}
