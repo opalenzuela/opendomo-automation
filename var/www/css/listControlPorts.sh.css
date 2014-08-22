@@ -58,6 +58,6 @@ li.light label{
 li.security label{
 	background: url("/images/security.png") no-repeat left center;
 }
-li label {
+#listControlPorts li label {
 	padding-left: 32px;
 }
