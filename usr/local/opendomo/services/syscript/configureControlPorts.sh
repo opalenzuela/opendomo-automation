@@ -60,24 +60,22 @@ if test -z "$PORT"
 then
 	echo "#> Select port"
 	echo "list:`basename $0`	listbox selectable"
-	cd $CTRLPATH
+	cd $CFGPATH
 	for device in *; do
-		if test "$device" != "*"; then 
-			cd $device
-			mkdir -p $CFGPATH/$device
-			echo "	$device	$device	separator"
-			for port in *; do
-				if test -f $CFGPATH/$device/$port.info; then
-					desc="$port"
-					if test -e $CFGPATH/$device/$port.info
-					then
+		if test -d "$device"; then
+			if test "$device" != "*"; then 
+				cd $device
+				echo "	$device	$device	separator"
+				for port in *.info; do
+					if test -f $port; then
+						desc="$port"
 						. $CFGPATH/$device/$port.info
+						echo "	-$device/$port	$desc	port sub $tag"
+						found=1
 					fi
-					echo "	-$device/$port	$desc	port sub $tag"
-					found=1
-				fi
-			done
-			cd ..
+				done
+				cd ..
+			fi
 		fi
 	done
 
