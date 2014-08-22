@@ -49,7 +49,8 @@ function updatePorts()
 							li.className="DO";
 							//li.setAttribute("value",p.Value=="ON"?"OFF":"ON");
 							li.onclick = function() {
-								var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port="+this.title+"&value="+this.getAttribute("value");
+								var value = $(this).find("p").className;
+								var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port="+this.title+"&value="+value=="on"?"OFF":"ON";
 								$.get(uri,function(){
 									setTimeout(updatePorts,1000);
 									}
