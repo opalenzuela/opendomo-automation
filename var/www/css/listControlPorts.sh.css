@@ -25,3 +25,7 @@ p.DI a.sw-on{
 	width: 94px;
 	height: 27px;	
 }
+
+.range {
+	max-width: 300px;
+}

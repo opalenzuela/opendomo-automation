@@ -51,9 +51,12 @@ function updatePorts()
 					case "AO":
 						var rng = document.createElement("input");
 						rng.setAttribute("type","range");
+						rng.setAttribute("title",p.Id);
+						rng.setAttribute("name",p.Name);
+						rng.className="range";
 						rng.value =  p.Value;
 						var li = document.createElement("li");
-						li.setAttribute("title",p.Id);
+						
 						rng.onchange = function() {
 							var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port="+this.title+"&value="+this.getAttribute("value");
 							$.get(uri,function(){
@@ -61,9 +64,10 @@ function updatePorts()
 								}
 							);
 						}
-						li.innerHTML="<label>"+p.Name+ "</label><p class='AO' id='"+p.Id+"_cont'></p>";
+						li.innerHTML="<label>"+p.Name+ "</label><p class='AO' id='"+p.Name+"_cont'></p>";
 						list.appendChild(li);
-						$("#"+p.Id+"_cont").appendChild(rng);
+						var c = document.getElementById(p.Name+"_cont");
+						c.appendChild(rng);
 						break;
 					case "TXT":
 						case "AI":
