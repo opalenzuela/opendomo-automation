@@ -77,10 +77,9 @@ do
 					if ! test -f $INFOFILE
 					then
 						echo "Missing $INFOFILE"
-						# Obtain type
+						# Configuration for INPUT / OUTPUT
 						case "$PTYPE" in
 							DO|DV|Dv|AO|AV)
-								echo "way='out'" > $INFOFILE
 								# Only write customport if it does not exist
 								if test -f $CTRLDIR/$DEVNAME/$PNAME; then
 									echo "Port $PNAME exists"
@@ -89,6 +88,9 @@ do
 									echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf  \n wget -q $URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null " > $CTRLDIR/$DEVNAME/$PNAME
 									chmod +x $CTRLDIR/$DEVNAME/$PNAME  
 								fi					
+								# Saving info
+								echo "way='out'" > $INFOFILE
+
 							;;
 							DI|AI)
 								echo "way='in'" > $INFOFILE
@@ -97,8 +99,19 @@ do
 								echo "way='disabled'" > $INFOFILE
 							;;
 						esac
+							
+						# Special configuration for ANALOG / DIGITAL
+						case "$PTYPE" in 
+							AO|AV|AI)
+								MIN=`echo $line | cut -f4 -d: | cut -f1 -d'|'`
+								MAX=`echo $line | cut -f4 -d: | cut -f2 -d'|'` 
+								echo "min='$MIN'" >> $INFOFILE
+								echo "max='$MAX'" >> $INFOFILE							
+							;;
+						esac
 						
-						#Obtain tag
+						
+						# Generic configurations: Obtain tag
 						if test "$PTAG" != "_"
 						then
 							cd /etc/opendomo/tags/
@@ -107,15 +120,19 @@ do
 							TAG=""
 						fi
 						echo "tag='$TAG'" >> $INFOFILE
-					fi					
+					fi
 					
+					# These values shall be override in $INFOFILE
+					desc=$PNAME
+					min=0
+					max=100
 					source $INFOFILE
 					
 					# Always, refresh the port value
 					echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
 					
 					# Finally, generate JSON fragment
-					echo "{\"Name\":\"$PNAME\",\"Type\":\"$PTYPE\",\"Tag\":\"$tag\",\"Value\":\"$PVAL\",\"Id\":\"$DEVNAME/$PNAME\"}," >> /var/www/data/$DEVNAME.odauto.tmp
+					echo "{\"Name\":\"$desc\",\"Type\":\"$PTYPE\",\"Tag\":\"$tag\",\"Value\":\"$PVAL\",\"Min\":\"$min\",\"Max\":\"$max\",\"Id\":\"$DEVNAME/$PNAME\"}," >> /var/www/data/$DEVNAME.odauto.tmp
 				fi
 			done
 		else	

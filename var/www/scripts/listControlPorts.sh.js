@@ -75,7 +75,7 @@ function updatePorts()
 							li.className="AO " + p.Tag;
 							li.innerHTML = "<label>"+p.Name+ "</label><p class='AO' id='"+p.Name+"_cont'>" + 
 								"<input class='preview' type='text' pattern='[0-9]' id='" + p.Name + "_disp' value='" + p.Value+ "' size='3'>" +
-								"<input class='range' name='" + p.Id + "' type='range' id='"+ p.Name + "' step='10' min='0' max='100' value='" + p.Value+ "' ></p>";
+								"<input class='range' name='" + p.Id + "' type='range' id='"+ p.Name + "' step='10' min='" + p.Min + "' max='" + p.Max + "' value='" + p.Value+ "' ></p>";
 							
 							var rng = document.getElementById(p.Name);
 							rng.onchange = function() {
@@ -92,6 +92,11 @@ function updatePorts()
 							li.className="TXT " + p.Tag;
 							li.innerHTML="<label>"+p.Name+ "</label><p class='ro'>" + p.Value + "</p>";
 							break;
+
+						case "IMG":
+							li.className="IMG " + p.Tag;
+							li.innerHTML="<label>"+p.Name+ "</label><p class='img'><img src='" + p.Value + "'></p>";
+							break;							
 					}
 				}
 			}
