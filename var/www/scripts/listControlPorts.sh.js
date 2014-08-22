@@ -22,7 +22,7 @@ function updatePorts()
 						case "DV":
 						case "DO":
 						case "DI":
-							li.find("a").attr("class","sw-"+p.Value.toLowerCase());
+							li.find("a").attr("class",p.Value.toLowerCase());
 							break;
 						case "AI":
 							li.find("p").innerHTML =  parseFloat(p.Value);
@@ -46,8 +46,8 @@ function updatePorts()
 					switch(p.Type.toUpperCase()) {
 						case "DV":
 						case "DO":
-							li.className="subcommand";
-							li.setAttribute("value",p.Value=="ON"?"OFF":"ON");
+							li.className="DO";
+							//li.setAttribute("value",p.Value=="ON"?"OFF":"ON");
 							li.onclick = function() {
 								var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port="+this.title+"&value="+this.getAttribute("value");
 								$.get(uri,function(){
@@ -55,20 +55,21 @@ function updatePorts()
 									}
 								);
 							}
-							li.innerHTML="<label>"+p.Name+ "</label><p class='DO " + p.Value.toLowerCase() + "'><a class='sw-" + p.Value.toLowerCase() + "'> </a></p>";
+							li.innerHTML="<label>"+p.Name+ "</label><p class='" + p.Value.toLowerCase() + "'><a class='" + p.Value.toLowerCase() + "'> </a></p>";
 							break;
 							
 						case "DI":
 							li.className="DI";
-							li.setAttribute("value",p.Value=="ON"?"OFF":"ON");
-							li.innerHTML="<label>"+p.Name+ "</label><p class='DI " + p.Value.toLowerCase() + "'><a class='sw-" + p.Value.toLowerCase() + "'> </a></p>";
+							//li.setAttribute("value",p.Value=="ON"?"OFF":"ON");
+							li.innerHTML="<label>"+p.Name+ "</label><p class='" + p.Value.toLowerCase() + "'><a class='" + p.Value.toLowerCase() + "'> </a></p>";
 							break;
 							
 						case "AI":
-							li.html("<label>"+p.Name+ "</label><p class='ro'>" + parseFloat(p.Value) + "</p>");
+							li.innerHTML = "<label>"+p.Name+ "</label><p class='ro'>" + parseFloat(p.Value) + "</p>";
 							break;
 							
 						case "AO":
+							li.className="AO";
 /*							var rng = document.createElement("input");
 							rng.setAttribute("type","range");
 							//rng.setAttribute("title",p.Id);
@@ -80,8 +81,8 @@ function updatePorts()
 							
 */
 							li.innerHTML = "<label>"+p.Name+ "</label><p class='AO' id='"+p.Name+"_cont'>" + 
-								"<input type='number' id='" + p.Name + "_disp' value='" + p.Value+ "' size='3'>" +
-								"<input type='range' id='"+ p.Name + "' step='10' min='0' max='100' value='" + p.Value+ "' ></p>";
+								"<input class='preview' type='number' id='" + p.Name + "_disp' value='" + p.Value+ "' size='3'>" +
+								"<input class='range' type='range' id='"+ p.Name + "' step='10' min='0' max='100' value='" + p.Value+ "' ></p>";
 							
 							var rng = document.getElementById(p.Name);
 							rng.onchange = function() {
@@ -94,6 +95,7 @@ function updatePorts()
 							break;
 							
 						case "TXT":
+							li.className="TXT";
 							li.innerHTML="<label>"+p.Name+ "</label><p class='ro'>" + p.Value + "</p>";
 							break;
 					}

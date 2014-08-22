@@ -1,31 +1,37 @@
-p.DO a.sw-on {
+li.DO a.on {
 	background: transparent url('/images/on.png') center center no-repeat;
 	display: block;
 	width: 94px;
 	height: 27px;
 }
 
-p.DO a.sw-off {
+li.DO a.off {
 	background: transparent url('/images/off.png') center center no-repeat;
 	display: block;
 	width: 94px;
 	height: 27px;
 }
 
-p.DI a.sw-off{
+li.DI a.off{
 	background: transparent url('/images/di_off.png') center center no-repeat;
 	display: block;
 	width: 94px;
 	height: 27px;	
 }
 
-p.DI a.sw-on{
+li.DI a.on{
 	background: transparent url('/images/di_on.png') center center no-repeat;
 	display: block;
 	width: 94px;
 	height: 27px;	
 }
 
-.range {
+li.AO .range {
 	max-width: 300px;
+	display: inline-block;
+}
+
+li.AO .preview {
+	width: 10px !important;
+	display: inline-block;
 }
