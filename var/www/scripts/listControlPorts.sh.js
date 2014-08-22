@@ -55,13 +55,13 @@ function updatePorts()
 									}
 								);
 							}
-							li.html("<label>"+p.Name+ "</label><p class='DO " + p.Value.toLowerCase() + "'><a class='sw-" + p.Value.toLowerCase() + "'> </a></p>");
+							li.innerHTML="<label>"+p.Name+ "</label><p class='DO " + p.Value.toLowerCase() + "'><a class='sw-" + p.Value.toLowerCase() + "'> </a></p>";
 							break;
 							
 						case "DI":
 							li.className="DI";
 							li.setAttribute("value",p.Value=="ON"?"OFF":"ON");
-							li.html("<label>"+p.Name+ "</label><p class='DI " + p.Value.toLowerCase() + "'><a class='sw-" + p.Value.toLowerCase() + "'> </a></p>");
+							li.innerHTML="<label>"+p.Name+ "</label><p class='DI " + p.Value.toLowerCase() + "'><a class='sw-" + p.Value.toLowerCase() + "'> </a></p>";
 							break;
 							
 						case "AI":
@@ -69,7 +69,7 @@ function updatePorts()
 							break;
 							
 						case "AO":
-							var rng = document.createElement("input");
+/*							var rng = document.createElement("input");
 							rng.setAttribute("type","range");
 							//rng.setAttribute("title",p.Id);
 							rng.setAttribute("name",p.Id);
@@ -78,21 +78,23 @@ function updatePorts()
 							rng.value =  p.Value;
 							var li = document.createElement("li");
 							
+*/
+							li.innerHTML = "<label>"+p.Name+ "</label><p class='AO' id='"+p.Name+"_cont'>" + 
+								"<input type='number' id='" + p.Name + "_disp' value='" + p.Value+ "' size='3'>" +
+								"<input type='range' id='"+ p.Name + "' step='10' min='0' max='100' value='" + p.Value+ "' ></p>";
+							
+							var rng = document.getElementById(p.Name);
 							rng.onchange = function() {
 								var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port="+this.name +"&value="+this.value;
 								$.get(uri,function(){
 									setTimeout(updatePorts,1000);
 									}
 								);
-							}
-							li.html("<label>"+p.Name+ "</label><p class='AO' id='"+p.Name+"_cont'></p>");
-							var c = document.getElementById(p.Name+"_cont");
-							
-							c.appendChild(rng);
+							}							
 							break;
 							
 						case "TXT":
-							li.html("<label>"+p.Name+ "</label><p class='ro'>" + p.Value + "</p>");
+							li.innerHTML="<label>"+p.Name+ "</label><p class='ro'>" + p.Value + "</p>";
 							break;
 					}
 				}
