@@ -50,7 +50,8 @@ TYPES="switch:switch,pushbutton:pushbutton,analog:analog"
 cd $CTRLPATH
 #PORTS=`find -type p | sed 's/\.\///g' | sort`
 
-PORT=`echo $1 | sed 's/\./\//'`
+#PORT=`echo $1 | sed 's/\./\//'`
+PORT="$1"
 
 # -----------------------------------------------------------------------------
 # No params -> first execution: display port list
