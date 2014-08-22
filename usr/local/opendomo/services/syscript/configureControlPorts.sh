@@ -97,12 +97,12 @@ else
 # -----------------------------------------------------------------------------
 	if test -z "$2";
 	then
-		mkdir -p $CFGPATH/`echo $PORT | cut -f1 -d/` 2>/dev/null
+		# mkdir -p $CFGPATH/`echo $PORT | cut -f1 -d/` 2>/dev/null
 
 		# Load configuration, if exists.
-		if test -f $CFGPATH/$PORT.info
+		if test -f $CFGPATH/$PORT
 		then
-			. $CFGPATH/$PORT.info
+			source $CFGPATH/$PORT
 		else
 			#chmod u+w $CTRLPATH/$PORT.info 2>/dev/null
 			#. $CTRLPATH/$PORT.info
@@ -154,26 +154,24 @@ else
 	else
 
 		# Create new configuration
-		touch $CFGPATH/$PORT.info
-		chmod 0644 $CFGPATH/$PORT.info
+		touch $CFGPATH/$PORT
+		chmod 0644 $CFGPATH/$PORT
 
 		pv=`echo $values | sed 's/-/,/g'`
 		desc=`echo $desc | sed 's/+/ /g'`
 		rm $CFGPATH/$PORT.desc
-		echo "desc='$desc'"	 	> $CFGPATH/$PORT.info
-		echo "status='$3'"  	>> $CFGPATH/$PORT.info
-		echo "way='$way'"    	>> $CFGPATH/$PORT.info
-		echo "units='$units'" 	>> $CFGPATH/$PORT.info
-		echo "values='$pv'" 	>> $CFGPATH/$PORT.info
-		echo "zone='$zone'" 	>> $CFGPATH/$PORT.info
-		echo "tag='$tag'" 		>> $CFGPATH/$PORT.info
-		echo "type='$type'" 	>> $CFGPATH/$PORT.info
+		echo "desc='$desc'"	 	> $CFGPATH/$PORT
+		echo "status='$3'"  	>> $CFGPATH/$PORT
+		echo "way='$way'"    	>> $CFGPATH/$PORT
+		echo "units='$units'" 	>> $CFGPATH/$PORT
+		echo "values='$pv'" 	>> $CFGPATH/$PORT
+		echo "zone='$zone'" 	>> $CFGPATH/$PORT
+		echo "tag='$tag'" 		>> $CFGPATH/$PORT
+		echo "type='$type'" 	>> $CFGPATH/$PORT
 
 		echo "#INF: Configuration saved"
 		echo
-		# Delete temporary data file
-		rm /var/opendomo/tmp/listcontrolports.* 2>/dev/null
-		chmod o+rx $CFGPATH/$PORT.info
+		
 		/usr/local/opendomo/configureControlPorts.sh
 	fi
 fi
