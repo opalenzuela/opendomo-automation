@@ -63,15 +63,18 @@ ARGS2="$ARGS2,@setallports.sh,on,off"
 
 ARGS1="$ARGS1,@play.sh"
 # All the sounds in this directory can be called
-cd /usr/share/sounds
-ARGS2="$ARGS2,@play.sh,"
-if test -x /usr/bin/aplay; then
-	for wav in *; do
-		if test $wav != "*"; then
-			wavname=`echo $wav | cut -f1 -d.`
-			ARGS1="$ARGS1,$wav:$wavname"
-		fi
-	done
+if test -d /usr/share/sounds/ 
+then
+	cd /usr/share/sounds
+	ARGS2="$ARGS2,@play.sh,"
+	if test -x /usr/bin/aplay; then
+		for wav in *; do
+			if test $wav != "*"; then
+				wavname=`echo $wav | cut -f1 -d.`
+				ARGS1="$ARGS1,$wav:$wavname"
+			fi
+		done
+	fi
 fi
 
 ARGS1="$ARGS1,@wait.sh"
