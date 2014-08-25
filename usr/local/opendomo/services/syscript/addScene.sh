@@ -3,10 +3,10 @@
 #package:odhal
 #type:local
 
-# Copyright(c) 2011 OpenDomo Services SL. Licensed under GPL v3 or later
+# Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
 CFGPATH="/etc/opendomo/scenes"
-CTRLPATH="/var/opendomo/control_byzone"
+CTRLPATH="/var/opendomo/control"
 
 
 # GUI that creates a scene
@@ -15,7 +15,7 @@ if test -z "$1"; then
 	# Display ports
 
 	# Organize ports each time
-	/usr/local/opendomo/organizeControlPorts.sh > /dev/null
+	#/usr/local/opendomo/organizeControlPorts.sh > /dev/null
 	
 	cd $CTRLPATH
 	echo "#> Add scene"
@@ -23,33 +23,37 @@ if test -z "$1"; then
 	echo "	:	Select the ports involved in this scene	:"
 	for zone in *; do
 		if test "$zone" != "*"; then
-			cd $zone
 			description=""
 			if test -f /etc/opendomo/zones/$zone
 			then
-				. /etc/opendomo/zones/$zone
+				source /etc/opendomo/zones/$zone
 			fi
 			if test -z "$description"; then
 				description=$zone;
 			fi
-			echo "	$zone	$description	separator"
-			for port in *.info; do
-				if test "$port" != "*.info"; then
-					pname=`echo $port | cut -f1 -d.`
-					. $CTRLPATH/$zone/$port
-					
-					desc=`cat $pname.desc`
-					device=`cat $pname.device`
-					val=`cat $pname.value`2>/dev/null
+			for device in *
+			do
+				echo "	$device	$device	separator"
+				cd $device
+				for port in *.value
+				do
+					if test "$port" != "*.value"; then
+						pname=`echo $port | cut -f1 -d.`
+						source /etc/opendomo/control/$device/$port.info
+						
+						desc=`cat $pname.desc`
+						device=`cat $pname.device`
+						val=`cat $pname.value`2>/dev/null
 
-					#id="${device}_${pname}"
-					
-					if test "$way" = "out"; then
-						echo "	$pname	$desc	port"
+						#id="${device}_${pname}"
+						
+						if test "$way" = "out"; then
+							echo "	$pname	$desc	port"
+						fi
 					fi
-				fi
+				done
+				cd ..
 			done
-			cd ..
 		fi
 	done
 	if ! test -z "$desc"; then
