@@ -18,7 +18,13 @@ if test -z "$3"; then
 		TYPE="odcontrol2"
 	else
 		# ONE parameter (the device name)
-		source /etc/opendomo/control/$1.conf
+		if test -f /etc/opendomo/control/$1.conf
+		then
+			source /etc/opendomo/control/$1.conf
+		else
+			echo "#ERROR The device cannot be edited"
+			exit 1
+		fi
 	fi
 	echo "#> Add Control device"
 	echo "form:`basename $0`"
