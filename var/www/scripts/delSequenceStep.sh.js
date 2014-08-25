@@ -1,1 +1,1 @@
-include_script("manageSequenceSteps.sh.js");
+include_script("/scripts/manageSequenceSteps.sh.js");
