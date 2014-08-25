@@ -39,16 +39,15 @@ if test -z "$1"; then
 				do
 					if test "$port" != "*.value"; then
 						pname=`echo $port | cut -f1 -d.`
-						source /etc/opendomo/control/$device/$port.info
+						desc="";
+						source /etc/opendomo/control/$device/$pname.info
 						
-						desc=`cat $pname.desc`
-						device=`cat $pname.device`
-						val=`cat $pname.value`2>/dev/null
-
-						#id="${device}_${pname}"
+						if test -z "$desc"; then
+							desc="$pname"
+						fi
 						
 						if test "$way" = "out"; then
-							echo "	$pname	$desc	port"
+							echo "	$device/$pname	$desc	port"
 						fi
 					fi
 				done
