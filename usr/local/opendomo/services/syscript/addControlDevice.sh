@@ -12,14 +12,21 @@ DEVICETYPELIST="odcontrol:ODControl,odcontrol2:ODControl2"
 
 # GUI that creates the configuration file
 if test -z "$3"; then
-	# No parameters
+	if test -z "$1"
+	then
+		# No parameters
+		TYPE="odcontrol2"
+	else
+		# ONE parameter (the device name)
+		source /etc/opendomo/control/$1.conf
+	fi
 	echo "#> Add Control device"
 	echo "form:`basename $0`"
-	echo "	ipaddress	URL	text	$1"
-	echo "	username	Username	text	$2"
-	echo "	password	Password	text	$3"
-	echo "	type	Type	list[$DEVICETYPELIST]	odcontrol2"
-	echo "	refresh	Refresh	text	5"
+	echo "	ipaddress	URL	text	$URL"
+	echo "	username	Username	text	$USER"
+	echo "	password	Password	text	$PASS"
+	echo "	type	Type	list[$DEVICETYPELIST]	$TYPE"
+	echo "	refresh	Refresh	text	$REFRESH"
 	echo
 else
 	URL="$1"
