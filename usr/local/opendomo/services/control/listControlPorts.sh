@@ -18,20 +18,27 @@ then
 		$CTRLPATH/$1 $2
 		echo "$2" > $CTRLPATH/$1.value
 	else
-		echo "#ERROR Port $1 does not exist"
+		echo "#ERR: Port [$1] does not exist"
 	fi
 fi
 
 echo "#> Control ports"
 echo "form:listControlPorts.sh"
-#Note that in this version, the population of the ports will be entirely JavaScript
-#Hence, no server-side processing is needed here.
-echo "	loading	loading	loading"
-echo "actions:"
-if test -x /usr/local/opendomo/manageTags.sh; then
-	echo "	manageTags.sh	Manage tags"
-fi
-if test -x /usr/local/opendomo/configureControlPorts.sh; then
-	echo "	configureControlPorts.sh	Configure control ports"
+if /usr/local/opendomo/daemons/odauto.sh status >/dev/null
+then
+	#Note that in this version, the population of the ports will be entirely JavaScript
+	#Hence, no server-side processing is needed here.
+	echo "	loading	loading	loading"
+	echo "actions:"
+	if test -x /usr/local/opendomo/manageTags.sh; then
+		echo "	manageTags.sh	Manage tags"
+	fi
+	if test -x /usr/local/opendomo/configureControlPorts.sh; then
+		echo "	configureControlPorts.sh	Configure control ports"
+	fi
+else
+	echo "#WARN Service is not active"
+	echo "actions:"
+	echo "	setSystemState.sh	Manage services"
 fi
 echo

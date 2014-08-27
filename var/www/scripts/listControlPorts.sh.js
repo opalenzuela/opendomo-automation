@@ -74,7 +74,7 @@ function updatePorts()
 						case "AO":
 							li.className="AO " + p.Tag;
 							li.innerHTML = "<label>"+p.Name+ "</label><p class='AO' id='"+p.Name+"_cont'>" + 
-								"<input class='preview' type='text' pattern='[0-9]' id='" + p.Name + "_disp' value='" + p.Value+ "' size='3'>" +
+								"<input class='preview' type='text' pattern='[\-+.0-9]*' id='" + p.Name + "_disp' value='" + p.Value+ "' size='3'>" +
 								"<input class='range' name='" + p.Id + "' type='range' id='"+ p.Name + "' step='10' min='" + p.Min + "' max='" + p.Max + "' value='" + p.Value+ "' ></p>";
 							
 							var rng = document.getElementById(p.Name);

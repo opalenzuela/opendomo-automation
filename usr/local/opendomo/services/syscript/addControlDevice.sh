@@ -22,7 +22,7 @@ if test -z "$3"; then
 		then
 			source /etc/opendomo/control/$1.conf
 		else
-			echo "#ERROR The device cannot be edited"
+			echo "#ERR: The device cannot be edited"
 			exit 1
 		fi
 	fi
