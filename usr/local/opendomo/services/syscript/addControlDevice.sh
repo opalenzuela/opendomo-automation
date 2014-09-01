@@ -39,7 +39,9 @@ if ! test -z "$5"; then
 	else
 		echo "#ERR: Cannot connect to the specified device"	
 		source $CFGFILE
+		# Delete the file and directory
 		rm $CFGFILE
+		rm -fr /etc/opendomo/control/$DEVICENAME
 	fi
 
 	echo
