@@ -35,6 +35,7 @@ fi
 # Selecting the configuration file
 if test -f $CONFIG
 then
+	echo "Sourcing from $CONFIG"
 	source $CONFIG
 else
 	if test -f /etc/opendomo/control/$CONFIG.conf
