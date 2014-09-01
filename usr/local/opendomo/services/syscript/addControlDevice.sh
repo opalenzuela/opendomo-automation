@@ -8,8 +8,15 @@
 CFGPATH="/etc/opendomo/control"
 
 #TODO: Generate dynamically from the installed bindings
-DEVICETYPELIST="odcontrol:ODControl,odcontrol2:ODControl2"
+cd /usr/local/opendomo/bin/
+for binding in bind_*.sh
+do
+	BID=`echo $binding | cut -f2 -d_ | cut -f1 -d.`
+	BDESC=`grep #desc $binding | cut -f2 -d:`
+	DEVICETYPELIST="$DEVICETYPELIST,$BID:$BDESC"
+done
 
+#DEVICETYPELIST="odcontrol:ODControl,odcontrol2:ODControl2"
 
 # If we are passing all 5 parameters, 
 if ! test -z "$5"; then
