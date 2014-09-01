@@ -43,6 +43,7 @@ else
 	TMPFILE="/var/opendomo/tmp/controlconfig.tmp"
 	
 	# For certain devices, we need additional information
+	#TODO: Use bindings instead
 	case "$TYPE" in
 		odcontrol)
 			if wget -q $URL/lst --http-user=$USER --http-password=$PASS -O $TMPFILE
