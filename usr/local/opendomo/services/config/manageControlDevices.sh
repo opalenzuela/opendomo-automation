@@ -20,7 +20,8 @@ echo "list:addControlDevice.sh	selectable"
 cd $CFGPATH
 EXISTS=0
 for i in *.conf; do
-	if test "$i" != "*.conf"; then
+	if test "$i" != "*.conf" && test -f $i
+	then
 		source $i
 		echo "	-$i	$DEVNAME	device $TYPE"
 		EXISTS=1
