@@ -12,7 +12,7 @@ cd /usr/local/opendomo/bin/
 for binding in bind_*.sh
 do
 	BID=`echo $binding | cut -f2 -d_ | cut -f1 -d.`
-	BDESC=`grep #desc $binding | cut -f2 -d:`
+	BDESC=`grep '#desc' $binding | cut -f2 -d:`
 	DEVICETYPELIST="$DEVICETYPELIST,$BID:$BDESC"
 done
 
