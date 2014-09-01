@@ -10,6 +10,7 @@ CFGPATH="/etc/opendomo/control"
 #TODO: Generate dynamically from the installed bindings
 DEVICETYPELIST="odcontrol:ODControl,odcontrol2:ODControl2"
 
+
 # If we are passing all 5 parameters, 
 if ! test -z "$5"; then
 	URL="$1"
@@ -37,27 +38,32 @@ if ! test -z "$5"; then
 		/usr/local/opendomo/manageControlDevices.sh
 	else
 		echo "#ERR: Cannot connect to the specified device"	
+		source $CFGFILE
 		rm $CFGFILE
 	fi
 
 	echo
-fi
-
-if test -z "$1"
-then
-	# No parameters
-	TYPE="odcontrol2"
 else
-	# ONE parameter (the device name)
-	if test -f /etc/opendomo/control/$1.conf
+	if test -z "$1"
 	then
-		source /etc/opendomo/control/$1.conf
+		# No parameters at all
+		TYPE="odcontrol2"
+		REFRESH=5
 	else
-		echo "#ERR: The device cannot be edited"
-		exit 1
+		# ONE parameter (the device name)
+		if test -f /etc/opendomo/control/$1.conf
+		then
+			source /etc/opendomo/control/$1.conf
+		else
+			echo "#ERR: The device cannot be edited"
+			exit 1
+		fi
 	fi
+
 fi
 
+
+# Always display the form: empty to create a new one or full to modify
 echo "#> Add Control device"
 echo "form:`basename $0`"
 echo "	ipaddress	URL	text	$URL"
