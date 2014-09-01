@@ -44,7 +44,23 @@ else
 	
 	# For certain devices, we need additional information
 	case "$TYPE" in
-		odcontrol|odcontrol2)
+		odcontrol)
+			if wget -q $URL/lst --http-user=$USER --http-password=$PASS -O $TMPFILE
+			then
+				if grep -q DONE $TMPFILE
+				then
+					DEVICENAME=`basename $URL`
+				else
+					echo "#ERR: Invalid response from device"
+					exit 1
+				fi	
+			else
+				echo "#ERR: The device is not available at this moment or credentials were wrong"
+				exit 2
+			fi
+			rm $TMPFILE
+		;;		
+		odcontrol2)
 			if wget -q $URL/ver --http-user=$USER --http-password=$PASS -O $TMPFILE
 			then
 				if grep -q DONE $TMPFILE
