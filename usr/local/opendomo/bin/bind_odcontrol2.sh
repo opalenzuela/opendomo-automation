@@ -1,16 +1,45 @@
 #!/bin/sh
-#desc:Bind to ODControl2 device
+#desc:ODControl2
 #package:odauto
 
 ### Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
-if test -f $1
+
+PIDFILE="/var/opendomo/run/odauto.pid"
+TMPFILE="/var/opendomo/tmp/$DEVNAME.tmp"
+LISTFILE="/var/opendomo/tmp/$DEVNAME.lst"
+CFGDIR="/etc/opendomo/control"
+CTRLDIR="/var/opendomo/control"
+
+# Special case, if 1st param is "validate", we validate the configuration file sent as 2nd
+if test "$1" = "validate" && ! test -z "$2"
 then
-	source $1
-else
-	if test -f /etc/opendomo/control/$1.conf
+	CONFIG="$2"
+	source $CONFIG
+	if	wget $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
 	then
-		source /etc/opendomo/control/$1.conf
+		if grep DONE $TMPFILE
+		then
+			exit 0
+		else
+			exit 2
+		fi
+	else
+		exit 1
+	fi
+else
+	CONFIG="$1"
+fi
+
+
+# Selecting the configuration file
+if test -f $CONFIG
+then
+	source $CONFIG
+else
+	if test -f /etc/opendomo/control/$CONFIG.conf
+	then
+		source /etc/opendomo/control/$CONFIG.conf
 	else
 		echo "#ERROR: Invalid configuration file"
 		exit 1
@@ -18,36 +47,15 @@ else
 fi
 
 
-PIDFILE="/var/opendomo/run/odauto.pid"
-TMPFILE=/var/opendomo/tmp/$DEVNAME.tmp
-LISTFILE=/var/opendomo/tmp/$DEVNAME.lst
-CFGDIR=/etc/opendomo/control
-CTRLDIR=/var/opendomo/control
+
 
 # Preparations:
 test -d $CTRLDIR/$DEVNAME/ || mkdir -p $CTRLDIR/$DEVNAME/
 test -d /var/www/data || mkdir -p /var/www/data
 
-
+# The actual loop 
 while test -f $PIDFILE
 do
-	# ODControl2 syntax (lsc)
-	#if wget -q $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
-	#then
-	#	#cutting columns and removing system ports
-	#	cut -f1,2,3 -d: $TMPFILE  | grep -v '\$' > $LISTFILE
-	#else
-	#	# ODControl1.6 syntax (lst) 
-	#TODO: this should be moved to another bind
-	#	wget -q $URL/lst --http-user=$USER --http-password=$PASS -O $TMPFILE
-	#	cut -f2,3,1 -d: $TMPFILE > $LISTFILE
-	#fi
-
-	#Repeated query error
-	#if grep -q E003 $TMPFILE
-	#then
-	
-	
 	# Avoid duplicated call error (E003)
 	wget $URL/ver --http-user=$USER --http-password=$PASS -O - > /dev/null
 	
@@ -135,7 +143,8 @@ do
 					echo "{\"Name\":\"$desc\",\"Type\":\"$PTYPE\",\"Tag\":\"$tag\",\"Value\":\"$PVAL\",\"Min\":\"$min\",\"Max\":\"$max\",\"Id\":\"$DEVNAME/$PNAME\"}," >> /var/www/data/$DEVNAME.odauto.tmp
 				fi
 			done
-		else	
+		else
+			# Every "if" must have an "else"
 			echo "#ERR: The query ended with an error"
 			cat $TMPFILE
 		fi
@@ -149,5 +158,7 @@ do
 	
 	# Cleanup
 	rm $TMPFILE $LISTFILE
+	
+	# Wait the specified seconds before next polling
 	sleep $REFRESH
 done
