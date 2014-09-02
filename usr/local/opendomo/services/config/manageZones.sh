@@ -43,6 +43,9 @@ case $1 in
 			echo "	name	code	hidden	$1"
 			echo "	desc	Description	text	$description"
 			#echo "	coord	Coordinates	text	$coords"
+			echo "actions:"
+			echo "	manageZones.sh	Save changes"
+			echo "	delZone.sh	Delete zone"			
 			echo
 			#echo "#> Preview"
 			#echo "list:displayZone.sh	map"
