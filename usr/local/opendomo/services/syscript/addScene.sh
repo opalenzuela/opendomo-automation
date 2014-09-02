@@ -27,6 +27,7 @@ if test -z "$1"; then
 	else
 		# The path does not exist. Aborting
 		echo "#WARN: No ports found"
+		echo
 		exit 0
 	fi
 	for device in *

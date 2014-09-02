@@ -49,11 +49,9 @@ if test -f $CFGPATH/$1.conf; then
 			pdesc=`cat $PCFGPATH/$fname.desc`
 			# $PCFGPATH/$fname.info
 		else
-			echo " file $PCFGPATH/$fname.desc not found"
+			#echo " file $PCFGPATH/$fname.desc not found"
+			pdesc="$pname"
 		fi
-
-		# Should NOT happen. Just in case
-		test -z "$pdesc" && 	pdesc=$pname
 	
 		#TODO Use the values from the configuration file, instead of on/off
 		echo	"	$pname	$pdesc	list[on,off]	$valselected"
