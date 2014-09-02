@@ -108,6 +108,7 @@ do
 							;;
 							*)
 								echo "way='disabled'" > $INFOFILE
+								echo "status='disabled'" >> $INFOFILE
 							;;
 						esac
 							
@@ -144,7 +145,7 @@ do
 					echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
 					
 					# Finally, generate JSON fragment
-					if test "$way" != "disabled"
+					if test "$status" != "disabled"
 					then
 						echo "{\"Name\":\"$desc\",\"Type\":\"$PTYPE\",\"Tag\":\"$tag\",\"Value\":\"$PVAL\",\"Min\":\"$min\",\"Max\":\"$max\",\"Id\":\"$DEVNAME/$PNAME\"}," >> /var/www/data/$DEVNAME.odauto.tmp
 					fi
