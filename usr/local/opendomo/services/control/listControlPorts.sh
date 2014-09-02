@@ -8,6 +8,7 @@
 
 CTRLPATH="/var/opendomo/control"
 CFGPATH="/etc/opendomo/control"
+LOGPATH="/var/opendomo/log"
 
 # All the logic is applied in the JavaScript, client layer
 if ! test -z "$2"
@@ -17,6 +18,7 @@ then
 		echo "# Setting port $1 to $2"
 		$CTRLPATH/$1 $2
 		echo "$2" > $CTRLPATH/$1.value
+		echo "$CTRLPATH/$1 $2" >> $LOGPATH/actions.log
 	else
 		echo "#ERR: Port [$1] does not exist"
 	fi
