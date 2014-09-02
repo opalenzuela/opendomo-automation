@@ -1,5 +1,5 @@
 #!/bin/sh
-#desc:Bind to ODControl2 device
+#desc:ODControl
 #package:odauto
 
 ### Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
