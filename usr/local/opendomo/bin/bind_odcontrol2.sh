@@ -131,6 +131,7 @@ do
 							TAG=""
 						fi
 						echo "tag='$TAG'" >> $INFOFILE
+						echo "desc='$PNAME'" >> $INFOFILE
 					fi
 					
 					# These values shall be override in $INFOFILE
@@ -143,7 +144,10 @@ do
 					echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
 					
 					# Finally, generate JSON fragment
-					echo "{\"Name\":\"$desc\",\"Type\":\"$PTYPE\",\"Tag\":\"$tag\",\"Value\":\"$PVAL\",\"Min\":\"$min\",\"Max\":\"$max\",\"Id\":\"$DEVNAME/$PNAME\"}," >> /var/www/data/$DEVNAME.odauto.tmp
+					if test "$way" != "disabled"
+					then
+						echo "{\"Name\":\"$desc\",\"Type\":\"$PTYPE\",\"Tag\":\"$tag\",\"Value\":\"$PVAL\",\"Min\":\"$min\",\"Max\":\"$max\",\"Id\":\"$DEVNAME/$PNAME\"}," >> /var/www/data/$DEVNAME.odauto.tmp
+					fi
 				fi
 			done
 			logevent "notice" $DEVNAME "Device [$DEVNAME] responded"
