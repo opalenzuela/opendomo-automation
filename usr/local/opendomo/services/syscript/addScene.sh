@@ -21,40 +21,30 @@ if test -z "$1"; then
 	echo "#> Add scene"
 	echo "list:`basename $0`	selectable wizard"
 	echo "	:	Select the ports involved in this scene	:"
-	for zone in *; do
-		if test "$zone" != "*"; then
-			description=""
-			if test -f /etc/opendomo/zones/$zone
-			then
-				source /etc/opendomo/zones/$zone
+	cd $CTRLPATH
+	for device in *
+	do
+		echo "	$device	$device	separator"
+		cd $device
+		for port in *.value
+		do
+			if test "$port" != "*.value"; then
+				pname=`echo $port | cut -f1 -d.`
+				desc="";
+				source /etc/opendomo/control/$device/$pname.info
+				
+				if test -z "$desc"; then
+					desc="$pname"
+				fi
+				
+				if test "$way" = "out"; then
+					echo "	$device/$pname	$desc	port"
+				fi
 			fi
-			if test -z "$description"; then
-				description=$zone;
-			fi
-			for device in *
-			do
-				echo "	$device	$device	separator"
-				cd $device
-				for port in *.value
-				do
-					if test "$port" != "*.value"; then
-						pname=`echo $port | cut -f1 -d.`
-						desc="";
-						source /etc/opendomo/control/$device/$pname.info
-						
-						if test -z "$desc"; then
-							desc="$pname"
-						fi
-						
-						if test "$way" = "out"; then
-							echo "	$device/$pname	$desc	port"
-						fi
-					fi
-				done
-				cd ..
-			done
-		fi
+		done
+		cd ..
 	done
+
 	if ! test -z "$desc"; then
 		echo "actions:"
 		echo "	addScene.sh	Add scene"
