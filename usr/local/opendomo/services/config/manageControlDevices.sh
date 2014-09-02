@@ -23,7 +23,7 @@ for i in *.conf; do
 	if test "$i" != "*.conf" && test -f $i
 	then
 		source ./$i
-		echo "	-$i	$DEVNAME	device $TYPE"
+		echo "	-$DEVNAME	$DEVNAME	device $TYPE"
 		EXISTS=1
 	fi
 done

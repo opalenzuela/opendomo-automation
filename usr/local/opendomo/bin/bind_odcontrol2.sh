@@ -16,6 +16,8 @@ if test "$1" = "validate" && ! test -z "$2"
 then
 	CONFIG="$2"
 	source $CONFIG
+	#TODO Whenever "ver" is adapted to indicate the UID, adapt this query to obtain it
+	# and use it as the device internal name instead of the URL/IP
 	if	wget $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
 	then
 		if grep DONE $TMPFILE
@@ -151,7 +153,7 @@ do
 		fi
 	
 	else
-		echo "#WARN: ODControl not responding. We will keep trying"
+		echo "#WARN: ODControl not responding. Trying later"
 	fi
 	
 	# A very quick replacement of the old file with the new one:
