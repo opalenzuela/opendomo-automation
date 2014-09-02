@@ -18,7 +18,7 @@ then
 		echo "# Setting port $1 to $2"
 		$CTRLPATH/$1 $2
 		echo "$2" > $CTRLPATH/$1.value
-		echo "$CTRLPATH/$1 $2" >> $LOGPATH/actions.log
+		echo "`date +%s` $CTRLPATH/$1 $2" >> $LOGPATH/actions.log
 	else
 		echo "#ERR: Port [$1] does not exist"
 	fi
