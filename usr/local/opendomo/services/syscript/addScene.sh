@@ -24,25 +24,28 @@ if test -z "$1"; then
 	cd $CTRLPATH
 	for device in *
 	do
-		echo "	$device	$device	separator"
-		cd $device
-		for port in *.value
-		do
-			if test "$port" != "*.value"; then
-				pname=`echo $port | cut -f1 -d.`
-				desc="";
-				source /etc/opendomo/control/$device/$pname.info
-				
-				if test -z "$desc"; then
-					desc="$pname"
+		if test "$device" != "*"
+		then
+			echo "	$device	$device	separator"
+			cd $device
+			for port in *.value
+			do
+				if test "$port" != "*.value"; then
+					pname=`echo $port | cut -f1 -d.`
+					desc="";
+					source /etc/opendomo/control/$device/$pname.info
+					
+					if test -z "$desc"; then
+						desc="$pname"
+					fi
+					
+					if test "$way" = "out"; then
+						echo "	$device/$pname	$desc	port"
+					fi
 				fi
-				
-				if test "$way" = "out"; then
-					echo "	$device/$pname	$desc	port"
-				fi
-			fi
-		done
-		cd ..
+			done
+			cd ..
+		fi
 	done
 
 	if ! test -z "$desc"; then
