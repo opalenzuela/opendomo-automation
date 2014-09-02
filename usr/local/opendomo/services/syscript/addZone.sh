@@ -1,7 +1,7 @@
 #!/bin/sh
 #desc:Add zones
 #type:local
-#package:odcommon
+#package:odauto
 
 # Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
@@ -16,7 +16,7 @@ echo "	desc	Description	text"
 echo "action:"
 echo "	manageZones.sh	Add"
 echo 
-echo "#> Preview"
-echo "list:displayZone.sh	map"
-echo "	demozone	Zone	zone"
-echo
+#echo "#> Preview"
+#echo "list:displayZone.sh	map"
+#echo "	demozone	Zone	zone"
+#echo

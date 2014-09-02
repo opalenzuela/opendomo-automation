@@ -1,6 +1,6 @@
 #!/bin/sh
 #desc:Edit scene
-#package:odhal
+#package:odauto
 #type:local
 
 # Copyright(c) 2012 OpenDomo Services SL. Licensed under GPL v3 or later
