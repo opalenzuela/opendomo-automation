@@ -21,7 +21,14 @@ if test -z "$1"; then
 	echo "#> Add scene"
 	echo "list:`basename $0`	selectable wizard"
 	echo "	:	Select the ports involved in this scene	:"
-	cd $CTRLPATH
+	if test -d "$CTRLPATH"
+	then
+		cd $CTRLPATH
+	else
+		# The path does not exist. Aborting
+		echo "#WARN: No ports found"
+		exit 0
+	fi
 	for device in *
 	do
 		if test "$device" != "*"
