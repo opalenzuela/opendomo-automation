@@ -6,7 +6,7 @@
 
 # validate device
 if test "$1" == "validate"; then
-	URL="$2"; USER="$3"; PASS="$4"
+	source "$2"
 
 	# Validation command
         if
