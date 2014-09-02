@@ -44,10 +44,10 @@ case $1 in
 			echo "	desc	Description	text	$description"
 			#echo "	coord	Coordinates	text	$coords"
 			echo
-			echo "#> Preview"
-			echo "list:displayZone.sh	map"
-			echo "	demozone	$1	zone"
-			echo
+			#echo "#> Preview"
+			#echo "list:displayZone.sh	map"
+			#echo "	demozone	$1	zone"
+			#echo
 			exit 0
 		fi
 	;;
