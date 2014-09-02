@@ -15,6 +15,7 @@ echo "	desc	Description	text"
 #echo "	coord	Coordinates	text	10,10,100,200"
 echo "action:"
 echo "	manageZones.sh	Add"
+echo "	delZone.sh	Delete"
 echo 
 #echo "#> Preview"
 #echo "list:displayZone.sh	map"
