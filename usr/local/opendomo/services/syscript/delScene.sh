@@ -19,7 +19,7 @@ for file in "$@"
 do
 	if test -f "$CFGPATH/$file.conf"; then
 		if rm -f "$CFGPATH/$file.conf"; then
-			echo "#INFO: Secene deleted [$file]"
+			echo "#INFO: Scene deleted [$file]"
 		else
 			echo "#ERR: Cannot delete"
 			exit 2
