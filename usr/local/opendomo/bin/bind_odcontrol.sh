@@ -4,6 +4,20 @@
 
 ### Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
+# validate device
+if test "$1" == "validate"; then
+	URL="$2"; USER="$3"; PASS="$4"
+
+	# Validation command
+        if
+	wget $URL:81/ver+ --http-user=$USER --http-password=$PASS -O - &>/dev/null
+	then
+		exit 0
+	else
+		exit 1
+	fi
+fi
+
 if test -f $1
 then
 	source $1
@@ -28,6 +42,9 @@ CTRLDIR=/var/opendomo/control
 test -d $CTRLDIR/$DEVNAME/ || mkdir -p $CTRLDIR/$DEVNAME/
 test -d $CFGDIR/$DEVNAME/ || mkdir -p $CFGDIR/$DEVNAME/
 test -d /var/www/data || mkdir -p /var/www/data
+
+
+
 
 
 while test -f $PIDFILE
