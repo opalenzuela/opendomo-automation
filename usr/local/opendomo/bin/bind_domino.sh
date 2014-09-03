@@ -6,8 +6,7 @@
 
 
 PIDFILE="/var/opendomo/run/odauto.pid"
-TMPFILE="/var/opendomo/tmp/$DEVNAME.tmp"
-LISTFILE="/var/opendomo/tmp/$DEVNAME.lst"
+
 CFGDIR="/etc/opendomo/control"
 CTRLDIR="/var/opendomo/control"
 
@@ -49,6 +48,8 @@ else
 	fi
 fi
 
+TMPFILE="/var/opendomo/tmp/$DEVNAME.tmp"
+LISTFILE="/var/opendomo/tmp/$DEVNAME.lst"
 
 
 
