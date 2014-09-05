@@ -8,6 +8,8 @@ RULESDIR="/etc/opendomo/rules"
 # A rule is a condition (or a set of conditions) and a pair of 
 # actions
 
+test -d "$RULESDIR" ||mkdir "$RULESDIR"
+
 #if test -z "$1";then
 	cd $RULESDIR
 	echo "#> Rules available"
