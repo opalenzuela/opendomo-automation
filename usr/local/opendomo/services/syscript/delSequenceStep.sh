@@ -1,9 +1,9 @@
 #!/bin/sh
 #desc:Delete sequence step
 #type:local
-#package:odcommon
+#package:odauto
 
-# Copyright(c) 2012 OpenDomo Services SL. Licensed under GPL v3 or later
+# Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
 SEQPATH="/etc/opendomo/sequences"
 

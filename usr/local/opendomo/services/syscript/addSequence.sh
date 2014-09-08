@@ -1,9 +1,9 @@
 #!/bin/sh
 #desc:Add sequence
 #type:local
-#package:odhal
+#package:odauto
 
-# Copyright(c) 2011 OpenDomo Services SL. Licensed under GPL v3 or later
+# Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
 
 # Add new sequence

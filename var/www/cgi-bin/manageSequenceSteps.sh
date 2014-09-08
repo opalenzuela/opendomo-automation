@@ -4,35 +4,39 @@ echo
 echo
 echo "var option_tree = {"
 
-if test -x "/usr/local/bin/setport.sh"
+
+# Is odcontrol properly installed + configured? 
+if test -d /etc/opendomo/control
 then
 	literal=`/usr/local/bin/i18n.sh "Set port"`
-	echo "		\"$literal\": {"
-
-	# Is odcontrol properly installed + configured? 
-	if test -d /etc/opendomo/control
-	then
-		ARGS1="@setport.sh"
-		cd /etc/opendomo/control
-		for i in */*.info; do
-			desc=""
-			. $i
-			if test "$way" = "out" && test "$status" = "enabled"
-			then
-				if test -z "$desc"
+	echo "		\"$literal\": {"	
+	ARGS1="@setport"
+	cd /etc/opendomo/control
+	for dev in *; do
+		if test -d "$dev"
+		then
+			cd $dev
+			for i in *.info; do
+				desc=""
+				. $i
+				if test "$way" = "out" && test "$status" = "enabled"
 				then
-					desc=`echo $i | cut -f2 -d/ | cut -f1 -d.`  
+					if test -z "$desc"
+					then
+						desc=`echo $i | cut -f2 -d/ | cut -f1 -d.`  
+					fi
+					pname=`echo $i | cut -f1 -d.`
+					#TODO: This should display all possible values for each port
+					echo "
+					\"$desc\": {
+						'ON':\"/var/opendomo/control/$dev/$pname ON\",
+						'OFF':\"/var/opendomo/control/$dev/$pname OFF\",				
+						},"
 				fi
-				pname=`echo $i | cut -f1 -d.`
-				#TODO: This should display all possible values for each port
-				echo "
-				\"$desc\": {
-					'ON':\"setport.sh $pname ON\",
-					'OFF':\"setport.sh $pname OFF\",				
-					},"
-			fi
-		done
-	fi
+			done
+			cd ..
+		fi
+	done
 	echo '               }, '
 fi
 
