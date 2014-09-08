@@ -29,8 +29,8 @@ then
 					#TODO: This should display all possible values for each port
 					echo "
 					\"$desc\": {
-						'ON':\"setport.sh $pname ON\",
-						'OFF':\"setport.sh $pname OFF\",				
+						'ON':\"setport.sh $dev/$pname ON\",
+						'OFF':\"setport.sh $dev/$pname OFF\",				
 						},"
 				fi
 			done

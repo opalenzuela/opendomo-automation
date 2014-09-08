@@ -50,12 +50,12 @@ if test -z "$1"; then
 else
 	# SEQUENCE REQUESTED
 	if test -x "$SEQPATH/$1"; then
-		if ! test -f /var/run/$1.pid ; then
-			touch /var/run/$1.pid
+		if ! test -f /var/opendomo/run/$1.pid ; then
+			touch /var/opendomo/run/$1.pid
 			desc=`grep '#desc' "$SEQPATH/$1" | cut -f2 -d:` 2>/dev/null
 			echo "#INFO Launching [$desc]"
 			/bin/logevent notice odcommon "Sequence [$desc] started"
-			bgshell "$SEQPATH/$1 && /bin/logevent notice odcommon 'Sequence finished' && rm /var/run/$1.pid"
+			bgshell "$SEQPATH/$1 && /bin/logevent notice odcommon 'Sequence finished' && rm /var/opendomo/run/$1.pid"
 	
 			/usr/local/opendomo/launchSequence.sh
 		else
