@@ -18,7 +18,7 @@ then
 			cd $dev
 			for i in *.info; do
 				desc=""
-				. $i
+				source ./$i
 				if test "$way" = "out" && test "$status" = "enabled"
 				then
 					if test -z "$desc"
