@@ -76,6 +76,9 @@ do
 			# LSTFILE contiene el listado correcto
 			for line in `cat $LISTFILE | xargs` 
 			do
+				echo
+				echo " PROCESSING LINE [$line] "
+				echo
 				if test "$line" != "DONE"
 				then
 					PNAME=`echo $line | cut -f1 -d:`

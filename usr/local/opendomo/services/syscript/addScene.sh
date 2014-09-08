@@ -19,7 +19,7 @@ if test -z "$1"; then
 	
 	cd $CTRLPATH
 	echo "#> Add scene"
-	echo "list:`basename $0`	selectable wizard"
+	echo "list:`basename $0`	selectable wizard filterable"
 	echo "	:	Select the ports involved in this scene	:"
 	if test -d "$CTRLPATH"
 	then
@@ -34,7 +34,7 @@ if test -z "$1"; then
 	do
 		if test "$device" != "*"
 		then
-			echo "	$device	$device	separator"
+			#echo "	$device	$device	separator"
 			cd $device
 			for port in *.value
 			do
