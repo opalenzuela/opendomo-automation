@@ -68,7 +68,7 @@ do
 		then
 			echo "Response with DONE. Continue."
 			# Filtering and formatting output, removing system ports ($)
-			cut -f1,2,3 -d: $TMPFILE  | grep -v '\$' > $LISTFILE
+			grep -v '\$' $TMPFILE > $LISTFILE
 			
 			echo >  /var/www/data/$DEVNAME.odauto.tmp
 			
