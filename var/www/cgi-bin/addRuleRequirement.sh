@@ -65,15 +65,15 @@ if test -d /etc/opendomo/control; then
 				if test -z "$desc"; then
 					desc=`basename $port`
 				fi
-				if test -z "$pvalues"; then
-					#TODO consider analog/digital ports
-					if test -z "$min" && test -z "$max"
-					then
-						pvalues="on off"
-					else
-						pvalues=`seq -s' ' $min $max`
-					fi
+				
+				#TODO consider analog/digital ports
+				if test -z "$min" && test -z "$max"
+				then
+					pvalues="on off"
+				else
+					pvalues=`seq -s' ' $min $max`
 				fi
+				
 				echo "
 					'$desc =': {"
 				#pvals=$(echo $pvalues | sed 's/,/ /g')
