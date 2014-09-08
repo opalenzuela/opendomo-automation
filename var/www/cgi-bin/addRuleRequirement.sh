@@ -57,6 +57,8 @@ if test -d /etc/opendomo/control; then
 			cd $device
 			for port in *.info
 			do
+				min=""
+				max=""
 				source ./$port
 				#desc=`grep 'desc=' $i.info | cut -f2 -d=`
 				#pvalues=`grep 'values=' $i.info | cut -f2 -d= | sed "s/'//g"`
@@ -65,12 +67,17 @@ if test -d /etc/opendomo/control; then
 				fi
 				if test -z "$pvalues"; then
 					#TODO consider analog/digital ports
-					pvalues="on,off,10,20,30,40,50,60,70,80,90,100"
+					if test -z "$min" && test -z "$max"
+					then
+						pvalues="on off"
+					else
+						pvalues=`seq -s' ' $min $max`
+					fi
 				fi
 				echo "
 					'$desc =': {"
-				pvals=$(echo $pvalues | sed 's/,/ /g')
-				for v in $pvals
+				#pvals=$(echo $pvalues | sed 's/,/ /g')
+				for v in $pvalues
 				do
 					echo "				'$v':\"(cat /var/opendomo/control/$device/$port.value) = $v\","
 				done
