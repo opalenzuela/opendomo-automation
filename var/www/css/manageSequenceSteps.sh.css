@@ -1,0 +1,15 @@
+
+/** Adding some icons for the tags */
+#manageSequenceSteps li.pause a{
+	background: url("/images/timer.png") no-repeat left center;
+}
+#manageSequenceSteps li.setport a{
+	background: url("/images/unknown.png") no-repeat left center;
+}
+#manageSequenceSteps li.play a{
+	background: url("/images/play.png") no-repeat left center;
+}
+
+#manageSequenceSteps li a {
+	padding-left: 32px;
+}
