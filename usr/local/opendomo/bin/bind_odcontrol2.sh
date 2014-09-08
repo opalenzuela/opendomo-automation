@@ -69,7 +69,7 @@ do
 		then
 			echo "Response with DONE. Continue."
 			# Filtering and formatting output, removing system ports ($)
-			grep -v '\$' $TMPFILE > $LISTFILE
+			grep -v '\$' $TMPFILE | sed 's/ /+/g' > $LISTFILE
 			
 			echo >  /var/www/data/$DEVNAME.odauto.tmp
 			
