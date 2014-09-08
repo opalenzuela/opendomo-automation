@@ -29,8 +29,8 @@ then
 					#TODO: This should display all possible values for each port
 					echo "
 					\"$desc\": {
-						'ON':\"/var/opendomo/control/$dev/$pname ON\",
-						'OFF':\"/var/opendomo/control/$dev/$pname OFF\",				
+						'ON':\"setport.sh $pname ON\",
+						'OFF':\"setport.sh $pname OFF\",				
 						},"
 				fi
 			done
@@ -40,7 +40,7 @@ then
 	echo '               }, '
 fi
 
-if test -x "/usr/local/bin/setallports.sh"; then
+if test -x "/usr/local/opendomo/bin/setallports.sh"; then
 	literal=`/usr/local/bin/i18n.sh "Set all"`
 	echo "		\"$literal\": {"
 	cd /etc/opendomo/tags
@@ -74,32 +74,32 @@ if test -x /usr/bin/aplay; then
 	echo '               },'
 fi             
 
-literal=`/usr/local/bin/i18n.sh "Wait"`
-echo "		\"$literal\": {"
-echo '			"seconds": {'
-for i in `seq 1 60` ; do
-	echo "				'$i s':'wait.sh $i',"
-done	
-echo '			}, '
+literal=`/usr/local/bin/i18n.sh "Pause"`
+if test -x /usr/local/opendomo/bin/pause.sh
+then
+	echo "		\"$literal\": {"
+	echo '			"seconds": {'
+	for i in 1 2 3 4 5 10 15 30 ; do
+		echo "				'$i s':'pause.sh $i seconds',"
+	done	
+	echo '			}, '
 
-echo '
-			"minutes": {'
-for i in `seq 1 60` ; do
-	let m=$i*60
-	echo "				'$i m':'wait.sh $m',"
-done					
-echo '			}, '
+	echo '
+				"minutes": {'
+	for i in 1 2 3 4 5 10 15 30 ; do
+		echo "				'$i m':'pause.sh $i minutes',"
+	done					
+	echo '			}, '
 
-echo '
-			"hours": {'
-for i in `seq 1 24` ; do
-	let m=$i*60*60
-	echo "				'$i h':'wait.sh $m',"
-done					
-echo '			}, '
+	echo '
+				"hours": {'
+	for i in 1 2 3 4 5 10 15 30 ; do
+		echo "				'$i h':'pause.sh $i hours',"
+	done					
+	echo '			}, '
 
-echo '		}, '
-
+	echo '		}, '
+fi
 
 #END OF SCRIPT
 echo '    };  '
