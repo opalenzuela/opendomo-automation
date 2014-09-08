@@ -38,8 +38,8 @@ if ! test -z "$1" && test -z "$2";then
 				oldval=`cat $CTRLPATH/$fil.value`
 
 				# We'll create a recovery script, that will save the states
-				echo "echo $oldval > $CTRLPATH/$fil" >> /var/opendomo/tmp/exitscene.tmp
-				echo $val > $CTRLPATH/$fil
+				echo "$CTRLPATH/$fil $oldval" >> /var/opendomo/tmp/exitscene.tmp
+				echo $CTRLPATH/$fil $val
 			done
 		else
 			echo "#ERR Invalid scene"
