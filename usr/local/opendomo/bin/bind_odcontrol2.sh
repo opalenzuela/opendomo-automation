@@ -60,10 +60,10 @@ test -d /var/www/data || mkdir -p /var/www/data
 while test -f $PIDFILE
 do
 	# Avoid duplicated call error (E003)
-	wget $URL/ver --http-user=$USER --http-password=$PASS -O - > /dev/null
+	wget -q $URL/ver --http-user=$USER --http-password=$PASS -O - > /dev/null
 	
 	# Making the actual call
-	if	wget $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
+	if	wget -q $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
 	then
 		if grep -q DONE $TMPFILE
 		then
@@ -76,15 +76,15 @@ do
 			# LSTFILE contiene el listado correcto
 			for line in `cat $LISTFILE | xargs -L 1` 
 			do
-				echo
 				echo " PROCESSING LINE [$line] "
-				echo
 				if test "$line" != "DONE"
 				then
 					PNAME=`echo $line | cut -f1 -d:`
 					PTYPE=`echo $line | cut -f2 -d:  | cut -b1-2`
 					PVAL=`echo $line | cut -f3 -d:`
 					PTAG=`echo $line | cut -f2 -d:  | cut -b4`
+					
+					echo "    PNAME=$PNAME PTYPE=$PTYPE PVAL=$PVAL PTAG=$PTAG"
 					
 					INFOFILE="$CFGDIR/$DEVNAME/$PNAME.info"
 					# Only if the port was never configured, generate INFOFILE
@@ -142,6 +142,7 @@ do
 					desc=$PNAME
 					min=0
 					max=100
+					status=""
 					source $INFOFILE
 					
 					# Always, refresh the port value
