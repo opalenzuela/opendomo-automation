@@ -80,21 +80,21 @@ then
 	echo "		\"$literal\": {"
 	echo '			"seconds": {'
 	for i in 1 2 3 4 5 10 15 30 ; do
-		echo "				'$i s':'pause.sh $i seconds',"
+		echo "				'$i':'pause.sh $i seconds',"
 	done	
 	echo '			}, '
 
 	echo '
 				"minutes": {'
 	for i in 1 2 3 4 5 10 15 30 ; do
-		echo "				'$i m':'pause.sh $i minutes',"
+		echo "				'$i':'pause.sh $i minutes',"
 	done					
 	echo '			}, '
 
 	echo '
 				"hours": {'
 	for i in 1 2 3 4 5 10 15 30 ; do
-		echo "				'$i h':'pause.sh $i hours',"
+		echo "				'$i':'pause.sh $i hours',"
 	done					
 	echo '			}, '
 

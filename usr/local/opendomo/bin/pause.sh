@@ -4,7 +4,8 @@
 
 ### Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
-if test -z "$2"; then
+if test -z "$2"
+then
 	case "$2" in
 		seconds|sec|s)
 			sleep $1
@@ -17,7 +18,7 @@ if test -z "$2"; then
 			let m=$i*60*60
 			sleep $m
 		;;		
-
+	esac
 else
 	if test -z "$1"; then
 		echo "#ERROR: Missing parameters"
