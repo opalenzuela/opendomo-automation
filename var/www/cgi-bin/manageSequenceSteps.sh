@@ -19,7 +19,7 @@ then
 			for i in *.info; do
 				desc=""
 				source ./$i
-				if test "$way" = "out" && test "$status" = "enabled"
+				if test "$way" = "out" && test "$status" != "disabled"
 				then
 					if test -z "$desc"
 					then
