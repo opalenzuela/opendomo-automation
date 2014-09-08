@@ -35,5 +35,5 @@ fi
 echo "actions:"
 echo "	addControlDevice.sh	Add"
 echo "	delControlDevice.sh	Delete"
-echo "	configureControlPorts.sh	Configure control devices"
+echo "	configureControlPorts.sh	Configure control ports"
 echo
