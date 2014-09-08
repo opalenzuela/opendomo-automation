@@ -64,7 +64,7 @@ do_start () {
 	log_action_begin_msg "Starting ODAUTO service"
 	mkdir -p $CTRLDIR > /dev/null
 	cd /usr/local/opendomo/daemons/
-	$0 background > /dev/null 
+	$0 background > /dev/null &
 	log_action_end_msg $?
 }
 
@@ -73,8 +73,8 @@ do_stop () {
 	cd $CFGDIR
 	for device in *.conf
 		do
-			DEVICE=`basename $device | cut -f1 -d.`
-			echo -n "($DEVICE)"
+			source ./$device
+			echo -n "($DEVNAME)"
 			rm -fr $CTRLDIR/$DEVICE
 		done	
 	
