@@ -14,6 +14,7 @@ if test "$1" = "validate" && ! test -z "$2"
 then
 	CONFIG="$2"
 	source $CONFIG
+	TMPFILE="/var/opendomo/tmp/$DEVNAME.tmp"
 	#TODO Whenever "ver" is adapted to indicate the UID, adapt this query to obtain it
 	# and use it as the device internal name instead of the URL/IP
 	if	wget $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
