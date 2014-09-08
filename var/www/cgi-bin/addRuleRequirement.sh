@@ -5,7 +5,7 @@ echo
 echo
 echo "var option_tree = {"
 
-if test -x /usr/local/bin/weekday
+if test -x /usr/local/opendomo/bin/weekday.sh
 then
 	literal=`/usr/local/bin/i18n.sh "weekday"`
 	mon=$(/usr/local/bin/i18n.sh monday)
@@ -16,24 +16,24 @@ then
 	sat=$(/usr/local/bin/i18n.sh saturday)	
 	sun=$(/usr/local/bin/i18n.sh sunday)	
 	echo "		\"$literal =\": {
-			'$mon':\"(weekday) = '1'\",
-			'$tue':\"(weekday) = '2'\",
-			'$wed':\"(weekday) = '3'\",
-			'$thu':\"(weekday) = '4'\",
-			'$fri':\"(weekday) = '5'\",
-			'$sat':\"(weekday) = '6'\",
-			'$sun':\"(weekday) = '7'\",			
+			'$mon':\"(weekday.sh) = '1'\",
+			'$tue':\"(weekday.sh) = '2'\",
+			'$wed':\"(weekday.sh) = '3'\",
+			'$thu':\"(weekday.sh) = '4'\",
+			'$fri':\"(weekday.sh) = '5'\",
+			'$sat':\"(weekday.sh) = '6'\",
+			'$sun':\"(weekday.sh) = '7'\",			
 			"
 	echo '               }, '
 fi
 
-if test -x /usr/local/bin/hour
+if test -x /usr/local/opendomo/bin/hour.sh
 then
 	literal=`/usr/local/bin/i18n.sh "hour"`
 	echo "		\"$literal\": {"
 	for i in 00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 
 	do
-		echo "				'= $i:00':\"(hour) = '$i.00'\","
+		echo "				'= $i:00':\"(hour.sh) = '$i.00'\","
 	done
 	echo '               }, '
 fi
@@ -50,24 +50,34 @@ if test -d /etc/opendomo/control; then
 	literal=`/usr/local/bin/i18n.sh "port state"`
 	echo "		\"$literal\": {"	
 	cd /etc/opendomo/control
-	for i in `grep "way='in'" -r * | cut -f1 -d.`; do
-		desc=`grep 'desc=' $i.info | cut -f2 -d=`
-		pvalues=`grep 'values=' $i.info | cut -f2 -d= | sed "s/'//g"`
-		if test -z "$desc"; then
-			desc=`basename $i`
+	for device in *
+	do
+		if test -d $device
+		then
+			cd $device
+			for port in *.info
+			do
+				source $port
+				#desc=`grep 'desc=' $i.info | cut -f2 -d=`
+				#pvalues=`grep 'values=' $i.info | cut -f2 -d= | sed "s/'//g"`
+				if test -z "$desc"; then
+					desc=`basename $port`
+				fi
+				if test -z "$pvalues"; then
+					#TODO consider analog/digital ports
+					pvalues="on,off,10,20,30,40,50,60,70,80,90,100"
+				fi
+				echo "
+					'$desc =': {"
+				pvals=$(echo $pvalues | sed 's/,/ /g')
+				for v in $pvals
+				do
+					echo "				'$v':\"(cat /var/opendomo/control/$device/$port.value) = $v\","
+				done
+				echo "			},"
+			done
+			cd ..
 		fi
-		if test -z "$pvalues"; then
-			#TODO consider analog/digital ports
-			pvalues="on,off,10,20,30,40,50,60,70,80,90,100"
-		fi
-		echo "
-			'$desc =': {"
-		pvals=$(echo $pvalues | sed 's/,/ /g')
-		for v in $pvals
-		do
-			echo "				'$v':\"(cat /var/opendomo/control/$i) = $v\","
-		done
-		echo "			},"
 	done
 	echo '               }, '	
 fi
