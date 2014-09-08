@@ -141,8 +141,9 @@ if ! test -z "$1"; then
 		lineno=`echo $line | cut -f1 -d:`  
 		command=`echo $line | cut -f2 -d# | sed -e 's/:/ /g' -e 's/+/ /g'`
 		code=`echo $line | cut -f2 -d: | cut -f1 -d.`
+		aux=`echo $line | cut -f2`
 
-		echo "	$FILE-$lineno	$command	step $code"
+		echo "	$FILE-$lineno	$command	step $code $aux"
 	done
 	if test -z "$command"; then
 		echo "#INFO No steps defined yet. Select the action in the menu and press Add."
