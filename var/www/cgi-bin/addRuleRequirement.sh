@@ -57,7 +57,7 @@ if test -d /etc/opendomo/control; then
 			cd $device
 			for port in *.info
 			do
-				source $port
+				source ./$port
 				#desc=`grep 'desc=' $i.info | cut -f2 -d=`
 				#pvalues=`grep 'values=' $i.info | cut -f2 -d= | sed "s/'//g"`
 				if test -z "$desc"; then
