@@ -29,6 +29,7 @@ if ! test -z "$5"; then
 	
 	# Saving configuration
 	DEVICENAME=`basename $URL`
+	DEVNAME=`echo $DEVICENAME | sed 's/[^a-z0-9A-Z]//g'`
 	mkdir -p /etc/opendomo/control/$DEVICENAME
 	CFGFILE="/etc/opendomo/control/$DEVICENAME.conf"
 	echo "URL=$URL" > $CFGFILE
@@ -36,7 +37,7 @@ if ! test -z "$5"; then
 	echo "PASS=$PASS" >> $CFGFILE
 	echo "TYPE=$TYPE" >> $CFGFILE
 	echo "REFRESH=$REFRESH" >> $CFGFILE
-	echo "DEVNAME=$DEVICENAME" >> $CFGFILE
+	echo "DEVNAME=$DEVNAME" >> $CFGFILE
 	
 	if /usr/local/opendomo/bin/bind_$TYPE.sh validate $CFGFILE
 	then
