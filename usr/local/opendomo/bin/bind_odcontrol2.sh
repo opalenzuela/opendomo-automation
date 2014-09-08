@@ -74,7 +74,7 @@ do
 			echo >  /var/www/data/$DEVNAME.odauto.tmp
 			
 			# LSTFILE contiene el listado correcto
-			for line in `cat $LISTFILE | xargs` 
+			for line in `cat $LISTFILE | xargs -L 1` 
 			do
 				echo
 				echo " PROCESSING LINE [$line] "
