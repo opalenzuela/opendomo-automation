@@ -140,7 +140,7 @@ if ! test -z "$1"; then
 	for line in `grep -nv '^#' $SEQPATH/$FILE | sed 's/ /:/g'`; do
 		lineno=`echo $line | cut -f1 -d:`  
 		command=`echo $line | cut -f2 -d# | sed -e 's/:/ /g' -e 's/+/ /g'`
-		code=`echo $line | cut -f1 -d.`
+		code=`echo $line | cut -f2 -d: | cut -f1 -d.`
 
 		echo "	$FILE-$lineno	$command	step $code"
 	done
