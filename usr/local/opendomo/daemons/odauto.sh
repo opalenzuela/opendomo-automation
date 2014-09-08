@@ -34,14 +34,14 @@ do_background() {
 			URL=""
 			USER=""
 			PASS=""
-			DEVNAME=`basename $devicecfg | cut -f1 -d.`
-			echo "Processing $DEVNAME ..."
+			DEVICE=`basename $devicecfg | cut -f1 -d.`
+			echo "Processing $DEVICE ..."
 			# Load config file
 			. ./$devicecfg
 			#echo -n "($DEVNAME)"
 			if test -f /usr/local/opendomo/bin/bind_$TYPE.sh
 			then
-				/bin/sh /usr/local/opendomo/bin/bind_$TYPE.sh /etc/opendomo/control/$DEVNAME.conf >/dev/null 2>/dev/null &
+				/bin/sh /usr/local/opendomo/bin/bind_$TYPE.sh /etc/opendomo/control/$DEVICE.conf >/dev/null 2>/dev/null &
 			else
 				logevent odauto error "Unknown device type $TYPE"
 			fi
@@ -64,7 +64,7 @@ do_start () {
 	log_action_begin_msg "Starting ODAUTO service"
 	mkdir -p $CTRLDIR > /dev/null
 	cd /usr/local/opendomo/daemons/
-	$0 background > /dev/null &
+	$0 background > /dev/null 
 	log_action_end_msg $?
 }
 
@@ -73,9 +73,9 @@ do_stop () {
 	cd $CFGDIR
 	for device in *.conf
 		do
-			DEVNAME=`basename $device | cut -f1 -d.`
-			echo -n "($DEVNAME)"
-			rm -fr $CTRLDIR/$DEVNAME
+			DEVICE=`basename $device | cut -f1 -d.`
+			echo -n "($DEVICE)"
+			rm -fr $CTRLDIR/$DEVICE
 		done	
 	
 	rm $PIDFILE 2>/dev/null
