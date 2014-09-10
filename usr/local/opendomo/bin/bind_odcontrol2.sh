@@ -93,17 +93,9 @@ do
 						echo "Missing $INFOFILE"
 						# Configuration for INPUT / OUTPUT
 						case "$PTYPE" in
-							DO|DV|Dv|AO|AV)
-								# Only write customport if it does not exist
-								if test -f $CTRLDIR/$DEVNAME/$PNAME; then
-									echo "Port $PNAME exists"
-								else
-									echo "Creating $CTRLDIR/$DEVNAME/$PNAME"
-									echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf  \n wget -q $URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null " > $CTRLDIR/$DEVNAME/$PNAME
-									chmod +x $CTRLDIR/$DEVNAME/$PNAME  
-								fi					
-								# Saving info
-								echo "way='out'" > $INFOFILE
+							DO|DV|Dv|AO|AV)			
+							# Saving info
+							echo "way='out'" > $INFOFILE
 
 							;;
 							DI|AI)
@@ -137,6 +129,19 @@ do
 						echo "tag='$TAG'" >> $INFOFILE
 						echo "desc='$PNAME'" >> $INFOFILE
 					fi
+					
+					case "$PTYPE" in
+						DO|DV|Dv|AO|AV)	
+							# Only write customport if it does not exist
+							if test -f $CTRLDIR/$DEVNAME/$PNAME; then
+								echo "Port $PNAME exists"
+							else
+								echo "Creating $CTRLDIR/$DEVNAME/$PNAME"
+								echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf  \n wget -q $URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null " > $CTRLDIR/$DEVNAME/$PNAME
+								chmod +x $CTRLDIR/$DEVNAME/$PNAME  
+							fi		
+						;;
+					esac
 					
 					# These values shall be override in $INFOFILE
 					desc=$PNAME

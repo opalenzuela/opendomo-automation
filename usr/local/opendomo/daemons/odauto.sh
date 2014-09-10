@@ -75,7 +75,7 @@ do_stop () {
 		do
 			source ./$device
 			echo -n "($DEVNAME)"
-			rm -fr $CTRLDIR/$DEVICE
+			rm -fr $CTRLDIR/$device
 		done	
 	
 	rm $PIDFILE 2>/dev/null
