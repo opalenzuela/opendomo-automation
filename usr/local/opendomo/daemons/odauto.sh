@@ -6,8 +6,8 @@
 # Should-Start:      
 # Default-Start:     1 2 3 4 5
 # Default-Stop:      0 6
-# Short-Description: Automation for OpenDomoOS
-# Description:       Automation for OpenDomoOS
+# Short-Description: Automation
+# Description:       Automation
 #
 ### END INIT INFO
 ### Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
