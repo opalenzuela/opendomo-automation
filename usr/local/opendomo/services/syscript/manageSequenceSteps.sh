@@ -1,7 +1,7 @@
 #!/bin/sh
 #desc:Manage sequence steeps
 #type:local
-#package:odcommon
+#package:odauto
 
 # Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
@@ -34,16 +34,36 @@ done
 if test -d /etc/opendomo/control; then
 	ARGS1="@setport.sh"
 	cd /etc/opendomo/control
-	for i in `grep way -r * | grep out | cut -f1 -d.`; do
-		if test -f $i.desc; then
-			desc=`cat $i.desc 2>/dev/null `
-		else
-			desc=`echo $i | cut -f2 -d/`  
+	for device in * 
+	do
+		if test -d "$device"
+		then
+			cd $device
+			for port in *.info
+			do
+				if test "$port" != "*.info"
+				then
+					status=""
+					source ./$port
+					if test "$status" != "disabled" && test "$way" = "out"
+					then
+						ARGS1="$ARGS1,$i:$desc"
+					fi
+				fi
+			done
+			cd ..
 		fi
-		if test -z "$desc"; then
-			desc="$i"
-		fi
-		ARGS1="$ARGS1,$i:$desc"
+	done
+	#for i in `grep way -r * | grep out | cut -f1 -d.`; do
+	#	if test -f $i.desc; then
+	#		desc=`cat $i.desc 2>/dev/null `
+	#	else
+	#		desc=`echo $i | cut -f2 -d/`  
+	#	fi
+	#	if test -z "$desc"; then
+	#		desc="$i"
+	#	fi
+	#	ARGS1="$ARGS1,$i:$desc"
 	done
 	ARGS2="@setport.sh,on,off"
 fi
