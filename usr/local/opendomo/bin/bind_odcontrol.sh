@@ -10,7 +10,7 @@ if test "$1" == "validate"; then
 
 	# Validation command
         if
-	wget $URL:81/ver+ --http-user=$USER --http-password=$PASS -O - &>/dev/null
+	wget $URL/ --http-user=$USER --http-password=$PASS -O - &>/dev/null
 	then
 		exit 0
 	else
@@ -66,14 +66,15 @@ do
 	#then
 	
 	
-	# Avoid duplicated call error (E003)
-	wget -q $URL:81/ver+ --http-user=$USER --http-password=$PASS -O - > /dev/null
 	
 	# Making the actual call
-	if	wget -q $URL:81/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
+	if wget -q $URL/content_hme_1.html --http-user=$USER --http-password=$PASS -O $TMPFILE.1 
 	then
-		if grep -q DONE $TMPFILE
-		then
+		wget -q $URL/content_hme_2.html --http-user=$USER --http-password=$PASS -O $TMPFILE.2 
+		wget -q $URL/content_hme_3.html --http-user=$USER --http-password=$PASS -O $TMPFILE.3
+		wget -q $URL/content_hme_4.html --http-user=$USER --http-password=$PASS -O $TMPFILE.4 
+		
+		cat $TMPFILE.* > $TMPFILE
 			echo "Response with DONE. Continue."
 			# Filtering and formatting output, removing system ports ($)
 			cut -f1,2,3 -d: $TMPFILE  | grep -v '\$' > $LISTFILE
