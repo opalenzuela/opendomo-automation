@@ -10,7 +10,7 @@ if test "$1" == "validate"; then
 
 	# Validation command
         if
-	wget $URL/ --http-user=$USER --http-password=$PASS -O - &>/dev/null
+	wget $URL/ver+ --http-user=$USER --http-password=$PASS -O - &>/dev/null
 	then
 		exit 0
 	else
@@ -68,13 +68,9 @@ do
 	
 	
 	# Making the actual call
-	if wget -q $URL/content_hme_1.html --http-user=$USER --http-password=$PASS -O $TMPFILE.1 
+	if wget -q $URL/lst --http-user=$USER --http-password=$PASS -O $TMPFILE.1 
 	then
-		wget -q $URL/content_hme_2.html --http-user=$USER --http-password=$PASS -O $TMPFILE.2 
-		wget -q $URL/content_hme_3.html --http-user=$USER --http-password=$PASS -O $TMPFILE.3
-		wget -q $URL/content_hme_4.html --http-user=$USER --http-password=$PASS -O $TMPFILE.4 
 		
-		cat $TMPFILE.* > $TMPFILE
 		echo "Response with DONE. Continue."
 	
 		# Filtering and formatting output, removing system ports ($)
@@ -105,7 +101,7 @@ do
 								echo "Port $PNAME exists"
 							else
 								echo "Creating $CTRLDIR/$DEVNAME/$PNAME"
-								echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf  \n wget -q $URL:81/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null " > $CTRLDIR/$DEVNAME/$PNAME
+								echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf  \n wget -q $URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null " > $CTRLDIR/$DEVNAME/$PNAME
 								chmod +x $CTRLDIR/$DEVNAME/$PNAME  
 							fi					
 							# Saving info
