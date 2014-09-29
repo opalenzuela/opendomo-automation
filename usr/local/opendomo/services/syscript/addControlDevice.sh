@@ -20,10 +20,11 @@ done
 
 # If we are passing all 5 parameters, 
 if ! test -z "$5"; then
-	URL="$1"
+	TYPE="$1"
 	USER="$2"
 	PASS="$3"
-	TYPE="$4"
+	URL="$4"
+	
 	REFRESH="$5"
 	TMPFILE="/var/opendomo/tmp/controlconfig.tmp"
 	
@@ -75,9 +76,9 @@ fi
 # Always display the form: empty to create a new one or full to modify
 echo "#> Add Control device"
 echo "form:`basename $0`"
-echo "	ipaddress	URL	text	$URL"
+echo "	type	Type	list[$DEVICETYPELIST]	$TYPE"
 echo "	username	Username	text	$USER"
 echo "	password	Password	text	$PASS"
-echo "	type	Type	list[$DEVICETYPELIST]	$TYPE"
+echo "	ipaddress	URL	text	$URL"
 echo "	refresh	Refresh	text	$REFRESH"
 echo
