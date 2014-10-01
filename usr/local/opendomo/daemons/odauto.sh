@@ -39,9 +39,9 @@ do_background() {
 			# Load config file
 			. ./$devicecfg
 			#echo -n "($DEVNAME)"
-			if test -f /usr/local/opendomo/bin/bind_$TYPE.sh
+			if test -f /usr/local/opendomo/bindings/$TYPE.sh
 			then
-				/bin/sh /usr/local/opendomo/bin/bind_$TYPE.sh /etc/opendomo/control/$DEVICE.conf >/dev/null 2>/dev/null &
+				/bin/sh /usr/local/opendomo/bindings/$TYPE.sh /etc/opendomo/control/$DEVICE.conf >/dev/null 2>/dev/null &
 			else
 				logevent odauto error "Unknown device type $TYPE"
 			fi

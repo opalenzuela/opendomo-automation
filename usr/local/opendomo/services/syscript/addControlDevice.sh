@@ -8,10 +8,10 @@
 CFGPATH="/etc/opendomo/control"
 
 #TODO: Use a dedicated directory
-cd /usr/local/opendomo/bin/
-for binding in bind_*.sh
+cd /usr/local/opendomo/bindings/
+for binding in *.sh
 do
-	BID=`echo $binding | cut -f2 -d_ | cut -f1 -d.`
+	BID=`echo $binding | cut -f1 -d.`
 	BDESC=`grep '#desc' $binding | cut -f2 -d:`
 	DEVICETYPELIST="$DEVICETYPELIST,$BID:$BDESC"
 done
@@ -37,7 +37,7 @@ if ! test -z "$5"; then
 	echo "REFRESH=$REFRESH" >> $CFGFILE
 	echo "DEVNAME=$DEVICENAME" >> $CFGFILE
 	
-	if /usr/local/opendomo/bin/bind_$TYPE.sh validate $CFGFILE
+	if /usr/local/opendomo/bindings/$TYPE.sh validate $CFGFILE
 	then
 		echo "#INFO The device was created and it will be available soon"			
 		/usr/local/opendomo/daemons/odauto.sh restart > /dev/null
