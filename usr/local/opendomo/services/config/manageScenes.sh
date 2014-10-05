@@ -35,7 +35,6 @@ if ! test -z "$1" && test -f $CFGPATH/$1.conf; then
 	echo "	manageScenes.sh	Manage scenes"
 
 else
-	
 	# Available scenes
 	echo "#> Available"
 	echo "list:editScene.sh	selectable"
@@ -51,12 +50,10 @@ else
 	done
 	echo "actions:"
 	echo "	addScene.sh	Add"
-	echo "	editScene.sh	Edit"
 	echo "	delScene.sh	Delete"
 	echo "	setScene.sh	Set scenes"
 	echo
 
-	
 fi
 echo
 

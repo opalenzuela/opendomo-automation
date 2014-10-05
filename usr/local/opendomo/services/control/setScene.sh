@@ -14,17 +14,17 @@ fi
 
 # If ONLY ONE argument is passed
 if ! test -z "$1" && test -z "$2";then
-	if test -f /tmp/lastscene.tmp; then
+	if test -f /var/opendomo/tmp/lastscene.tmp; then
 		lastscene=`cat /var/opendomo/tmp/lastscene.tmp`
 	else
 		lastscene="nolastscenedefineD"
 	fi
-	
+
 	if test "$1" = "$lastscene"; then
 		echo "# Applying the same scene again. Ignored"
 		echo
 	fi
-	
+
 	if test -f $CFGPATH/$1.conf; then
 		. $CFGPATH/$1.conf
 		echo ""> /var/opendomo/tmp/exitscene.tmp
@@ -39,7 +39,7 @@ if ! test -z "$1" && test -z "$2";then
 
 				# We'll create a recovery script, that will save the states
 				echo "$CTRLPATH/$fil $oldval" >> /var/opendomo/tmp/exitscene.tmp
-				echo $CTRLPATH/$fil $val
+				$CTRLPATH/$fil $val
 			done
 		else
 			echo "#ERR Invalid scene"
@@ -57,7 +57,7 @@ echo "list:`basename $0`	simple"
 if test -d $CFGPATH; then
 	cd $CFGPATH
 	for i in *; do
-		if test "$i" != "*"; then 
+		if test "$i" != "*"; then
 			code=`echo $i | cut -f1 -d.`
 			desc=`grep desc: $i | cut -f2 -d:`
 			echo "	-$code	$desc	scene"
@@ -80,7 +80,7 @@ echo "actions:"
 if test -x /usr/local/opendomo/manageScenes.sh; then
 	echo "	manageScenes.sh	Manage scenes"
 fi
-if test -x /usr/local/opendomo/exitCurrentScene.sh; then
+if test -x /usr/local/opendomo/exitCurrentScene.sh && test -f /var/opendomo/tmp/exitscene.tmp; then
 	echo "	exitCurrentScene.sh	Exit current scene"
 fi
 #echo "	delScene.sh	Delete scene"

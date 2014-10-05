@@ -6,8 +6,7 @@
 # Copyright(c) 2012 OpenDomo Services SL. Licensed under GPL v3 or later
 
 CFGPATH="/etc/opendomo/scenes"
-CTRLPATH="/var/opendomo/control_byzone"
-PCFGPATH="/etc/opendomo/control"
+CTLPATH="/etc/opendomo/control"
 
 if test -z "$1"; then
 	echo "#WARN No scene was specified"
@@ -28,12 +27,12 @@ if test -f $CFGPATH/$1.conf; then
 		done
 		#echo "# $newvalues"
 		echo "#desc:$desc "> $CFGPATH/$1.conf
-		echo "desc='$desc'" >> $CFGPATH/$1.conf 
+		echo "desc='$desc'" >> $CFGPATH/$1.conf
 		echo "plist='$plist'" >> $CFGPATH/$1.conf
 		echo "values='$newvalues'" >> $CFGPATH/$1.conf
 		echo "#INFO Changes saved"
 	fi
-	
+
 	. $CFGPATH/$1.conf
 	echo "#> Editing scene [$desc]"
 	echo "form:editScene.sh"
@@ -45,16 +44,15 @@ if test -f $CFGPATH/$1.conf; then
 		pname=`echo $p | cut -f1 -d= | sed 's/-/_/'`
 		valselected=`echo $p | cut -f2 -d=`
 		fname=`echo $pname | sed 's/_/\//'`
-		if test -f $PCFGPATH/$fname.desc; then
-			pdesc=`cat $PCFGPATH/$fname.desc`
-			# $PCFGPATH/$fname.info
+
+		if test -f $CTLPATH/$fname.info; then
+			source $CTLPATH/$fname.info
 		else
-			#echo " file $PCFGPATH/$fname.desc not found"
-			pdesc="$pname"
+			desc=$pname
 		fi
-	
+
 		#TODO Use the values from the configuration file, instead of on/off
-		echo	"	$pname	$pdesc	list[on,off]	$valselected"
+		echo	"	$pname	$desc	list[ON,OFF]	$valselected"
 	done
 	echo "actions:"
 	echo "	editScene.sh	Save changes"
