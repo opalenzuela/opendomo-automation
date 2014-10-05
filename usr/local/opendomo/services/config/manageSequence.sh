@@ -27,8 +27,8 @@ EXIST=0
 for s in *; do
 	if test "$s" != "*"; then
 		desc=`grep '#desc' $s | cut -f2- -d:`
-		found=`grep "command:$s" /etc/opendomo/rules/* | wc -l` 2>/dev/null
-		if test "$found" = "0"; then
+		found=`grep "command:$s" /etc/opendomo/rules/* 2>/dev/null | wc -l`
+		if test "$found" != "0"; then
 			echo "	-$s	$desc	sequence"
 			EXIST=1;
 		else
@@ -38,7 +38,7 @@ for s in *; do
 	fi
 done
 
-if test "$EXIST" = "0" ]; then
+if test "$EXIST" == "0"; then
 	if test -x /usr/local/opendomo/addSequence.sh; then
 		echo "# There are no sequences. Please, go to Add."
 		echo "actions:"
@@ -49,7 +49,7 @@ if test "$EXIST" = "0" ]; then
 	echo
 	exit 0
 fi
-		
+
 echo "actions:"
 if test -x /usr/local/opendomo/addSequence.sh; then
 	echo "	addSequence.sh	Add"

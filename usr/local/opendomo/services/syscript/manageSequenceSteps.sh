@@ -64,7 +64,7 @@ if test -d /etc/opendomo/control; then
 	#		desc="$i"
 	#	fi
 	#	ARGS1="$ARGS1,$i:$desc"
-	done
+	#done
 	ARGS2="@setport.sh,on,off"
 fi
 
