@@ -14,9 +14,9 @@ fi
 
 
 if ! test -z "$1" && test -f $CFGPATH/$1.conf; then
-	echo "#> Ports stored in [$1]"
-	echo "list:`basename $0`	detailed"
 	. $CFGPATH/$1.conf
+	echo "#> Ports stored in [$desc]"
+	echo "list:`basename $0`	detailed"
 	for port in $values; do
 		p=`echo $port | cut -f1 -d=` 
 		value=`echo $port | cut -f2 -d=`
@@ -27,7 +27,7 @@ if ! test -z "$1" && test -f $CFGPATH/$1.conf; then
 		then
 			. /etc/opendomo/control/$pfile.info
 		fi
-		echo "	$p	$pname	$value	$value"
+		echo "	$p	$desc	$value	$value"
 	done
 
 	# TODO: Permitir edición de puertos para no tener que borrar y crear
@@ -56,5 +56,3 @@ else
 
 fi
 echo
-
-

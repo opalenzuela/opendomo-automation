@@ -47,7 +47,7 @@ if test -z "$1"; then
 						desc="$pname"
 					fi
 					
-					if test "$way" = "out"; then
+					if test "$way" = "out" && test "$status" != "disabled" ; then
 						echo "	$device/$pname	$desc	port"
 					fi
 				fi
@@ -110,7 +110,7 @@ else
 	for i in $plist; do
 		fname=`echo $i | sed -e 's/-/\//' -e 's/_/\//'`
 		if test -f $CTRLPATH/$fname.value; then
-			VAL=`cat $CTRLPATH/$fname.value`
+			VAL=`cat $CTRLPATH/$fname.value | tr [A-Z] [a-z]`
 			if test -z "$VAL"; then
 				VAL="on"
 			fi
@@ -134,4 +134,3 @@ else
 	echo "	manageScenes.sh	Finalizar"
 	echo
 fi
-
