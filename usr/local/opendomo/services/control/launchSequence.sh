@@ -55,7 +55,7 @@ else
 			desc=`grep '#desc' "$SEQPATH/$1" | cut -f2 -d:` 2>/dev/null
 			echo "#INFO Launching [$desc]"
 			/bin/logevent notice odcommon "Sequence [$desc] started"
-			bgshell "$SEQPATH/$1 && /bin/logevent notice odcommon 'Sequence finished' && rm /var/opendomo/run/$1.pid"
+			bgshell "/bin/logevent notice odcommon 'Sequence started' ; $SEQPATH/$1 ; /bin/logevent notice odcommon 'Sequence finished' ; rm /var/opendomo/run/$1.pid"
 	
 			/usr/local/opendomo/launchSequence.sh
 		else
