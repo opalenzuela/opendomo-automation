@@ -27,3 +27,4 @@ else
 		sleep $1
 	fi
 fi
+exit 0
