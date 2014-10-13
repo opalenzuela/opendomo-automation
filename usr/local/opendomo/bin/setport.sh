@@ -15,9 +15,11 @@ then
 		echo "$2" > $CTRLPATH/$PORT.value
 		echo "# Port $PORT set to $2"
 		/bin/logevent debug odauto "Port $PORT set to $2"
+		exit 0
 	else
 		echo "#ERROR Value not specified"
 	fi
 else
 	echo "#ERROR Port not specified"
 fi
+exit 1
