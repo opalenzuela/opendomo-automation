@@ -24,6 +24,9 @@ then
 	fi
 fi
 
+cd $CFGPATH
+DEVICES=`ls|wc -l`
+
 echo "#> Control ports"
 echo "form:listControlPorts.sh"
 if /usr/local/opendomo/daemons/odauto.sh status >/dev/null
@@ -32,11 +35,17 @@ then
 	#Hence, no server-side processing is needed here.
 	echo "	loading	loading	loading"
 	echo "actions:"
-	if test -x /usr/local/opendomo/manageTags.sh; then
-		echo "	manageTags.sh	Manage tags"
-	fi
-	if test -x /usr/local/opendomo/configureControlPorts.sh; then
-		echo "	configureControlPorts.sh	Configure control ports"
+	if test -z "$DEVICES"; then
+		if test -x /usr/local/opendomo/addControlDevice.sh; then
+			echo "	addControlDevice.sh	Add control device"
+		fi
+	else
+		if test -x /usr/local/opendomo/manageTags.sh; then
+			echo "	manageTags.sh	Manage tags"
+		fi
+		if test -x /usr/local/opendomo/configureControlPorts.sh; then
+			echo "	configureControlPorts.sh	Configure control ports"
+		fi
 	fi
 else
 	echo "#WARN Service is not active"
