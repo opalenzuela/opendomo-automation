@@ -18,7 +18,6 @@ CFGDIR=/etc/opendomo/control
 CTRLDIR=/var/opendomo/control
 	
 
-	
 do_background() {
 	# 1. Saving PID file
 	echo -n >$PIDFILE
