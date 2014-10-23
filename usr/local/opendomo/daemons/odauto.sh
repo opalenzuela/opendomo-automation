@@ -53,9 +53,10 @@ do_background() {
 	while test -f $PIDFILE
 	do
 		echo "Compacting information ..."
-		echo -n "{\"ports\":[" > /var/www/data/odauto.json
-		cat /var/www/data/*.odauto  >> /var/www/data/odauto.json 2>/dev/null
-		echo "0]}" >> /var/www/data/odauto.json
+		echo -n "{\"ports\":[" > /var/www/data/odauto.json.tmp
+		cat /var/www/data/*.odauto  >> /var/www/data/odauto.json.tmp 2>/dev/null
+		echo "0]}" >> /var/www/data/odauto.json.tmp
+		mv /var/www/data/odauto.json.tmp /var/www/data/odauto.json
 		sleep 1
 	done
 }
