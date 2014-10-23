@@ -50,6 +50,7 @@ do_background() {
 	
 	# 3. Preparing JSON information
 	test -d /var/www/data/ || mkdir -p /var/www/data/
+	touch /var/www/data/null.odauto
 	while test -f $PIDFILE
 	do
 		echo "Compacting information ..."
