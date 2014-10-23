@@ -160,11 +160,11 @@ do
 					fi
 				fi
 			done
-			logevent "notice" $DEVNAME "Device [$DEVNAME] responded"
+			logevent "debug" $DEVNAME "Device [$DEVNAME] responded"
 		else
 			# Every "if" must have an "else"
 			echo "#ERR: The query ended with an error"
-			logevent "error" $DEVNAME "Device [$DEVNAME] returned an error"
+			logevent "warning" $DEVNAME "Device [$DEVNAME] returned an error"
 			cat $TMPFILE
 		fi
 	
