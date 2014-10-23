@@ -174,7 +174,7 @@ do
 	fi
 	
 	# A very quick replacement of the old file with the new one:
-	cat /var/www/data/$DEVNAME.odauto.tmp > /var/www/data/$DEVNAME.odauto
+	mv /var/www/data/$DEVNAME.odauto.tmp /var/www/data/$DEVNAME.odauto
 	
 	# Cleanup
 	rm $TMPFILE $LISTFILE
