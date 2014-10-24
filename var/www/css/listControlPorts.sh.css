@@ -72,12 +72,19 @@ li.gas a{
 	background: url("/images/gas.png") no-repeat left center;
 }
 
-#listControlPorts li label,
+fieldset.tabform #listControlPorts li a{
+	height: 35px;
+	padding-left: 32px;		
+}
+fieldset.iconlist #listControlPorts li {
+	background-size: 75px;
+}
+
 #listControlPorts li a
 {
-	padding-left: 32px;
 	vertical-align: middle;
-	height: 35px;
 	display: block;
 	line-height: 2;	
+	height: 75px;
+	width: 80px;
 }
