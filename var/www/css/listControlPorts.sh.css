@@ -50,25 +50,25 @@ li.AI p{
 }
 
 /** Adding some icons for the tags */
-li.power label,
-li.energy label {
+li.power a,
+li.energy a {
 	background: url("/images/energy.png") no-repeat left center;
 }
-li.measure label,
-li.climate label {
+li.measure a,
+li.climate a {
 	background: url("/images/climate.png") no-repeat left center;
 }
-li.light label{
+li.light a{
 	background: url("/images/light.png") no-repeat left center;
 }
-li.access label,
-li.security label{
+li.access a,
+li.security a{
 	background: url("/images/security.png") no-repeat left center;
 }
-li.water label{
+li.water a{
 	background: url("/images/water.png") no-repeat left center;
 }
-li.gas label{
+li.gas a{
 	background: url("/images/gas.png") no-repeat left center;
 }
 
