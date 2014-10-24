@@ -44,6 +44,10 @@ li.AO .preview {
 	min-width: 35px;
 	vertical-align: middle
 }
+li.AI p{
+	height: 35px;
+	border: 1px solid #ccc;
+}
 
 /** Adding some icons for the tags */
 li.power label,
