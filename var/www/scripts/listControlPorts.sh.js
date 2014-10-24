@@ -22,7 +22,7 @@ function updatePorts()
 						case "DV":
 						case "DO":
 						case "DI":
-							li.find("a").attr("class",p.Value.toLowerCase());
+							li.find("p").find("a").attr("class",p.Value.toLowerCase());
 							break;
 						case "AI":
 							li.find("p").innerHTML =  parseFloat(p.Value);
