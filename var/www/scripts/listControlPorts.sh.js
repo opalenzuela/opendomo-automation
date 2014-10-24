@@ -57,23 +57,23 @@ function updatePorts()
 									}
 								);
 							}
-							li.innerHTML="<label>"+p.Name+ "</label><p><a class='" + p.Value.toLowerCase() + "'> </a></p>";
+							li.innerHTML="<label><b>"+p.Name+ "</b></label><p><a class='" + p.Value.toLowerCase() + "'> </a></p>";
 							break;
 							
 						case "DI":
 							li.className="DI " + p.Tag;
 							//li.setAttribute("value",p.Value=="ON"?"OFF":"ON");
-							li.innerHTML="<label>"+p.Name+ "</label><p><a class='" + p.Value.toLowerCase() + "'> </a></p>";
+							li.innerHTML="<label><b>"+p.Name+ "</b></label><p><a class='" + p.Value.toLowerCase() + "'> </a></p>";
 							break;
 							
 						case "AI":
 							li.className="AI " + p.Tag;
-							li.innerHTML = "<label>"+p.Name+ "</label><p class='ro'>" + parseFloat(p.Value) + "</p>";
+							li.innerHTML = "<label><b>"+p.Name+ "</b></label><p class='ro'>" + parseFloat(p.Value) + "</p>";
 							break;
 							
 						case "AO":
 							li.className="AO " + p.Tag;
-							li.innerHTML = "<label>"+p.Name+ "</label><p class='AO' id='"+p.Name+"_cont'>" + 
+							li.innerHTML = "<label><b>"+p.Name+ "</b></label><p class='AO' id='"+p.Name+"_cont'>" + 
 								"<input class='preview' type='text' pattern='[\-+.0-9]*' id='" + p.Name + "_disp' value='" + p.Value+ "' size='3'>" +
 								"<input class='range' name='" + p.Id + "' type='range' id='"+ p.Name + "' step='10' min='" + p.Min + "' max='" + p.Max + "' value='" + p.Value+ "' ></p>";
 							
@@ -90,12 +90,12 @@ function updatePorts()
 							
 						case "TXT":
 							li.className="TXT " + p.Tag;
-							li.innerHTML="<label>"+p.Name+ "</label><p class='ro'>" + p.Value + "</p>";
+							li.innerHTML="<label><b>"+p.Name+ "</b></label><p class='ro'>" + p.Value + "</p>";
 							break;
 
 						case "IMG":
 							li.className="IMG " + p.Tag;
-							li.innerHTML="<label>"+p.Name+ "</label><p class='img'><img src='" + p.Value + "'></p>";
+							li.innerHTML="<label><b>"+p.Name+ "</b></label><p class='img'><img src='" + p.Value + "'></p>";
 							break;							
 					}
 				}
