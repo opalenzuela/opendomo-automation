@@ -68,6 +68,9 @@ li.gas label{
 	background: url("/images/gas.png") no-repeat left center;
 }
 
-#listControlPorts li label {
+#listControlPorts li label,
+#listControlPorts li a
+{
 	padding-left: 32px;
+	vertical-align: middle;
 }
