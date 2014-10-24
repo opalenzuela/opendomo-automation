@@ -78,6 +78,8 @@ fieldset.tabform #listControlPorts li a{
 }
 fieldset.iconlist #listControlPorts li {
 	background-size: 75px;
+	height: 75px;
+	width: 80px;	
 }
 
 #listControlPorts li a
@@ -85,6 +87,4 @@ fieldset.iconlist #listControlPorts li {
 	vertical-align: middle;
 	display: block;
 	line-height: 2;	
-	height: 75px;
-	width: 80px;
 }
