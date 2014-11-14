@@ -49,32 +49,14 @@ test -d /var/www/data || mkdir -p /var/www/data
 
 while test -f $PIDFILE
 do
-	# ODControl2 syntax (lsc)
-	#if wget -q $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
-	#then
-	#	#cutting columns and removing system ports
-	#	cut -f1,2,3 -d: $TMPFILE  | grep -v '\$' > $LISTFILE
-	#else
-	#	# ODControl1.6 syntax (lst) 
-	#TODO: this should be moved to another bind
-	#	wget -q $URL/lst --http-user=$USER --http-password=$PASS -O $TMPFILE
-	#	cut -f2,3,1 -d: $TMPFILE > $LISTFILE
-	#fi
-
-	#Repeated query error
-	#if grep -q E003 $TMPFILE
-	#then
-	
-	
-	
 	# Making the actual call
-	if wget -q $URL/lst --http-user=$USER --http-password=$PASS -O $TMPFILE.1 
+	if wget -q $URL/lst --http-user=$USER --http-password=$PASS -O $TMPFILE
 	then
 		
 		echo "Response with DONE. Continue."
 	
-		# Filtering and formatting output, removing system ports ($)
-		cut -f1,2,3 -d: $TMPFILE  | grep -v '\$' > $LISTFILE
+		# Filtering and formatting output
+		cut -f1,2,3 -d: $TMPFILE   > $LISTFILE
 			
 		echo >  /var/www/data/$DEVNAME.odauto.tmp
 			
