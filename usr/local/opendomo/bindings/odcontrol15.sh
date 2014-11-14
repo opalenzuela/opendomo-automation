@@ -153,6 +153,6 @@ do
 	mv /var/www/data/$DEVNAME.odauto.tmp /var/www/data/$DEVNAME.odauto
 	
 	# Cleanup
-	rm $TMPFILE $LISTFILE
+	rm -fr $TMPFILE $LISTFILE
 	sleep $REFRESH
 done

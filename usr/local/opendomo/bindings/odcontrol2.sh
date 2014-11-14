@@ -177,7 +177,7 @@ do
 	mv /var/www/data/$DEVNAME.odauto.tmp /var/www/data/$DEVNAME.odauto
 	
 	# Cleanup
-	rm $TMPFILE $LISTFILE
+	rm -fr $TMPFILE $LISTFILE
 	
 	# Wait the specified seconds before next polling
 	sleep $REFRESH
