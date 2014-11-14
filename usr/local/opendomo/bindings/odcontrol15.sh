@@ -64,7 +64,7 @@ do
 		echo "Response with DONE. Continue."
 	
 		# Filtering and formatting output
-		cut -f1,2,3 -d: $TMPFILE > $LISTFILE
+		cat $TMPFILE > $LISTFILE
 			
 		echo >  /var/www/data/$DEVNAME.odauto.tmp
 			
@@ -73,8 +73,8 @@ do
 		do
 			if test "$line" != "DONE"
 			then
-				PNAME=`echo $line | cut -f1 -d:`
-				PTYPE=`echo $line | cut -f2 -d:  | cut -b1-2`
+				PNAME=`echo $line | cut -f2 -d:`
+				PTYPE=`echo $line | cut -f1 -d:  | cut -b1-2`
 				PVAL=`echo $line | cut -f3 -d:`
 				#PTAG=`echo $line | cut -f2 -d:  | cut -b4`
 					
@@ -91,7 +91,7 @@ do
 								echo "Port $PNAME exists"
 							else
 								echo "Creating $CTRLDIR/$DEVNAME/$PNAME"
-								echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf  \n echo set $PNAME \$1 | nc $IP $PORT " > $CTRLDIR/$DEVNAME/$PNAME
+								echo -e "#!/bin/sh \n echo set $PNAME \$1 | nc $IP $PORT " > $CTRLDIR/$DEVNAME/$PNAME
 								chmod +x $CTRLDIR/$DEVNAME/$PNAME  
 							fi					
 							# Saving info
