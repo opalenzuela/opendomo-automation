@@ -56,12 +56,13 @@ test -d /var/www/data || mkdir -p /var/www/data
 while test -f $PIDFILE
 do
 	# Making the actual call
+	echo "Connecting to $IP at port $PORT ..."
 	echo "lst" | nc $IP $PORT > $TMPFILE
 	
 	if test -f $TMPFILE
 	then
 		
-		echo "Response with DONE. Continue."
+		echo "Response received. Continue."
 	
 		# Filtering and formatting output
 		cat $TMPFILE > $LISTFILE
