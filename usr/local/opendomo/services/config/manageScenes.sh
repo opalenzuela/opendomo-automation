@@ -3,7 +3,7 @@
 #package:odauto
 #type:local
 
-# Copyright(c) 2011 OpenDomo Services SL. Licensed under GPL v3 or later
+# Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
 CFGPATH="/etc/opendomo/scenes"
 CTRLPATH="/var/opendomo/control"
@@ -13,12 +13,12 @@ if ! test -d "$CFGPATH"; then
 fi
 
 
-if ! test -z "$1" && test -f $CFGPATH/$1.conf; then
-	. $CFGPATH/$1.conf
+if ! test -z "$1" && test -f $CFGPATH/$1; then
+	. $CFGPATH/$1
 	echo "#> Ports stored in [$desc]"
 	echo "list:`basename $0`	detailed"
 	for port in $values; do
-		p=`echo $port | cut -f1 -d=` 
+		p=`echo $port | cut -f1 -d=`
 		value=`echo $port | cut -f2 -d=`
 		pfile=`echo $port | cut -f1 -d= | sed 's/_/\//' `
 		pname=`echo $port | cut -f1 -d= | cut -f2 -d'_'`
@@ -41,7 +41,7 @@ else
 	cd $CFGPATH
 	for i in *; do
 		if test "$i" != "*"; then
-			CODE=`echo $i | cut -f1 -d.`
+			CODE=`basename $i`
 			DESC=`grep desc: $i | cut -f2 -d:`
 			echo "	-$CODE	$DESC	scene"
 		else

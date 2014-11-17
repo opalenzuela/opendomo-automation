@@ -5,6 +5,7 @@
 
 # Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
+
 CFGPATH="/etc/opendomo/scenes"
 CTRLPATH="/var/opendomo/control"
 
@@ -25,12 +26,12 @@ if ! test -z "$1" && test -z "$2";then
 		echo
 	fi
 
-	if test -f $CFGPATH/$1.conf; then
-		. $CFGPATH/$1.conf
+	if test -f $CFGPATH/$1; then
+		. $CFGPATH/$1
 		echo ""> /var/opendomo/tmp/exitscene.tmp
 		echo $1 > /var/opendomo/tmp/lastscene.tmp
 		if ! test -z "$values"; then
-			desc=`grep '#desc' $CFGPATH/$1.conf | cut -f2 -d:`
+			desc=`grep '#desc' $CFGPATH/$1 | cut -f2 -d:`
 			echo "#INFO Using [$desc]"
 			for p in $values; do
 				fil=`echo $p | cut -f1 -d= | sed -e 's/-/\//g' -e 's/_/\//g'`
@@ -42,11 +43,11 @@ if ! test -z "$1" && test -z "$2";then
 				$CTRLPATH/$fil $val
 			done
 		else
-			echo "#ERR Invalid scene"
+			echo "#ERR Invalid scene [$1]"
 			exit 3
 		fi
 	else
-		echo "#ERR Invalid scene"
+		echo "#ERR Invalid scene [$1]"
 		exit 2
 	fi
 fi
@@ -56,9 +57,9 @@ echo "#> Available scenes"
 echo "list:`basename $0`	simple"
 if test -d $CFGPATH; then
 	cd $CFGPATH
-	for i in *; do
-		if test "$i" != "*"; then
-			code=`echo $i | cut -f1 -d.`
+	for i in *.scene; do
+		if test -f "$i"; then
+			code=$i
 			desc=`grep desc: $i | cut -f2 -d:`
 			echo "	-$code	$desc	scene"
 		fi
