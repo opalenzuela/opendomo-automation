@@ -117,7 +117,7 @@ else
 			if test -z "$VAL"; then
 				VAL="on"
 			fi
-			echo "$i $VAL" >> $CFGPATH/$code
+			echo "/var/opendomo/control/$fname $VAL" >> $CFGPATH/$code
 			#echo "# $i stored"
 			#echo "$i=$VAL" >> $CFGPATH/$code.conf
 			VALUES="$VALUES $i=$VAL"
