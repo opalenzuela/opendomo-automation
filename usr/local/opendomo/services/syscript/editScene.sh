@@ -14,18 +14,19 @@ if test -z "$1"; then
 	echo
 	exit 0
 
-elif ! test -z "$1" && test -f "$CFGPATH/$1.conf"; then
+elif ! test -z "$1" && test -f "$CFGPATH/$1"; then
 	echo "$1" > $TMPFILE
 	CFGFILE="$CFGPATH/`cat $TMPFILE`.conf"
 
 elif ! test -z "$2" && test -f $TMPFILE; then
 	CFGFILE=$CFGPATH/`cat $TMPFILE`.conf
-	source $CFGFILE
+	#source $CFGFILE
+	PORTS=`grep var/opendomo $CFGFILE| sed -e 's/\/var\/opendomo\/control\///' -e 's/\//_/'`
 	for p in $values; do
-		oldpname=`echo $p | cut -f1 -d=`
-		oldvalue=`echo $p | cut -f2 -d=`
+		oldpname=`echo $p | cut -f1 -d' '`
+		oldvalue=`echo $p | cut -f2 -d' '`
 		if [ "$1" == "$oldpname" ]; then
-			newvalues="$newvalues $oldpname=$2"
+			newvalues="$newvalues $oldpname $2"
 		else
 			newvalues="$newvalues $p"
 		fi
@@ -48,9 +49,10 @@ echo "form:editScene.sh"
 echo "	:	By default, a scene is created with the state that the ports have in the creation moment 	:"
 echo "	:	You can modify the individual state of each device in this page	:"
 echo "	file	hidden	hidden	$1"
-for p in $values; do
-	pname=`echo $p | cut -f1 -d= | sed 's/-/_/'`
-	valselected=`echo $p | cut -f2 -d=`
+PORTS=`grep var/opendomo $1| sed -e 's/\/var\/opendomo\/control\///' -e 's/\//_/'`
+for p in $PORTS; do
+	pname=`echo $p | cut -f1 -d' '`
+	valselected=`echo $p | cut -f2 -d' '`
 	fname=`echo $pname | sed 's/_/\//'`
 
 	if test -f $CTLPATH/$fname.info; then
@@ -58,7 +60,7 @@ for p in $values; do
 	else
 		desc=$pname
 	fi
-	echo	"	$pname	$desc	subcommand[on,off]	$valselected"
+	echo	"	$pname	$desc	list[on,off]	$valselected"
 done
 echo "actions:"
 echo "	manageScenes.sh	Back to list"
