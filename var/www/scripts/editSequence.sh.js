@@ -9,13 +9,11 @@ function sequenceDragandropEnable(){
       revert: true
     });
     $( "#editSequenceSteps li.item" ).draggable({
-      connectToSortable: "#editSequence",
-      helper: "clone",
-      revert: "invalid"
-    },
-	// Hide the helper once user started dragging
-	stop: function() { $("p.info").hide();}
-	);
+		connectToSortable: "#editSequence",
+		helper: "clone",
+		revert: "invalid",
+		stop: function() { $("p.info").hide();}	  // Hide the helper once user started dragging
+    });
     $( "ul, li" ).disableSelection();
 }
 
