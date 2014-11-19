@@ -20,21 +20,29 @@ setport.sh dummy/do01 off"> $SEQPATH/demo.seq
 fi
 
 # Display a list of sequences
-cd $SEQPATH
-echo "#> Available"
+echo "#> Available sequences"
 echo "list:manageSequenceSteps.sh	selectable"
 EXIST=0
+cd $SEQPATH
 for s in *; do
-	if test "$s" != "*"; then
+	if test -x "$s"; then
+		TYPE="sequence"
+		BNAME=`basename $s`
 		desc=`grep '#desc' $s | cut -f2- -d:`
-		found=`grep "command:$s" /etc/opendomo/rules/* 2>/dev/null | wc -l`
-		if test "$found" != "0"; then
-			echo "	-$s	$desc	sequence"
-			EXIST=1;
-		else
-			echo "	-$s	$desc	sequence used"
-			EXIST=1;
+
+		# Detect if the sequence is being used by rules 
+		if grep -q "command:$s" /etc/opendomo/rules/* 2>/dev/null
+		then
+			TYPE="$TYPE used"
 		fi
+		# Detect if the sequence is active
+		if test -f /var/opendomo/run/$BNAME.pid
+		then
+			TYPE="$TYPE active"
+		fi
+		#TODO: Detect if it's being used by eventhandlers or others
+		echo "	-$s	$desc	$TYPE"
+		EXIST=1;
 	fi
 done
 

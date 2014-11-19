@@ -11,6 +11,7 @@ if ! test -d $SEQPATH; then
 fi
 
 
+# No parameter. Listing sequences
 if test -z "$1"; then
 	echo "#> Available sequences"
 	echo "list:`basename $0`	simple"
@@ -20,15 +21,19 @@ if test -z "$1"; then
 	fi
 	cd $SEQPATH 
 	for i in *; do
-		if test "$i" != "*"; then
-			if test -x $i; then
-				desc=`grep '#desc' $i | cut -f2 -d:` 2>/dev/null
-				if test -z "$desc"; then
-					desc=$i
-				fi
-				echo "	-$i	$desc	sequence"
-				EXIST=1
+		if test -x $i; then
+			desc=`grep '#desc' $i | cut -f2 -d:` 2>/dev/null
+			TYPE="sequence"
+			if test -z "$desc"; then
+				desc=$i
 			fi
+			# Detect if the sequence is active
+			if test -f /var/opendomo/run/$BNAME.pid
+			then
+				TYPE="$TYPE active"
+			fi				
+			echo "	-$i	$desc	$TYPE"
+			EXIST=1
 		fi
 	done
 	if test "$EXIST" = "0" ; then
@@ -54,12 +59,12 @@ else
 			touch /var/opendomo/run/$1.pid
 			desc=`grep '#desc' "$SEQPATH/$1" | cut -f2 -d:` 2>/dev/null
 			echo "#INFO Launching [$desc]"
-			/bin/logevent notice odcommon "Sequence [$desc] started"
-			bgshell "/bin/logevent notice odcommon 'Sequence started' ; $SEQPATH/$1 ; /bin/logevent notice odcommon 'Sequence finished' ; rm /var/opendomo/run/$1.pid"
+			/bin/logevent notice odauto "Sequence [$desc] started"
+			bgshell "/bin/logevent notice odauto 'Sequence started' ; $SEQPATH/$1 ; /bin/logevent notice odcommon 'Sequence finished' ; rm /var/opendomo/run/$1.pid"
 	
 			/usr/local/opendomo/launchSequence.sh
 		else
-			/bin/logevent debug odcommon "Sequence [$1] is already active. Ignoring."
+			/bin/logevent debug odauto "Sequence [$1] is already active. Ignoring."
 		fi
 	else
 		echo "#ERROR Missing privileges"
