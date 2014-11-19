@@ -19,7 +19,7 @@ function sequenceDragandropEnable(){
 		helper: "clone",
 		revert: "invalid",
 		start: function () {
-			$("#editSequence").css("border","2px solid dashed");
+			$("#editSequence").css("border","2px dashed gray");
 		},
 		stop: function() { 
 		 // Hide the helper once user started dragging
