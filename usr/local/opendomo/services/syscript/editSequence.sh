@@ -22,7 +22,7 @@ fi
 
 par1=""
 echo "#> Steps in [$SEQDESC]"
-echo "list:`basename $0`	selectable "
+echo "list:`basename $0`	selectable detailed"
 for line in `grep -nv '^#' $SEQPATH/$FILE | sed 's/ /:/g'`; do
 	lineno=`echo $line | cut -f1 -d:`  
 	command=`echo $line | cut -f2 -d# | sed -e 's/:/ /g' -e 's/+/ /g'`
@@ -36,7 +36,7 @@ if test -z "$command"; then
 fi
 
 echo "actions:"
-echo "	delSequenceStep.sh	Delete step"
+echo "	editSequence.sh	Save sequence"
 echo
 
 
@@ -45,14 +45,14 @@ echo "#> Add new step"
 echo "list:editSequenceSteps.sh	iconlist"
 
 echo "	sepTM	Timers	separator"
-echo "	wait.sh+1s	1s	item wait"
-echo "	wait.sh+5s	5s	item wait"
-echo "	wait.sh+10s	10s	item wait"
-echo "	wait.sh+1m	1m	item wait"
+echo "	wait.sh+1s	1s	item wait	Wait for [1] second"
+echo "	wait.sh+5s	5s	item wait	Wait for [5] seconds"
+echo "	wait.sh+10s	10s	item wait	Wait for [10] seconds"
+echo "	wait.sh+1m	1m	item wait	Wait for [1] minute"
 
 echo "	sepAU	Audio	separator"
-echo "	play.sh+beep	beep	item sound"
-echo "	play.sh+notify	notify	item sound"
+echo "	play.sh+beep	beep	item sound	Play a [beep] sound"
+echo "	play.sh+notify	notify	item sound	Play a [notify] sound"
 
 echo "	sepDP	Ports 	separator"
 cd /etc/opendomo/control/

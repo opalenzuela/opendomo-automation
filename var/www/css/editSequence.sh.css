@@ -1,10 +1,14 @@
 /** Adding some icons for the tags */
-li.sound a, 
+li.wait a {
+	background: url("/images/timer.png") no-repeat left center;
+}
+li.sound a{
+	background: url("/images/music.png") no-repeat left center;
+}
 li.power a,
 li.energy a {
 	background: url("/images/energy.png") no-repeat left center;
 }
-li.wait a,
 li.measure a,
 li.climate a {
 	background: url("/images/climate.png") no-repeat left center;
