@@ -42,17 +42,17 @@ echo
 
 echo "#> Add new step"
 # List of all supported scripts in /usr/local/bin
-echo "list:editSequenceSteps.sh"
+echo "list:editSequenceSteps.sh	iconlist"
 echo "	sep1	Timers	separator"
 # Timers:
-echo "	wait.sh+1s	1s	wait"
-echo "	wait.sh+5s	5s	wait"
-echo "	wait.sh+10s	10s	wait"
-echo "	wait.sh+1m	1m	wait"
+echo "	wait.sh+1s	1s	item wait"
+echo "	wait.sh+5s	5s	item wait"
+echo "	wait.sh+10s	10s	item wait"
+echo "	wait.sh+1m	1m	item wait"
 
 echo "	sep2	Audio	separator"
-echo "	play.sh+beep	beep	sound"
-echo "	play.sh+notify	notify	sound"
+echo "	play.sh+beep	beep	item sound"
+echo "	play.sh+notify	notify	item sound"
 
 echo
 
