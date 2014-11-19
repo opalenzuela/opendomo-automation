@@ -5,6 +5,14 @@ $(function($) {
 });
 
 function sequenceDragandropEnable(){
-
+	$( "#editSequence" ).sortable({
+      revert: true
+    });
+    $( "#editSequenceSteps" ).draggable({
+      connectToSortable: "#editSequence",
+      helper: "clone",
+      revert: "invalid"
+    });
+    $( "ul, li" ).disableSelection();
 }
 
