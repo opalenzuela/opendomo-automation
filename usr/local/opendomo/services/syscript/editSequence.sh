@@ -43,35 +43,17 @@ echo
 echo "#> Add new step"
 # List of all supported scripts in /usr/local/bin
 echo "list:editSequenceSteps.sh"
-echo "	Timers	separator"
-#POSSIBLECOMMANDS="setport.sh setallports.sh wait.sh play.sh"
-type="wait"
-POSSIBLECOMMANDS="wait.sh+1s wait.sh+5s wait.sh+10s"
-for c in $POSSIBLECOMMANDS; do
-	# If they exist, and can be executed
-	if test -x /usr/local/bin/$c; then
-		desc=`grep '#desc' /usr/local/bin/$c | cut -f2 -d:` 2>/dev/null
-		if test -z "$desc"; then
-			desc="$c"
-		fi
-		# We add them to the list
-		echo "	-$command	$desc	$type"
-	fi
-done
-echo "	Audio	separator"
-type="audio"
-POSSIBLECOMMANDS="play.sh+1s play.sh+5s play.sh+10s"
-for c in $POSSIBLECOMMANDS; do
-	# If they exist, and can be executed
-	if test -x /usr/local/bin/$c; then
-		desc=`grep '#desc' /usr/local/bin/$c | cut -f2 -d:` 2>/dev/null
-		if test -z "$desc"; then
-			desc="$c"
-		fi
-		# We add them to the list
-		echo "	-$command	$desc	$type"
-	fi
-done
+echo "	sep1	Timers	separator"
+# Timers:
+echo "	wait.sh+1s	1s	wait"
+echo "	wait.sh+5s	5s	wait"
+echo "	wait.sh+10s	10s	wait"
+echo "	wait.sh+1m	1m	wait"
+
+echo "	sep2	Audio	separator"
+echo "	play.sh+beep	beep	sound"
+echo "	play.sh+notify	notify	sound"
+
 echo
 
 
