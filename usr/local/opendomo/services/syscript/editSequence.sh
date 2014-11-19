@@ -25,7 +25,7 @@ fi
 
 if test -z "$desc"
 then
-	desc=`grep #desc: $1 $SEQPATH/$1 | cut -f2 -d:`
+	desc=`head -n2 $SEQPATH/$1 | grep desc: | cut -f2 -d:`
 fi
 
 par1=""
@@ -65,6 +65,7 @@ echo "	wait.sh+1m	1m	item wait	Wait for [1] minute"
 echo "	sepAU	Audio	separator"
 echo "	play.sh+beep	beep	item sound	Play a [beep] sound"
 echo "	play.sh+notify	notify	item sound	Play a [notify] sound"
+echo "	say.sh+???  	notify	item sound	Say [???]"
 
 #TODO Use one separator per device
 echo "	sepDP	Ports 	separator"
@@ -78,7 +79,7 @@ do
 	PROCVAL=`echo $values | sed 's/,/ /'`
 	for val in $PROCVAL
 	do
-		echo "	var/opendomo/control/$port+$val	$bname	item port $desc $val"
+		echo "	var/opendomo/control/$port+$val	$bname	item port $val	$desc $val"
 	done
 done
 echo
