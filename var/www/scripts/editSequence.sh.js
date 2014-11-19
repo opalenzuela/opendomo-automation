@@ -18,7 +18,14 @@ function sequenceDragandropEnable(){
 		connectToSortable: "#editSequence",
 		helper: "clone",
 		revert: "invalid",
-		stop: function() { $("p.info").hide();}	  // Hide the helper once user started dragging
+		start: function () {
+			$("#editSequence").css("border","2px solid dashed");
+		},
+		stop: function() { 
+		 // Hide the helper once user started dragging
+			$("#editSequence").css("border","none");
+			$("p.info").hide();
+		
     });
     $( "ul, li" ).disableSelection();
 }
