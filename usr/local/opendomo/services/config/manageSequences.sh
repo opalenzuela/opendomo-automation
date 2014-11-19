@@ -21,7 +21,8 @@ fi
 
 # Display a list of sequences
 echo "#> Available sequences"
-echo "list:manageSequenceSteps.sh	selectable"
+echo "list:editSequence.sh"
+#echo "list:manageSequenceSteps.sh	selectable"
 EXIST=0
 cd $SEQPATH
 for s in *; do

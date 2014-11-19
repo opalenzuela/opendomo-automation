@@ -1,5 +1,5 @@
 #!/bin/sh
-#desc:Manage sequence steps
+#desc:Edit sequence
 #type:local
 #package:odauto
 
@@ -10,6 +10,12 @@ SEQPATH="/etc/opendomo/sequences"
 
 if ! test -d "$SEQPATH"; then
 	mkdir -p $SEQPATH
+fi
+
+if test -z "$1"
+then
+	/usr/local/opendomo/manageSequences.sh
+	exit 0
 fi
 
 # List of all supported scripts in /usr/local/bin
