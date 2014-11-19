@@ -66,6 +66,7 @@ echo "	sepAU	Audio	separator"
 echo "	play.sh+beep	beep	item sound	Play a [beep] sound"
 echo "	play.sh+notify	notify	item sound	Play a [notify] sound"
 
+#TODO Use one separator per device
 echo "	sepDP	Ports 	separator"
 cd /etc/opendomo/control/
 for port in `grep  -n "way='out'" */* | cut -f1 -d.`
@@ -74,7 +75,11 @@ do
 	desc="$port"
 	source /etc/opendomo/control/$port.info
 	bname=`basename $port`
-	echo "	var/opendomo/control/$port+on	$bname	item port list[$values]	$desc"
+	PROCVAL=`echo $values | sed 's/,/ /'`
+	for val in $PROCVAL
+	do
+		echo "	var/opendomo/control/$port+$val	$bname	item port $desc $val"
+	done
 done
 echo
 

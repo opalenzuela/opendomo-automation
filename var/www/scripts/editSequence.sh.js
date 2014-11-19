@@ -12,7 +12,15 @@ function sequenceDragandropEnable(){
 		over: function(event, ui){sortableIn = 1;},
 		out: function(event, ui){sortableIn = 0;},
 		beforeStop: function(event, ui){
-			if (sortableIn == 0) ui.item.remove();
+			if (sortableIn == 0) {
+				ui.item.remove();
+			} else {
+				var command = $(ui.item).find("input").val();
+				if (command.indexOf("???")>0) {
+					command = command.replace("???",prompt("Value"));
+					$(ui.item).find("input").val(command);
+				}
+			}
 		}
     });
     $( "#editSequenceSteps li.item" ).draggable({
@@ -40,5 +48,5 @@ function saveSequence() {
 	});
 	console.log(result)	
 	$("#steplist").val(result);
-	submitForm("editSequence");
+	submitForm("editSequence_frm");
 }

@@ -1,30 +1,30 @@
 /** Adding some icons for the tags */
 li.wait a {
-	background: url("/images/timer.png");
+	background-image: url("/images/timer.png");
 }
 li.sound a{
-	background: url("/images/music.png");
+	background-image: url("/images/music.png");
 }
 li.power a,
 li.energy a {
-	background: url("/images/energy.png");
+	background-image: url("/images/energy.png");
 }
 li.measure a,
 li.climate a {
-	background: url("/images/climate.png");
+	background-image: url("/images/climate.png");
 }
 li.light a{
-	background: url("/images/light.png") ;
+	background-image: url("/images/light.png") ;
 }
 li.access a,
 li.security a{
-	background: url("/images/security.png");
+	background-image: url("/images/security.png");
 }
 li.water a{
-	background: url("/images/water.png");
+	background-image: url("/images/water.png");
 }
 li.gas a{
-	background: url("/images/gas.png");
+	background-image: url("/images/gas.png");
 }
 
 li.separator {
