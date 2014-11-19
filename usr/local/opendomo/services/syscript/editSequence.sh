@@ -43,17 +43,25 @@ echo
 echo "#> Add new step"
 # List of all supported scripts in /usr/local/bin
 echo "list:editSequenceSteps.sh	iconlist"
-echo "	sep1	Timers	separator"
-# Timers:
+
+echo "	sepTM	Timers	separator"
 echo "	wait.sh+1s	1s	item wait"
 echo "	wait.sh+5s	5s	item wait"
 echo "	wait.sh+10s	10s	item wait"
 echo "	wait.sh+1m	1m	item wait"
 
-echo "	sep2	Audio	separator"
+echo "	sepAU	Audio	separator"
 echo "	play.sh+beep	beep	item sound"
 echo "	play.sh+notify	notify	item sound"
 
+echo "	sepDP	Ports 	separator"
+cd /etc/opendomo/control/
+for port in `grep  -n "way='out'" */* | cut -f1 -d.`
+do
+	source /etc/opendomo/control/$port.info
+	bname=`basename $port`
+	echo "	var/opendomo/control/$port+on	$bname	port	$desc"
+done
 echo
 
 
