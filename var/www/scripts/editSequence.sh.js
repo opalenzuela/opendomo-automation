@@ -25,7 +25,7 @@ function sequenceDragandropEnable(){
 		 // Hide the helper once user started dragging
 			$("#editSequence").css("border","none");
 			$("p.info").hide();
-		
+		}
     });
     $( "ul, li" ).disableSelection();
 }
