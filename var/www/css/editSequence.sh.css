@@ -40,7 +40,7 @@ li.separator {
 	height: 60px;
 	width: 60px;
 }
-#editSequence li a {
+#stepListContainer li a {
 	background-size: 24px;
 	background-position: left center;
 	background-repeat: no-repeat;
