@@ -8,7 +8,7 @@ function sequenceDragandropEnable(){
 	$( "#editSequence" ).sortable({
       revert: true
     });
-    $( "#editSequenceSteps" ).draggable({
+    $( "#editSequenceSteps li" ).draggable({
       connectToSortable: "#editSequence",
       helper: "clone",
       revert: "invalid"
