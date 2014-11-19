@@ -109,11 +109,15 @@ do
 							
 						# Special configuration for ANALOG / DIGITAL
 						case "$PTYPE" in 
+							DO|DV|Dv)
+								echo "values='on,off'" >> $INFOFILE
+							;;						
 							AO|AV|AI)
 								MIN=`echo $line | cut -f4 -d: | cut -f1 -d'|'`
 								MAX=`echo $line | cut -f4 -d: | cut -f2 -d'|'` 
 								echo "min='$MIN'" >> $INFOFILE
 								echo "max='$MAX'" >> $INFOFILE							
+								echo "values='$MIN-$MAX'" >> $INFOFILE
 							;;
 						esac
 						

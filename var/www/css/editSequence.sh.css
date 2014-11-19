@@ -1,30 +1,30 @@
 /** Adding some icons for the tags */
 li.wait a {
-	background: url("/images/timer.png") no-repeat left center;
+	background: url("/images/timer.png");
 }
 li.sound a{
-	background: url("/images/music.png") no-repeat left center;
+	background: url("/images/music.png");
 }
 li.power a,
 li.energy a {
-	background: url("/images/energy.png") no-repeat left center;
+	background: url("/images/energy.png");
 }
 li.measure a,
 li.climate a {
-	background: url("/images/climate.png") no-repeat left center;
+	background: url("/images/climate.png");
 }
 li.light a{
-	background: url("/images/light.png") no-repeat left center;
+	background: url("/images/light.png") ;
 }
 li.access a,
 li.security a{
-	background: url("/images/security.png") no-repeat left center;
+	background: url("/images/security.png");
 }
 li.water a{
-	background: url("/images/water.png") no-repeat left center;
+	background: url("/images/water.png");
 }
 li.gas a{
-	background: url("/images/gas.png") no-repeat left center;
+	background: url("/images/gas.png");
 }
 
 li.separator {
@@ -39,4 +39,15 @@ li.separator {
 {
 	height: 60px;
 	width: 60px;
+}
+#editSequence li a {
+	background-size: 24px;
+	background-position: left center;
+	background-repeat: no-repeat;
+}
+#editSequenceSteps li a {
+	background-size: 32px;
+	background-position: center;
+	background-repeat: no-repeat;
+
 }

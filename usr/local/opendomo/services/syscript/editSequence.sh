@@ -17,12 +17,24 @@ if test -z "$1"
 then
 	/usr/local/opendomo/manageSequences.sh
 	exit 0
+else
+	touch $SEQPATH/$1
+	source $SEQPATH/$1
 fi
 
 
+if test -z "$desc"
+then
+	desc=`grep #desc: $1 $SEQPATH/$1 | cut -f2 -d:`
+fi
+
 par1=""
-echo "#> Steps in [$SEQDESC]"
-echo "list:`basename $0`	detailed"
+echo "#> Steps in [$desc]"
+echo "form:`basename $0`	hidden"
+echo "	name	Name	text	$desc"
+echo "	steplist	Steps	hidden	"
+echo 
+echo "list:stepListContainer.sh	detailed"
 for line in `grep -nv '^#' $SEQPATH/$FILE | sed 's/ /:/g'`; do
 	lineno=`echo $line | cut -f1 -d:`  
 	command=`echo $line | cut -f2 -d# | sed -e 's/:/ /g' -e 's/+/ /g'`
@@ -58,9 +70,11 @@ echo "	sepDP	Ports 	separator"
 cd /etc/opendomo/control/
 for port in `grep  -n "way='out'" */* | cut -f1 -d.`
 do
+	values="on,off"
+	desc="$port"
 	source /etc/opendomo/control/$port.info
 	bname=`basename $port`
-	echo "	var/opendomo/control/$port+on	$bname	port	$desc"
+	echo "	var/opendomo/control/$port+on	$bname	item port list[$values]	$desc"
 done
 echo
 

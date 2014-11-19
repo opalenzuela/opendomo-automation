@@ -2,10 +2,11 @@ include_script("/scripts/vendor/jquery-ui.js");
 
 $(function($) {
 	setTimeout(sequenceDragandropEnable,1000);
+	$('button[name="submit_editSequence.sh"]').on("click",saveSequence);
 });
 var sortableIn = 0;
 function sequenceDragandropEnable(){
-	$( "#editSequence" ).sortable({
+	$( "#stepListContainer" ).sortable({
 		revert: true,
 		receive: function(event, ui){sortableIn = 1;},
 		over: function(event, ui){sortableIn = 1;},
@@ -15,18 +16,29 @@ function sequenceDragandropEnable(){
 		}
     });
     $( "#editSequenceSteps li.item" ).draggable({
-		connectToSortable: "#editSequence",
+		connectToSortable: "#stepListContainer",
 		helper: "clone",
 		revert: "invalid",
 		start: function () {
-			$("#editSequence").css("border","2px dashed gray");
+			$("#stepListContainer").css("border","2px dashed gray");
 		},
 		stop: function() { 
 		 // Hide the helper once user started dragging
-			$("#editSequence").css("border","none");
+			$("#stepListContainer").css("border","none");
 			$("p.info").hide();
 		}
     });
     $( "ul, li" ).disableSelection();
 }
-
+var result;
+function saveSequence() {
+	result = "";
+	$('#stepListContainer li').each(function() {
+		var value = $(this).find("input").val().replace("+"," ");
+		var literal = $(this).find("p").text();
+		result = result + value + " # " + literal + "\n";
+	});
+	console.log(result)	
+	$("#steplist").val(result);
+	submitForm("editSequence");
+}
