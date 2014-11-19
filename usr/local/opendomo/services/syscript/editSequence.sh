@@ -19,7 +19,7 @@ then
 	exit 0
 else
 	touch $SEQPATH/$1
-	source $SEQPATH/$1
+	#source $SEQPATH/$1
 fi
 
 
@@ -65,7 +65,7 @@ echo "	wait.sh+1m	1m	item wait	Wait for [1] minute"
 echo "	sepAU	Audio	separator"
 echo "	play.sh+beep	beep	item sound	Play a [beep] sound"
 echo "	play.sh+notify	notify	item sound	Play a [notify] sound"
-echo "	say.sh+???  	notify	item sound	Say [???]"
+echo "	say.sh+???  	say 	item sound	Say [???]"
 
 #TODO Use one separator per device
 echo "	sepDP	Ports 	separator"
