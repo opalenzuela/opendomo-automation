@@ -25,12 +25,11 @@ function sequenceDragandropEnable(){
 				if ((command.indexOf("[")>0) && (command.indexOf("]")>0)){
 					var possible = command.split(/[\[\]]/);
 					if (possible[1].indexOf(",")>0) {
-						var htmlcode = "";
 						var def = possible[1].split(",");
 						for (var i=0;i<def.length;i++) {
 							htmlcode=htmlcode+"<option value='"+def[i]+"'>"+def[i]+"</option>";
 						}
-						$("#dialog p").html("<select id='dialogvalue0> " + htmlcode + "</select>");
+						$("#dialog p").html("<select id='dialogvalue'> " + htmlcode + "</select>");
 					} else {
 						var def = possible[1].split("-");
 						$("#dialog p").html("<input id='dialogvalue' type='range' min='" + def[0] +"'  max='"+ def[1] + "'>");
