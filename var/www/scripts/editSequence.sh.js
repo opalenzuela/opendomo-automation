@@ -21,27 +21,30 @@ function sequenceDragandropEnable(){
 					command = command.replace("???",prompt("Value"));
 					$(ui.item).find("input").val(command);
 					
-				} else if ((command.indexOf("[")>0) && (command.indexOf("]")>0)){
+				}
+				if ((command.indexOf("[")>0) && (command.indexOf("]")>0)){
 					var possible = command.split(/[\[\]]/);
 					if (possible[1].indexOf(",")>0) {
+						var htmlcode = "";
 						var def = possible[1].split(",");
+						for (var i=0;i<def.length;i++) {
+							htmlcode=htmlcode+"<label><input name='dialogvalue' type='radio' value='"+def[i]+"'>"+def[i]+"</label>");
+						}
+						$("#dialog p").html(htmlcode);
 					} else {
 						var def = possible[1].split("-");
+						$("#dialog p").html("<input name='dialogvalue' type='range' min='" + def[0] +"'  max='"+ def[1] + "'>");
 					}
 					//command = possible[0] +  prompt("Choose value between " + possible[1], def[0]) + possible[2];
 					//$(ui.item).find("input").val(command);
-					/*$( "#dialog" ).dialog({
+					$( "#dialog" ).dialog({
 						resizable: false,
 						height:140,
 						modal: true,
 						buttons: {
-							def[0]: function() {
-								command = possible[0] + def[0] + possible[2];
-								$(ui.item).find("input").val(command);							
-								$( this ).dialog( "close" );
-							},
-							def[1]: function() {
-								command = possible[0] + def[1] + possible[2];
+							"Ok": function() {
+								var value = $("#dialog input").val();
+								command = possible[0] + value + possible[2];
 								$(ui.item).find("input").val(command);								
 								$( this ).dialog( "close" );
 							},
@@ -49,7 +52,7 @@ function sequenceDragandropEnable(){
 								ui.item.remove();
 							}
 						}
-					});	*/			
+					});			
 				}
 			}
 		}
