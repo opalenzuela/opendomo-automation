@@ -83,7 +83,8 @@ function sequenceDragandropEnable(){
 
 
 var result;
-function saveSequence() {
+function saveSequence(event) {
+	event.preventDefault();
 	result = "";
 	$('#stepListContainer li').each(function() {
 		var value = $(this).find("input").val().replace("+"," ");
