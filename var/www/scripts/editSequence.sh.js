@@ -24,6 +24,7 @@ function sequenceDragandropEnable(){
 				}
 				if ((command.indexOf("[")>0) && (command.indexOf("]")>0)){
 					var possible = command.split(/[\[\]]/);
+					var htmlcode = "";
 					if (possible[1].indexOf(",")>0) {
 						var def = possible[1].split(",");
 						for (var i=0;i<def.length;i++) {
