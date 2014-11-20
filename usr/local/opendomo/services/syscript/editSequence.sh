@@ -29,7 +29,7 @@ then
 	echo '#!/bin/sh' > $SEQ
 	echo '#desc:$name' >> $SEQ
 	echo "desc='$name'" >> $SEQ
-	echo $steplist | sed -e 's/;/\\n/g' -e 's/+/ /g'  >> $SEQ
+	echo $steplist | sed -e 's/!/\\n/g' -e 's/+/ /g'  >> $SEQ
 	
 fi
 
