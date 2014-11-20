@@ -71,16 +71,16 @@ echo "#> Add new step"
 echo "list:editSequenceSteps.sh	iconlist"
 
 echo "	sepTM	Timers	separator"
-echo "	/usr/local/bin/wait.sh+1s	1s	item wait	Wait for [1] second"
-echo "	/usr/local/bin/wait.sh+5s	5s	item wait	Wait for [5] seconds"
-echo "	/usr/local/bin/wait.sh+10s	10s	item wait	Wait for [10] seconds"
-echo "	/usr/local/bin/wait.sh+1m	1m	item wait	Wait for [1] minute"
+echo "	wait.sh+1s	1s	item wait	Wait for [1] second"
+echo "	wait.sh+5s	5s	item wait	Wait for [5] seconds"
+echo "	wait.sh+10s	10s	item wait	Wait for [10] seconds"
+echo "	wait.sh+1m	1m	item wait	Wait for [1] minute"
 
 echo "	sepAU	Audio	separator"
 if test -x /usr/local/bin/play.sh; then
-	echo "	/usr/local/bin/play.sh+beep	beep	item sound	Play a [beep] sound"
-	echo "	/usr/local/bin/play.sh+notify	notify	item sound	Play a [notify] sound"
-	echo "	/usr/local/bin/say.sh+???  	say 	item sound	Say [???]"
+	echo "	play.sh+beep	beep	item sound	Play a [beep] sound"
+	echo "	play.sh+notify	notify	item sound	Play a [notify] sound"
+	echo "	say.sh+???  	say 	item sound	Say [???]"
 fi
 
 #TODO Use one separator per device
@@ -92,8 +92,12 @@ do
 	desc="$port"
 	source /etc/opendomo/control/$port.info
 	bname=`basename $port`
-	echo "	/var/opendomo/control/$port+[$values]	$bname	item port	$desc ???"
+	echo "	setport.sh+$port+[$values]	$bname	item port	$desc ???"
 done
+
+echo "	sepLOG	Logical operators	separator"
+echo "	exit+0	Finish	Finish successfully"
+echo "	exit+1	Abort	Finish with error code"
 echo
 
 
