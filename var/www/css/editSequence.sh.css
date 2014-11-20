@@ -32,10 +32,10 @@ li.separator {
 	width: 100%;
 }
 
-#editSequence {
+#stepListContainer {
 	min-height: 20px;
 }
-#editSequenceSteps li
+#editSequenceSteps li.item
 {
 	height: 60px;
 	width: 60px;

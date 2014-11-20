@@ -16,9 +16,14 @@ function sequenceDragandropEnable(){
 				ui.item.remove();
 			} else {
 				var command = $(ui.item).find("input").val();
-				if (command.indexOf("???")>0) {
+				if (command.indexOf("???")>0){
 					command = command.replace("???",prompt("Value"));
 					$(ui.item).find("input").val(command);
+				}else if ((command.indexOf("[")>0) && (command.indexOf("]")>0)){
+					var possible = command.split(/[\[\]]/);
+					var def = possible[1].split(",")[0];
+					command = possible[0] +  prompt("Choose value between " + possible[1], def) + possible[2];
+					$(ui.item).find("input").val(command);				
 				}
 			}
 		}
@@ -38,6 +43,9 @@ function sequenceDragandropEnable(){
     });
     $( "ul, li" ).disableSelection();
 }
+
+
+
 var result;
 function saveSequence() {
 	result = "";

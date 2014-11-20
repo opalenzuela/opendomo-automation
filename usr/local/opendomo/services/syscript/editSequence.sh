@@ -76,11 +76,7 @@ do
 	desc="$port"
 	source /etc/opendomo/control/$port.info
 	bname=`basename $port`
-	PROCVAL=`echo $values | sed 's/,/ /'`
-	for val in $PROCVAL
-	do
-		echo "	var/opendomo/control/$port+$val	$bname	item port $val	$desc $val"
-	done
+	echo "	var/opendomo/control/$port+[$values]	$bname	item port	$desc [$values]"
 done
 echo
 
