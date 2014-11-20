@@ -3,6 +3,7 @@ include_script("/scripts/vendor/jquery-ui.js");
 $(function($) {
 	setTimeout(sequenceDragandropEnable,1000);
 	$('button[name="submit_editSequence.sh"]').on("click",saveSequence);
+	$("body").append("<div id='dialog' title='Enter a value'><p></p></div>");
 });
 var sortableIn = 0;
 function sequenceDragandropEnable(){
@@ -19,11 +20,32 @@ function sequenceDragandropEnable(){
 				if (command.indexOf("???")>0){
 					command = command.replace("???",prompt("Value"));
 					$(ui.item).find("input").val(command);
+					
 				}else if ((command.indexOf("[")>0) && (command.indexOf("]")>0)){
 					var possible = command.split(/[\[\]]/);
-					var def = possible[1].split(",")[0];
-					command = possible[0] +  prompt("Choose value between " + possible[1], def) + possible[2];
-					$(ui.item).find("input").val(command);				
+					var def = possible[1].split(",");
+					//command = possible[0] +  prompt("Choose value between " + possible[1], def[0]) + possible[2];
+					//$(ui.item).find("input").val(command);
+					$( "#dialog" ).dialog({
+						  resizable: false,
+						  height:140,
+						  modal: true,
+						  buttons: {
+							def[0]: function() {
+								command = possible[0] + def[0] + possible[2];
+								$(ui.item).find("input").val(command);							
+								$( this ).dialog( "close" );
+							},
+							def[1]: function() {
+								command = possible[0] + def[1] + possible[2];
+								$(ui.item).find("input").val(command);								
+								$( this ).dialog( "close" );
+							},
+							"Cancel": function() {
+								ui.item.remove();
+							}
+						  }
+						});					
 				}
 			}
 		}
