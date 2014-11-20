@@ -28,7 +28,7 @@ function sequenceDragandropEnable(){
 						var htmlcode = "";
 						var def = possible[1].split(",");
 						for (var i=0;i<def.length;i++) {
-							htmlcode=htmlcode+"<label><input name='dialogvalue' type='radio' value='"+def[i]+"'>"+def[i]+"</label>");
+							htmlcode=htmlcode+"<label><input name='dialogvalue' type='radio' value='"+def[i]+"'>"+def[i]+"</label>";
 						}
 						$("#dialog p").html(htmlcode);
 					} else {
