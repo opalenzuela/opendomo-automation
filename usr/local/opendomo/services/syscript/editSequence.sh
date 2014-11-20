@@ -76,7 +76,7 @@ do
 	desc="$port"
 	source /etc/opendomo/control/$port.info
 	bname=`basename $port`
-	echo "	var/opendomo/control/$port+[$values]	$bname	item port	$desc [$values]"
+	echo "	var/opendomo/control/$port+[$values]	$bname	item port	$desc ???"
 done
 echo
 

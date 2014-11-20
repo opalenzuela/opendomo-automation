@@ -154,8 +154,12 @@ do
 					status=""
 					source $INFOFILE
 					
+					OLDVAL=`cat $CTRLDIR/$DEVNAME/$PNAME.value`
 					# Always, refresh the port value
 					echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
+					if test "$PVAL" != "$OLDVAL"; then
+						/bin/logevent portchange odauto "$DEVNAME/$PNAME $PVAL"
+					fi
 					
 					# Finally, generate JSON fragment
 					if test "$status" != "disabled"

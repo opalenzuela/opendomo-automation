@@ -15,10 +15,8 @@ if ! test -z "$2"
 then
 	if test -x $CTRLPATH/$1
 	then
-		echo "# Setting port $1 to $2"
-		$CTRLPATH/$1 $2
-		echo "$2" > $CTRLPATH/$1.value
-		echo "`date +%s` $CTRLPATH/$1 $2" >> $LOGPATH/actions.log
+		/usr/local/opendomo/bin/setport.sh $1 $2
+
 	else
 		echo "#ERR: Port [$1] does not exist"
 	fi

@@ -13,25 +13,29 @@ function sequenceDragandropEnable(){
 		over: function(event, ui){sortableIn = 1;},
 		out: function(event, ui){sortableIn = 0;},
 		beforeStop: function(event, ui){
+			var htmlcode = "";
 			if (sortableIn == 0) {
 				ui.item.remove();
 			} else {
 				var command = $(ui.item).find("input").val();
-				if (command.indexOf("???")>0){
-					command = command.replace("???",prompt("Value"));
-					$(ui.item).find("input").val(command);
+
+				if ((command.indexOf("???")>0) ||((command.indexOf("[")>0) && (command.indexOf("]")>0))){
+					if (command.indexOf("???")>0){
+						var possible = command.split(/\?\?\?/);
+						$("#dialog p").html("<input id='dialogvalue' type='text' />");
+					} else {
+						var possible = command.split(/[\[\]]/);
+					}
 					
-				}
-				if ((command.indexOf("[")>0) && (command.indexOf("]")>0)){
-					var possible = command.split(/[\[\]]/);
-					var htmlcode = "";
 					if (possible[1].indexOf(",")>0) {
 						var def = possible[1].split(",");
 						for (var i=0;i<def.length;i++) {
 							htmlcode=htmlcode+"<option value='"+def[i]+"'>"+def[i]+"</option>";
 						}
 						$("#dialog p").html("<select id='dialogvalue'> " + htmlcode + "</select>");
-					} else {
+					} 
+					
+					if (possible[1].indexOf("-")>0) {
 						var def = possible[1].split("-");
 						$("#dialog p").html("<input id='dialogvalue' type='range' min='" + def[0] +"'  max='"+ def[1] + "'><br/><div id='dialogvaluerender'></div>");
 						$("#dialogvalue").on("change", function(){$("#dialogvaluerender").text($(this).val())});
@@ -40,17 +44,19 @@ function sequenceDragandropEnable(){
 					//$(ui.item).find("input").val(command);
 					$( "#dialog" ).dialog({
 						resizable: false,
-						height:140,
+						draggable: false,
 						modal: true,
 						buttons: {
 							"Ok": function() {
 								var value = $("#dialogvalue").val();
 								command = possible[0] + value + possible[2];
 								$(ui.item).find("input").val(command);								
+								$(ui.item).find("p").text($(ui.item).find("p").text().replace("???",value));
 								$( this ).dialog( "close" );
 							},
 							"Cancel": function() {
 								ui.item.remove();
+								$( this ).dialog( "close" );
 							}
 						}
 					});			

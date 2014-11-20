@@ -12,11 +12,11 @@ if ! test -z "$PORT"
 then
 	if ! test -z "$2"
 	then
-		echo "$CTRLPATH/$PORT $2" >> $LOGFILE
+		echo "`date +%s` $CTRLPATH/$PORT $2" >> $LOGFILE
 		$CTRLPATH/$PORT $2
 		echo "$2" > $CTRLPATH/$PORT.value
 		echo "# Port $PORT set to $2"
-		/bin/logevent debug odauto "Port $PORT set to $2"
+		/bin/logevent portchange odauto "$PORT $2"
 		exit 0
 	else
 		echo "#ERROR Value not specified"
