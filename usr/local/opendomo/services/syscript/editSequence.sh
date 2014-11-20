@@ -25,10 +25,11 @@ fi
 # Saving sequence!!
 if ! test -z "$steplist"
 then
-	echo '#!/bin/sh' > $SEQPATH/$1
-	echo '#desc:$1' >> $SEQPATH/$1
-	echo "desc='$1'" >> $SEQPATH/$1
-	echo $steplist | sed -e 's/;/\n/g' -e 's/+/ /'  >> $SEQPATH/$1
+	SEQ=$SEQPATH/$code
+	echo '#!/bin/sh' > $SEQ
+	echo '#desc:$name' >> $SEQ
+	echo "desc='$name'" >> $SEQ
+	echo $steplist | sed -e 's/;/\n/g' -e 's/+/ /'  >> $SEQ
 	
 fi
 
@@ -40,6 +41,7 @@ fi
 par1=""
 echo "#> Steps in [$desc]"
 echo "form:`basename $0`	hidden"
+echo "	code	code	text	$1"
 echo "	name	Name	text	$desc"
 echo "	steplist	Steps	hidden	"
 echo 
