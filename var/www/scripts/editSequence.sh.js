@@ -89,7 +89,7 @@ function saveSequence(event) {
 	$('#stepListContainer li').each(function() {
 		var value = $(this).find("input").val().replace("+"," ");
 		var literal = $(this).find("p").text();
-		result = result + value + " # " + literal + "\n";
+		result = result + value + " # " + literal + ";";
 	});
 	console.log(result)	
 	$("#steplist").val(result);

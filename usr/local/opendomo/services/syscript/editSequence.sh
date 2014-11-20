@@ -22,6 +22,15 @@ else
 	#source $SEQPATH/$1
 fi
 
+# Saving sequence!!
+if ! test -z "$steplist"
+then
+	echo '#!/bin/sh' > $SEQPATH/$1
+	echo '#desc:$1' >> $SEQPATH/$1
+	echo "desc='$1'" >> $SEQPATH/$1
+	echo $steplist | sed -e 's/;/\n/g' -e 's/+/ /'  >> $SEQPATH/$1
+	
+fi
 
 if test -z "$desc"
 then
