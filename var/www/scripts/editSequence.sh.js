@@ -28,12 +28,12 @@ function sequenceDragandropEnable(){
 						var htmlcode = "";
 						var def = possible[1].split(",");
 						for (var i=0;i<def.length;i++) {
-							htmlcode=htmlcode+"<label><input name='dialogvalue' type='radio' value='"+def[i]+"'>"+def[i]+"</label>";
+							htmlcode=htmlcode+"<option value='"+def[i]+"'>"+def[i]+"</option>";
 						}
-						$("#dialog p").html(htmlcode);
+						$("#dialog p").html("<select id='dialogvalue0> " + htmlcode + "</select>");
 					} else {
 						var def = possible[1].split("-");
-						$("#dialog p").html("<input name='dialogvalue' type='range' min='" + def[0] +"'  max='"+ def[1] + "'>");
+						$("#dialog p").html("<input id='dialogvalue' type='range' min='" + def[0] +"'  max='"+ def[1] + "'>");
 					}
 					//command = possible[0] +  prompt("Choose value between " + possible[1], def[0]) + possible[2];
 					//$(ui.item).find("input").val(command);
@@ -43,7 +43,7 @@ function sequenceDragandropEnable(){
 						modal: true,
 						buttons: {
 							"Ok": function() {
-								var value = $("#dialog input").val();
+								var value = $("#dialogvalue").val();
 								command = possible[0] + value + possible[2];
 								$(ui.item).find("input").val(command);								
 								$( this ).dialog( "close" );
