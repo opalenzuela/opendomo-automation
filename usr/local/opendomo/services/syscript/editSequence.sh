@@ -23,13 +23,16 @@ else
 fi
 
 # Saving sequence!!
-if ! test -z "$steplist"
+if ! test -z "$3"
 then
+	code="$1"
+	desc="$2"
+	steplist="$3"
 	SEQ=$SEQPATH/$code
 	echo '#!/bin/sh' > $SEQ
-	echo '#desc:$name' >> $SEQ
-	echo "desc='$name'" >> $SEQ
-	echo $steplist | sed -e 's/!/\\n/g' -e 's/+/ /g'  >> $SEQ
+	echo '#desc:$desc' >> $SEQ
+	echo "desc='$desc'" >> $SEQ
+	echo $steplist | sed -e 's/!/\n/g' -e 's/+/ /g'  >> $SEQ
 	
 fi
 
@@ -68,15 +71,17 @@ echo "#> Add new step"
 echo "list:editSequenceSteps.sh	iconlist"
 
 echo "	sepTM	Timers	separator"
-echo "	wait.sh+1s	1s	item wait	Wait for [1] second"
-echo "	wait.sh+5s	5s	item wait	Wait for [5] seconds"
-echo "	wait.sh+10s	10s	item wait	Wait for [10] seconds"
-echo "	wait.sh+1m	1m	item wait	Wait for [1] minute"
+echo "	/usr/local/bin/wait.sh+1s	1s	item wait	Wait for [1] second"
+echo "	/usr/local/bin/wait.sh+5s	5s	item wait	Wait for [5] seconds"
+echo "	/usr/local/bin/wait.sh+10s	10s	item wait	Wait for [10] seconds"
+echo "	/usr/local/bin/wait.sh+1m	1m	item wait	Wait for [1] minute"
 
 echo "	sepAU	Audio	separator"
-echo "	play.sh+beep	beep	item sound	Play a [beep] sound"
-echo "	play.sh+notify	notify	item sound	Play a [notify] sound"
-echo "	say.sh+???  	say 	item sound	Say [???]"
+if test -x /usr/local/bin/play.sh; then
+	echo "	/usr/local/bin/play.sh+beep	beep	item sound	Play a [beep] sound"
+	echo "	/usr/local/bin/play.sh+notify	notify	item sound	Play a [notify] sound"
+	echo "	/usr/local/bin/say.sh+???  	say 	item sound	Say [???]"
+fi
 
 #TODO Use one separator per device
 echo "	sepDP	Ports 	separator"
@@ -87,7 +92,7 @@ do
 	desc="$port"
 	source /etc/opendomo/control/$port.info
 	bname=`basename $port`
-	echo "	var/opendomo/control/$port+[$values]	$bname	item port	$desc ???"
+	echo "	/var/opendomo/control/$port+[$values]	$bname	item port	$desc ???"
 done
 echo
 
