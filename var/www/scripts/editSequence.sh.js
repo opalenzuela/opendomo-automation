@@ -21,16 +21,20 @@ function sequenceDragandropEnable(){
 					command = command.replace("???",prompt("Value"));
 					$(ui.item).find("input").val(command);
 					
-				}else if ((command.indexOf("[")>0) && (command.indexOf("]")>0)){
+				} else if ((command.indexOf("[")>0) && (command.indexOf("]")>0)){
 					var possible = command.split(/[\[\]]/);
-					var def = possible[1].split(",");
+					if (possible[1].indexOf(",")>0) {
+						var def = possible[1].split(",");
+					} else {
+						var def = possible[1].split("-");
+					}
 					//command = possible[0] +  prompt("Choose value between " + possible[1], def[0]) + possible[2];
 					//$(ui.item).find("input").val(command);
-					$( "#dialog" ).dialog({
-						  resizable: false,
-						  height:140,
-						  modal: true,
-						  buttons: {
+					/*$( "#dialog" ).dialog({
+						resizable: false,
+						height:140,
+						modal: true,
+						buttons: {
 							def[0]: function() {
 								command = possible[0] + def[0] + possible[2];
 								$(ui.item).find("input").val(command);							
@@ -44,8 +48,8 @@ function sequenceDragandropEnable(){
 							"Cancel": function() {
 								ui.item.remove();
 							}
-						  }
-						});					
+						}
+					});	*/			
 				}
 			}
 		}
