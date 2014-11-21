@@ -94,5 +94,5 @@ function saveSequence(event) {
 	});
 	console.log(result)	
 	$("#steplist").val(result);
-	submitForm("editSequence_frm");
+	submitForm("manageActions_frm");
 }
