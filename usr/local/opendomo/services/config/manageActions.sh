@@ -23,6 +23,9 @@ then
 		desc=`head -n2 $s | grep desc: | cut -f2 -d:`
 		echo "	-$code	$desc	action"
 	done
+	if test -z "$code"; then
+		echo "#INFO No actions defined. To create one, press Add"
+	fi
 	echo "actions:"
 	echo "	manageActions.sh	Edit"
 	echo "	delAction.sh	Delete"

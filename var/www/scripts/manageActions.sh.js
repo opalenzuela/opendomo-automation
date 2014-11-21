@@ -2,7 +2,7 @@ include_script("/scripts/vendor/jquery-ui.js");
 
 $(function($) {
 	setTimeout(sequenceDragandropEnable,100);
-	$('button[name="submit_editSequence.sh"]').on("click",saveSequence);
+	$('button[name="submit_manageActions.sh"]').on("click",saveSequence);
 	$("body").append("<div id='dialog' title='Enter a value'><p></p></div>");
 });
 var sortableIn = 0;
