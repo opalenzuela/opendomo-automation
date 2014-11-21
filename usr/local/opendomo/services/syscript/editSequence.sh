@@ -50,7 +50,7 @@ echo "	name	Name	text	$desc"
 echo "	steplist	Steps	hidden	"
 echo 
 echo "list:stepListContainer.sh	detailed"
-for line in `grep -v '^#' $SEQ `; do
+for line in `grep -v '^#' $SEQ | sed 's/ /+/g'`; do
 	command=`echo $line | cut -f1 -d# | sed -e 's/ /+/g' -e 's/||/(OR)/g' -e 's/&&/(AND)/g'`
 	text=`echo $line | cut -f2 -d#`
 	code=`basename $command | cut -f1 -d.`
