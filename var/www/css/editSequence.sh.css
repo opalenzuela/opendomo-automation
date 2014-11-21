@@ -2,6 +2,8 @@
 li.wait a {
 	background-image: url("/images/timer.png");
 }
+li.play a,
+li.say a,
 li.sound a{
 	background-image: url("/images/music.png");
 }
@@ -16,6 +18,7 @@ li.climate a {
 li.light a{
 	background-image: url("/images/light.png") ;
 }
+li.exit a,
 li.access a,
 li.security a{
 	background-image: url("/images/security.png");

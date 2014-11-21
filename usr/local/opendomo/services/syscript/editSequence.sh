@@ -31,8 +31,7 @@ then
 	SEQ=$SEQPATH/$code
 	echo '#!/bin/sh' > $SEQ
 	echo '#desc:$desc' >> $SEQ
-	echo "desc='$desc'" >> $SEQ
-	echo $steplist | sed -e 's/!/\n/g' -e 's/+/ /g'  >> $SEQ
+	echo $steplist | sed -e 's/!/\n/g' -e 's/+/ /g'  -e 's/_/\//g'  -e 's/(OR)/||/g' -e 's/(AND)/&&/g' >> $SEQ
 	
 fi
 
@@ -49,13 +48,11 @@ echo "	name	Name	text	$desc"
 echo "	steplist	Steps	hidden	"
 echo 
 echo "list:stepListContainer.sh	detailed"
-for line in `grep -nv '^#' $SEQPATH/$FILE | sed 's/ /:/g'`; do
-	lineno=`echo $line | cut -f1 -d:`  
-	command=`echo $line | cut -f2 -d# | sed -e 's/:/ /g' -e 's/+/ /g'`
-	code=`echo $line | cut -f2 -d: | cut -f1 -d.`
-	aux=`echo $line | cut -f2`
-
-	echo "	$FILE-$lineno	$command	step $code $aux"
+for line in `grep -v '^#' $SEQPATH/$FILE | sed 's/ /:/g'`; do
+	command=`echo $line | cut -f1 -d# | sed -e 's/ /+/g' -e 's/||/(OR)/g' -e 's/&&/(AND)/g'`
+	text=`echo $line | cut -f2 -d#`
+	code=`basename $command | cut -f1 -d.`
+	echo "	$command	$command	step $code	$text"
 done
 if test -z "$command"; then
 	echo "#INFO No steps defined yet. Select the action in the menu and press Add."
@@ -92,12 +89,13 @@ do
 	desc="$port"
 	source /etc/opendomo/control/$port.info
 	bname=`basename $port`
-	echo "	setport.sh+$port+[$values]	$bname	item port	$desc ???"
+	pname=`echo $port |  sed 's/\//_/g'`
+	echo "	setport.sh+$pname+[$values]	$bname	item port	$desc ???"
 done
 
 echo "	sepLOG	Logical operators	separator"
-echo "	exit+0	Finish	Finish successfully"
-echo "	exit+1	Abort	Finish with error code"
+echo "	exit+0	Finish	item logical 	Finish successfully	"
+echo "	exit+1	Abort	item logical	Finish with error code"
 echo
 
 
