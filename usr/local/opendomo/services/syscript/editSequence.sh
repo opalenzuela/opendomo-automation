@@ -51,8 +51,8 @@ echo "	steplist	Steps	hidden	"
 echo 
 echo "list:stepListContainer.sh	detailed"
 for line in `grep -v '^#' $SEQ | sed 's/ /+/g'`; do
-	command=`echo $line | cut -f1 -d# | sed -e 's/ /+/g' -e 's/||/(OR)/g' -e 's/&&/(AND)/g'`
-	text=`echo $line | cut -f2 -d#`
+	command=`echo $line | cut -f1 -d# | sed -e 's/+/ /g' -e 's/||/(OR)/g' -e 's/&&/(AND)/g'`
+	text=`echo $line | cut -f2 -d#  | sed -e 's/+/ /g'`
 	code=`basename $command | cut -f1 -d.`
 	echo "	$command	$command	step $code	$text"
 done
@@ -77,9 +77,9 @@ echo "	wait.sh+1m	1m	item wait	Wait for [1] minute"
 
 echo "	sepAU	Audio	separator"
 if test -x /usr/local/bin/play.sh; then
-	echo "	play.sh+beep	beep	item sound	Play a [beep] sound"
-	echo "	play.sh+notify	notify	item sound	Play a [notify] sound"
-	echo "	say.sh+???  	say 	item sound	Say [???]"
+	echo "	play.sh+beep	beep	item play	Play a [beep] sound"
+	echo "	play.sh+notify	notify	item play	Play a [notify] sound"
+	echo "	say.sh+???  	say 	item say 	Say [???]"
 fi
 
 #TODO Use one separator per device
@@ -92,7 +92,7 @@ do
 	source /etc/opendomo/control/$port.info
 	bname=`basename $port`
 	pname=`echo $port |  sed 's/\//_/g'`
-	echo "	setport.sh+$pname+[$values]	$bname	item port	$desc ???"
+	echo "	setport.sh+$pname+[$values]	$bname	item setport	$desc ???"
 done
 
 echo "	sepLOG	Logical operators	separator"
