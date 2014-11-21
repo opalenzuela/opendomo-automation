@@ -15,7 +15,17 @@ fi
 # NO parameters? Invoke manageSequences and exit
 if test -z "$1"
 then
-	/usr/local/opendomo/manageSequences.sh
+	cd $SEQPATH
+	echo "list:`basename $0`	selectable"
+	for s in *.seq
+	do
+		code="$s"
+		desc=`head -n2 $s | grep desc: | cut -f2 -d:`
+		echo "	-$code	$desc	action"
+	done
+	echo "actions:"
+	echo "	manageActions.sh	Edit"
+	echo "	delAction.sh	Delete"
 	exit 0
 else
 	code="$1"
