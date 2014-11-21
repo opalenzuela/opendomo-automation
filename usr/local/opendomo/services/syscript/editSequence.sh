@@ -18,7 +18,9 @@ then
 	/usr/local/opendomo/manageSequences.sh
 	exit 0
 else
-	touch $SEQPATH/$1
+	code="$1"
+	SEQ=$SEQPATH/$1
+	touch $SEQ
 	#source $SEQPATH/$1
 fi
 
@@ -43,12 +45,12 @@ fi
 par1=""
 echo "#> Steps in [$desc]"
 echo "form:`basename $0`	hidden"
-echo "	code	code	text	$1"
+echo "	code	code	text	$code"
 echo "	name	Name	text	$desc"
 echo "	steplist	Steps	hidden	"
 echo 
 echo "list:stepListContainer.sh	detailed"
-for line in `grep -v '^#' $SEQPATH/$FILE | sed 's/ /:/g'`; do
+for line in `grep -v '^#' $SEQ `; do
 	command=`echo $line | cut -f1 -d# | sed -e 's/ /+/g' -e 's/||/(OR)/g' -e 's/&&/(AND)/g'`
 	text=`echo $line | cut -f2 -d#`
 	code=`basename $command | cut -f1 -d.`
