@@ -45,7 +45,7 @@ then
 	steplist="$3"
 	SEQ=$SEQPATH/$code
 	echo '#!/bin/sh' > $SEQ
-	echo '#desc:$desc' >> $SEQ
+	echo '#desc:' $desc >> $SEQ
 	echo $steplist | sed -e 's/!/\n/g' -e 's/+/ /g'  -e 's/_/\//g'  -e 's/(OR)/||/g' -e 's/(AND)/&&/g' >> $SEQ
 	
 fi
