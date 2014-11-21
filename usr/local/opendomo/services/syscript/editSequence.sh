@@ -54,7 +54,9 @@ for line in `grep -v '^#' $SEQ | sed 's/ /+/g'`; do
 	command=`echo $line | cut -f1 -d# | sed -e 's/+/ /g' -e 's/||/(OR)/g' -e 's/&&/(AND)/g'`
 	text=`echo $line | cut -f2 -d#  | sed -e 's/+/ /g'`
 	code=`basename $command | cut -f1 -d.`
-	echo "	$command	$command	step $code	$text"
+	caption=`echo $command | cut -f2 -d' '`
+	test -z "$caption" && caption=$command
+	echo "	$command	$caption	step $code	$text"
 done
 if test -z "$command"; then
 	echo "#INFO No steps defined yet. Select the action in the menu and press Add."
