@@ -49,6 +49,8 @@ do
 	val2=`echo $line | cut -f3 -d' '`
 	echo "	-$val1 	$val1 $comp $val2 	condition	$comment"
 done
+echo "actions:"
+echo "	manageRules.sh	Save"
 echo 
 
 echo "#> Edit conditions"

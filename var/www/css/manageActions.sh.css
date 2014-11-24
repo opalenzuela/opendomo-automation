@@ -42,22 +42,22 @@ li.item {
 	text-align: center;
 }
 
-#stepListContainer {
+#ruleListContainer {
 	min-height: 20px;
 	max-height: 200px;
 	overflow-y: auto;
 }
-#editSequenceSteps li.item
+#editConditions li.item
 {
 	height: 60px;
 	width: 60px;
 }
-#stepListContainer li a {
+#ruleListContainer li a {
 	background-size: 24px;
 	background-position: left center;
 	background-repeat: no-repeat;
 }
-#editSequenceSteps li a {
+#editConditions li a {
 	background-size: 32px;
 	background-position: center;
 	background-repeat: no-repeat;

@@ -2,7 +2,7 @@ include_script("/scripts/vendor/jquery-ui.js");
 
 $(function($) {
 	setTimeout(ruleDragandropEnable,100);
-	$('button[name="submit_manageActions.sh"]').on("click",saverule);
+	$('button[name="submit_manageRules.sh"]').on("click",saverule);
 	$("body").append("<div id='dialog' title='Enter a value'><p></p></div>");
 });
 var sortableIn = 0;
@@ -65,7 +65,7 @@ function ruleDragandropEnable(){
 			}
 		}
     });
-    $( "#editruleSteps li.item" ).draggable({
+    $( "#editConditions li.item" ).draggable({
 		connectToSortable: "#ruleListContainer",
 		helper: "clone",
 		revert: "invalid",
@@ -90,7 +90,7 @@ function saverule(event) {
 	$('#ruleListContainer li').each(function() {
 		var value = $(this).find("input").val().replace("+"," ");
 		var literal = $(this).find("p").text();
-		result = result + value + " # " + literal + "!";
+		result = result + "test $(" + value + ") # " + literal + "!";
 	});
 	console.log(result)	
 	$("#steplist").val(result);
