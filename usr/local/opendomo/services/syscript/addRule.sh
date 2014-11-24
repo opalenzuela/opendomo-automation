@@ -23,9 +23,8 @@ fi
 
 echo "#> Add"
 echo "form:`basename $0`"
+echo "	code	Code	text[a-zA-Z0-9]*"
 echo "	name	Name	text"
 echo "	action	Action	list[$COMMANDS]"
-echo 
-echo "actions:"
-echo "	editRule.sh	Add"
+
 echo 
