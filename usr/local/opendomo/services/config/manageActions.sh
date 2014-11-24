@@ -17,16 +17,19 @@ if test -z "$1"
 then
 	cd $SEQPATH
 	echo "list:`basename $0`	selectable"
-	for s in *.seq
+	for s in *.*
 	do
-		code="$s"
-		desc=`head -n2 $s | grep desc: | cut -f2 -d:`
-		echo "	-$code	$desc	action"
+		if test -f $s; then
+			code="$s"
+			desc=`head -n2 $s | grep desc: | cut -f2 -d:`
+			echo "	-$code	$desc	action"
+		fi
 	done
 	if test -z "$code"; then
 		echo "#INFO No actions defined. To create one, press Add"
 	fi
 	echo "actions:"
+	echo "	addAction.sh	Add"
 	echo "	manageActions.sh	Edit"
 	echo "	delAction.sh	Delete"
 	exit 0

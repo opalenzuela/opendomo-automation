@@ -1,26 +1,26 @@
 #!/bin/sh
-#desc:Launch sequence
+#desc:Start action
 #type:local
-#package:odcommon
+#package:odauto
 
-# Copyright(c) 2011 OpenDomo Services SL. Licensed under GPL v3 or later
+# Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
 
-SEQPATH="/etc/opendomo/sequences"
+SEQPATH="/etc/opendomo/actions"
 if ! test -d $SEQPATH; then
 	mkdir -p $SEQPATH 2>/dev/null
 fi
 
 
-# No parameter. Listing sequences
+# No parameter. Listing actions
 if test -z "$1"; then
-	echo "#> Available sequences"
+	echo "#> Available actions"
 	echo "list:`basename $0`	simple"
 	EXIST=0
 	if !  test -d $SEQPATH; then
 		mkdir $SEQPATH
 	fi
 	cd $SEQPATH 
-	for i in *; do
+	for i in *.*; do
 		if test -x $i; then
 			desc=`grep '#desc' $i | cut -f2 -d:` 2>/dev/null
 			TYPE="sequence"
@@ -37,20 +37,20 @@ if test -z "$1"; then
 		fi
 	done
 	if test "$EXIST" = "0" ; then
-		if test -x /usr/local/opendomo/addSequence.sh; then
-			echo "# There are no sequences. Please, go to Add."
+		if test -x /usr/local/opendomo/addAction.sh; then
+			echo "# There are no actions configured. Please, go to Add."
 			echo "actions:"
-			echo "	addSequence.sh	Add"
+			echo "	addAction.sh	Add"
 		else
-			echo "# There are no sequences. Please ask your installer."
+			echo "# There are no actions configured. Please ask your installer."
 		fi
 		echo
 		exit 0
 	fi
 
 	echo "actions:"
-	if test -x /usr/local/opendomo/manageSequence.sh; then
-		echo "	manageSequence.sh	Manage sequences"
+	if test -x /usr/local/opendomo/manageActions.sh; then
+		echo "	manageActions.sh	Manage actions"
 	fi
 else
 	# SEQUENCE REQUESTED
@@ -59,12 +59,12 @@ else
 			touch /var/opendomo/run/$1.pid
 			desc=`grep '#desc' "$SEQPATH/$1" | cut -f2 -d:` 2>/dev/null
 			echo "#INFO Launching [$desc]"
-			/bin/logevent notice odauto "Sequence [$desc] started"
-			bgshell "/bin/logevent notice odauto 'Sequence started' ; $SEQPATH/$1 ; /bin/logevent notice odcommon 'Sequence finished' ; rm /var/opendomo/run/$1.pid"
+			/bin/logevent notice odauto "Action [$desc] started"
+			bgshell "/bin/logevent notice odauto 'Action started' ; $SEQPATH/$1 ; /bin/logevent notice odcommon 'Action finished' ; rm /var/opendomo/run/$1.pid"
 	
-			/usr/local/opendomo/launchSequence.sh
+			/usr/local/opendomo/startAction.sh
 		else
-			/bin/logevent debug odauto "Sequence [$1] is already active. Ignoring."
+			/bin/logevent debug odauto "Action [$1] is already active. Ignoring."
 		fi
 	else
 		echo "#ERROR Missing privileges"
