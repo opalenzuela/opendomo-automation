@@ -1,1 +1,1 @@
-include_script("/scripts/addRuleRequirement.sh.js");
+include_script("/scripts/manageRules.sh.js");

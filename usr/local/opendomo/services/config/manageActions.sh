@@ -37,6 +37,7 @@ else
 	code="$1"
 	SEQ=$SEQPATH/$1
 	touch $SEQ
+	chmod +x $SEQ
 	#source $SEQPATH/$1
 fi
 
@@ -50,7 +51,7 @@ then
 	echo '#!/bin/sh' > $SEQ
 	echo '#desc:' $desc | sed 's/+/ /g' >> $SEQ
 	echo $steplist | sed -e 's/!/\n/g' -e 's/+/ /g'  -e 's/_/\//g'  -e 's/(OR)/||/g' -e 's/(AND)/&&/g' >> $SEQ
-	
+	chmod +x $SEQ
 fi
 
 if test -z "$desc"
