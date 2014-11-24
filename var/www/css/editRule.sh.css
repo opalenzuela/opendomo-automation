@@ -22,5 +22,8 @@
 	background-size: 32px;
 	background-position: center;
 	background-repeat: no-repeat;
-
 }
+
+li.greater p:after { 	content:">";}
+li.equal p:after { 	content:"=";}
+li.smaller p:after { 	content:"<";}

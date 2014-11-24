@@ -43,11 +43,10 @@ echo "list:ruleListContainer.sh"
 for i in `grep ^test $RULE | sed  -e 's/ /+/g' -e 's/\$//g' `
 do
 	line=`echo $i | sed 's/+/ /' `
-	comment`echo $i | cut -f2 -d'#' `
 	val1=`echo $line | cut -f1 -d' '`
-	comp=`echo $line | cut -f2 -d' '`
+	comp=`echo $line | cut -f2 -d' ' | sed -e 's/eq/equal/g' -e 's/gt/greater/g' -e 's/lt/smaller/g' `
 	val2=`echo $line | cut -f3 -d' '`
-	echo "	-$val1 	$val1 $comp $val2 	condition	$comment"
+	echo "	-$val1 	$val1	condition $comp	$val2"
 done
 echo "actions:"
 echo "	manageRules.sh	Save"

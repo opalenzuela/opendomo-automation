@@ -90,7 +90,7 @@ function saverule(event) {
 	$('#ruleListContainer li').each(function() {
 		var value = $(this).find("input").val().replace("+"," ");
 		var literal = $(this).find("p").text();
-		result = result + "test $(" + value + ") # " + literal + "!";
+		result = result + "test $" + value + "#" + literal + "!";
 	});
 	console.log(result)	
 	$("#steplist").val(result);
