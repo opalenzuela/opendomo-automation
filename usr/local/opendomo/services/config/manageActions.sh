@@ -48,7 +48,7 @@ then
 	steplist="$3"
 	SEQ=$SEQPATH/$code
 	echo '#!/bin/sh' > $SEQ
-	echo '#desc:' $desc >> $SEQ
+	echo '#desc:' $desc | sed 's/+/ /g' >> $SEQ
 	echo $steplist | sed -e 's/!/\n/g' -e 's/+/ /g'  -e 's/_/\//g'  -e 's/(OR)/||/g' -e 's/(AND)/&&/g' >> $SEQ
 	
 fi
@@ -94,25 +94,29 @@ echo "	wait.sh+5s	5s	item wait	Wait for [5] seconds"
 echo "	wait.sh+10s	10s	item wait	Wait for [10] seconds"
 echo "	wait.sh+1m	1m	item wait	Wait for [1] minute"
 
-echo "	sepAU	Audio	separator"
+# Only if audio is available
 if test -x /usr/local/bin/play.sh; then
+	echo "	sepAU	Audio	separator"
 	echo "	play.sh+beep	beep	item play	Play a [beep] sound"
 	echo "	play.sh+notify	notify	item play	Play a [notify] sound"
 	echo "	say.sh+???  	say 	item say 	Say [???]"
 fi
 
-#TODO Use one separator per device
-echo "	sepDP	Ports 	separator"
-cd /etc/opendomo/control/
-for port in `grep  -n "way='out'" */* | cut -f1 -d.`
-do
-	values="on,off"
-	desc="$port"
-	source /etc/opendomo/control/$port.info
-	bname=`basename $port`
-	pname=`echo $port |  sed 's/\//_/g'`
-	echo "	setport.sh+$pname+[$values]	$bname	item setport	$desc ???"
-done
+# Only if Control directory exists (hence, control devices are configured)
+if test -d /etc/opendomo/control/
+then
+	echo "	sepDP	Ports 	separator"
+	cd /etc/opendomo/control/
+	for port in `grep  -n "way='out'" */* | cut -f1 -d.`
+	do
+		values="on,off"
+		desc="$port"
+		source /etc/opendomo/control/$port.info
+		bname=`basename $port`
+		pname=`echo $port |  sed 's/\//_/g'`
+		echo "	setport.sh+$pname+[$values]	$bname	item setport	$desc ???"
+	done
+fi
 
 echo "	sepLOG	Logical operators	separator"
 echo "	exit+0	Finish	item logical 	Finish successfully	"
