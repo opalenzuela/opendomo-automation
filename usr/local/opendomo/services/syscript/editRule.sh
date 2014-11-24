@@ -40,9 +40,14 @@ echo "	rules	Rules	text	$rules"
 
 echo "#> Conditions"
 echo "list:ruleListContainer.sh"
-for i in grep ^test $RULE | sed 's/ /+/g' 
+for i in `grep ^test $RULE | sed  -e 's/ /+/g' -e 's/\$//g' `
 do
-	echo "	-$i 	$i 	condition	Conditions"
+	line=`echo $i | sed 's/+/ /' `
+	comment`echo $i | cut -f2 -d'#' `
+	val1=`echo $line | cut -f1 -d' '`
+	comp=`echo $line | cut -f2 -d' '`
+	val2=`echo $line | cut -f3 -d' '`
+	echo "	-$val1 	$val1 $comp $val2 	condition	$comment"
 done
 echo 
 
