@@ -14,6 +14,7 @@ if test -z "$1"; then
 else
 	# 4 parameters, we are posting data
 	if ! test -z "$4"; then
+		RULE=$RULESDIR/$1
 		code="$1"
 		desc="$2"
 		action="$3"
