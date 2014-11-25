@@ -22,7 +22,8 @@ function ruleDragandropEnable(){
 				$("p.dialogcomp").html("<select id='dialogcomparison'><option value='-lt'>Smaller</option><option value='='>Equal</option><option value='-gt'>Greater</option></select>");
 				
 				if ((command.indexOf("[")>0) && (command.indexOf("]")>0)){
-					if (possible[1].indexOf(",")>0) {
+					var possible = command.split(/[\[\]]/);
+					if (command.indexOf(",")>0) {
 						var def = possible[1].split(",");
 						for (var i=0;i<def.length;i++) {
 							htmlcode=htmlcode+"<option value='"+def[i]+"'>"+def[i]+"</option>";
@@ -45,7 +46,7 @@ function ruleDragandropEnable(){
 							"Ok": function() {
 								var value = $("#dialogvalue").val();
 								var comparison = $("#dialogcomparison").val();
-								command = possible[0] + comparison + value;
+								command = ui.item.find("input").val().split("+")[0] + comparison + value;
 								$(ui.item).find("input").val(command);								
 								$(ui.item).find("p").text($(ui.item).find("p").text().replace("???",value));
 								$( this ).dialog( "close" );

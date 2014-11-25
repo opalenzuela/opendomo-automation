@@ -1,1 +1,2 @@
+#desc:Weekday
 date +%w
