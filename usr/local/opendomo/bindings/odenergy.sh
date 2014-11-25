@@ -55,11 +55,18 @@ do
 		# LSTFILE contiene el listado correcto
 		for param in voltage_L1 voltage_L2 voltage_L3 current_L1 current_L2 current_L3
 		do
+			INFOFILE=$CFGDIR/$DEVNAME/$PNAME.info
+			if ! test -f $INFOFILE; then
+				echo "way='in'" > $INFOFILE
+				echo "tag='power'" >> $INFOFILE
+				echo "desc='$param'" >> $INFOFILE
+			fi
 			
 			PVAL=`cat $CTRLDIR/$DEVNAME/$PNAME.value`
 			PNAME=$param
 			PTYPE="AI"
-			PTAG="energy"
+			PTAG="power"
+			
 			grep $param $TMPFILE | tail -n1 | cut -f2 -d'>' | cut -f1 -d'<' > $CTRLDIR/$DEVNAME/$PNAME
 
 			#TODO Launch an event if port has changed

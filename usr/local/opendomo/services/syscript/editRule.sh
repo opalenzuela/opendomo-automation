@@ -38,9 +38,10 @@ echo "	code	Code	text	$code"
 echo "	desc	Description	text	$desc"
 echo "	action	Action	text	$action"
 echo "	rules	Rules	text	$rules"
+echo 
 
 echo "#> Conditions"
-echo "list:ruleListContainer.sh"
+echo "list:ruleListContainer.sh	tabform"
 for i in `grep ^test $RULE | sed  -e 's/ /+/g' `
 do
 	val1=`echo $i | cut -f2 -d+ | sed 's/[^a-zA-Z0-9\.]//g' `
@@ -56,11 +57,26 @@ echo
 
 echo "#> Edit conditions"
 echo "list:editConditions.sh	iconlist"
+
 echo "	sepTime		Time	separator	Time"
 echo "	minute.sh+[0-59]	Minute	item time"
 echo "	hour.sh+[0-23]	Hour	item time"
 echo "	day.sh+[1-31]	Day 	item time"
 echo "	weekday.sh+[0-7]	Weekday	item time"
 echo "	month.sh+[1-12]	Month	item time"
+
+if test -d /etc/opendomo/control/ ; then
+	cd /etc/opendomo/control/
+	echo "	sepPorts		Ports 	separator	Ports"
+	for port in */*.info; do
+		if test -f $port; then
+			values="on,off"
+			desc=`grep desc: $port | cut -f2 -d:`
+			pname=`echo $port | cut -f1 -d.`
+			echo "	portval.sh+$pname+[$values]	$desc	item port"
+		fi
+	done
+
+fi
 echo
 
