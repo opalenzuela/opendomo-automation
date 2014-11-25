@@ -94,5 +94,5 @@ function saverule(event) {
 	});
 	console.log(result)	
 	$("#steplist").val(result);
-	submitForm("manageActions_frm");
+	submitForm("editRule_frm");
 }

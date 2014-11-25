@@ -40,7 +40,7 @@ echo "	rules	Rules	text	$rules"
 
 echo "#> Conditions"
 echo "list:ruleListContainer.sh"
-for i in `grep ^test $RULE | sed  -e 's/ /+/g' -e 's/\$//g' `
+for i in `grep ^test $RULE | sed  -e 's/ /+/g' -e 's/\$//g' -e 's/test//' `
 do
 	line=`echo $i | sed 's/+/ /' `
 	val1=`echo $line | cut -f1 -d' '`
