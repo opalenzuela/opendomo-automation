@@ -40,10 +40,10 @@ echo "	rules	Rules	text	$rules"
 
 echo "#> Conditions"
 echo "list:ruleListContainer.sh"
-for i in `grep ^test $RULE | sed  -e 's/ /+/g' -e 's/\$//g' `
+for i in `grep ^test $RULE | sed  -e 's/ /+/g' `
 do
-	val1=`echo $i | cut -f2 -d+ `
-	comp=`echo $i | cut -f3 -d+ | sed 's/-//'`
+	val1=`echo $i | cut -f2 -d+ | sed 's/[^a-zA-Z0-9\.]//g' `
+	comp=`echo $i | cut -f3 -d+ | sed -e 's/=/equal/g' -e 's/-gt/greater/g' -e 's/-lt/smaller/g' `
 	val2=`echo $i | cut -f4 -d+ `
 	#comments=`echo $i | cut -f2 -d# | sed 's/+/ /g'`
 	echo "	-$val1 	$val1	condition $comp	$val2 "
