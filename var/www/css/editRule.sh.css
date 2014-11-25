@@ -24,6 +24,6 @@
 	background-repeat: no-repeat;
 }
 
-li.greater p:before {	content:">";}
-li.equal p:before { 	content:"=";}
-li.smaller p:before {	content:"<";}
+li.greater p:before {	content:">  ";}
+li.equal p:before { 	content:"=  ";}
+li.smaller p:before {	content:"<  ";}

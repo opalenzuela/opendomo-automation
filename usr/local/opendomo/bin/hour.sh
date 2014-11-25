@@ -1,1 +1,1 @@
-date +%H.%M
+date +%H

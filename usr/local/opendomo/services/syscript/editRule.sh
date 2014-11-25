@@ -55,10 +55,10 @@ echo
 echo "#> Edit conditions"
 echo "list:editConditions.sh	iconlist"
 echo "	sepTime	separator	Time"
-echo "	minute.sh	Minute	item time"
-echo "	hour.sh	Hour	item time"
-echo "	day.sh	Day 	item time"
-echo "	weekday.sh	Weekday	item time"
-echo "	month.sh	Month	item time"
+echo "	minute.sh+[0-59]	Minute	item time"
+echo "	hour.sh+[0-23]	Hour	item time"
+echo "	day.sh+[1-31]	Day 	item time"
+echo "	weekday.sh+[0-7]	Weekday	item time"
+echo "	month.sh+[1-12]	Month	item time"
 echo
 
