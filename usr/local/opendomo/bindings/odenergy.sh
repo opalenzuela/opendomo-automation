@@ -55,14 +55,15 @@ do
 		# LSTFILE contiene el listado correcto
 		for param in voltage_L1 voltage_L2 voltage_L3 current_L1 current_L2 current_L3
 		do
-			grep $param $TMPFILE | tail -n1 | cut -f2 -d'>' | cut -f1 -d'<' > $CTRLDIR/$DEVNAME/$PNAME
+			
 			PVAL=`cat $CTRLDIR/$DEVNAME/$PNAME.value`
 			PNAME=$param
 			PTYPE="AI"
-			PVAL=`echo $line | cut -f3 -d:`
 			PTAG="energy"
+			grep $param $TMPFILE | tail -n1 | cut -f2 -d'>' | cut -f1 -d'<' > $CTRLDIR/$DEVNAME/$PNAME
 
-				
+			#TODO Launch an event if port has changed
+			
 			# Always, refresh the port value
 			cat $CTRLDIR/$DEVNAME/$PNAME  > $CTRLDIR/$DEVNAME/$PNAME.value
 				
