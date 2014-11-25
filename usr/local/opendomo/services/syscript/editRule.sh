@@ -22,6 +22,7 @@ else
 		echo '#desc:' $desc >> $RULESDIR/$code
 		echo $4 | sed -e 's/+/ /g' -e 's/!/\n/g' -e 's/(DOLLAR)/\$/g' >> $RULESDIR/$code
 		echo $action >> $RULESDIR/$code
+		chmod +x $RULESDIR/$code
 	else
 		# Else, just load file
 		code=$1
@@ -55,7 +56,7 @@ echo
 
 echo "#> Edit conditions"
 echo "list:editConditions.sh	iconlist"
-echo "	sepTime	separator	Time"
+echo "	sepTime		Time	separator	Time"
 echo "	minute.sh+[0-59]	Minute	item time"
 echo "	hour.sh+[0-23]	Hour	item time"
 echo "	day.sh+[1-31]	Day 	item time"
