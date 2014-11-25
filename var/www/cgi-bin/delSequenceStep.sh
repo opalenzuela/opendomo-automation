@@ -1,2 +1,0 @@
-#!/bin/sh
-./manageSequenceSteps.sh
