@@ -19,7 +19,7 @@ function ruleDragandropEnable(){
 				ui.item.remove();
 			} else {
 				var command = $(ui.item).find("input").val();
-				$("p.dialogcomp").html("<select id='dialogcomparison'><option value='-lt'>Smaller</option><option value='='>Equal</option><option value='-gt'>Greater</option></select>");
+				$("p.dialogcomp").html("<select id='dialogcomparison'><option value='smaller'>Smaller</option><option value='equal'>Equal</option><option value='greater'>Greater</option></select>");
 				
 				if ((command.indexOf("[")>0) && (command.indexOf("]")>0)){
 					var possible = command.split(/[\[\]]/);
@@ -46,9 +46,21 @@ function ruleDragandropEnable(){
 							"Ok": function() {
 								var value = $("#dialogvalue").val();
 								var comparison = $("#dialogcomparison").val();
-								command = ui.item.find("input").val().split("+")[0] + comparison + value;
+								switch(comparison){
+									case "equal":
+										var cmdcomp = "=";
+										break;
+									case "smaller":
+										var cmdcomp = "-lt";
+										break;
+									case "greater":
+										var cmdcomp = "-gt";
+										break;
+								}
+								command = "(" + ui.item.find("input").val().split("+")[0] + ")+" + cmdcomp + "+" + value;
 								$(ui.item).find("input").val(command);								
-								$(ui.item).find("p").text($(ui.item).find("p").text().replace("???",value));
+								$(ui.item).find("p").text(value);
+								$(ui.item).addClass(comparison);
 								$( this ).dialog( "close" );
 							},
 							"Cancel": function() {
