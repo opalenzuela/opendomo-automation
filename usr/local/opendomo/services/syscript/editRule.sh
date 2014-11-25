@@ -33,7 +33,7 @@ else
 fi
 
 echo "#> Hidden form"
-echo "form:`basename $0`"
+echo "form:`basename $0`	hidden"
 echo "	code	Code	text	$code"
 echo "	desc	Description	text	$desc"
 echo "	action	Action	text	$action"
