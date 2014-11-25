@@ -97,7 +97,7 @@ function saverule(event) {
 	result = "";
 	$('#ruleListContainer li').each(function() {
 		var value = $(this).find("input").val().replace("+"," ");
-		result = result + "test $" + value + "!";
+		result = result + "test (DOLLAR)" + value + "!";
 	});
 	console.log(result)	
 	$("#rules").val(result);

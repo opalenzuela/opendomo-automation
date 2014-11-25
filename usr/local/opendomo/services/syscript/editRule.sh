@@ -20,7 +20,7 @@ else
 		action="$3"
 		echo "#!/bin/sh -e" > $RULESDIR/$code
 		echo '#desc:' $desc >> $RULESDIR/$code
-		echo $4 | sed -e 's/+/ /g' -e 's/!/\n/g' >> $RULESDIR/$code
+		echo $4 | sed -e 's/+/ /g' -e 's/!/\n/g' -e 's/(DOLLAR)/\$/g' >> $RULESDIR/$code
 		echo $action >> $RULESDIR/$code
 	else
 		# Else, just load file
