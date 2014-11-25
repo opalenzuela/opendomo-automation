@@ -9,7 +9,7 @@ if test "$1" == "validate"; then
 	source "$2"
 
 	# Validation command
-	if wget -q $URL/data.xml --http-user=$USER --http-password=$PASS -O - &>/dev/null
+	if wget $URL/data.xml --http-user=$USER --http-password=$PASS -O - 
 	then
 		exit 0
 	else
@@ -45,15 +45,17 @@ test -d /var/www/data || mkdir -p /var/www/data
 
 while test -f $PIDFILE
 do
+	echo >  /var/www/data/$DEVNAME.odauto.tmp
+
 	# Making the actual call
 	if wget -q $URL/data.xml --http-user=$USER --http-password=$PASS -O $TMPFILE
 	then
-		echo >  /var/www/data/$DEVNAME.odauto.tmp
+		
 			
 		# LSTFILE contiene el listado correcto
 		for param in voltage_L1 voltage_L2 voltage_L3 current_L1 current_L2 current_L3
 		do
-			grep param $TMPFILE | tail -n1 | cut -f2 -d'>' | cut -f1 -d'<' > $CTRLDIR/$DEVNAME/$PNAME.value
+			grep $param $TMPFILE | tail -n1 | cut -f2 -d'>' | cut -f1 -d'<' > $CTRLDIR/$DEVNAME/$PNAME
 			PVAL=`cat $CTRLDIR/$DEVNAME/$PNAME.value`
 			PNAME=$param
 			PTYPE="AI"
@@ -62,7 +64,7 @@ do
 
 				
 			# Always, refresh the port value
-			#echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
+			cat $CTRLDIR/$DEVNAME/$PNAME  > $CTRLDIR/$DEVNAME/$PNAME.value
 				
 			# Finally, generate JSON fragment
 			if test "$status" != "disabled"
