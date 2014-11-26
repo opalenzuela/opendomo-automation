@@ -47,12 +47,13 @@ do
 	val1=`echo $i | cut -f2 -d+ | sed 's/[^a-zA-Z0-9\.\(\)]//g' `
 	comp=`echo $i | cut -f3 -d+ | sed -e 's/=/equal/g' -e 's/-gt/greater/g' -e 's/-lt/smaller/g' `
 	val2=`echo $i | cut -f4 -d+ `
-	
-	if test -f $val1; then
-		desc=`grep '#desc' $val1 | cut -f2 -d:` 
+	script=`echo $val1 | sed  's/[^a-zA-Z0-9\.]//g' `
+	if test -f $script; then
+		desc=`grep '#desc' $script | cut -f2 -d:` 
 	else
-		desc=`grep '#desc' /usr/local/opendomo/bin/$val1 | cut -f2 -d:` 
+		desc=`grep '#desc' /usr/local/opendomo/bin/$script | cut -f2 -d:` 
 	fi
+	test -z "$desc" && desc=$script
 	
 	#comments=`echo $i | cut -f2 -d# | sed 's/+/ /g'`
 	echo "	-$val1 	$desc	condition $comp	$val2 "

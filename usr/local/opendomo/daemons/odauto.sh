@@ -71,14 +71,16 @@ do_start () {
 
 do_stop () {
 	log_action_begin_msg "Stoping ODAUTO service"
+	
+	rm $PIDFILE 2>/dev/null	
 	cd $CFGDIR
 	for device in *.conf
 	do
 		source ./$device
 		echo -n "($DEVNAME)"
 	done	
-	rm /var/www/data/odauto.json
-	rm $PIDFILE 2>/dev/null
+	echo > /var/www/data/odauto.json
+	
 	log_action_end_msg $?
 }
 
