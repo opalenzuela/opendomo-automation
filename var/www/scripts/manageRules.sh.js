@@ -82,7 +82,7 @@ function ruleDragandropEnable(){
 		},
 		stop: function() { 
 		 // Hide the helper once user started dragging
-			$("#ruleListContainer").css("border","none");
+			$("#ruleListContainer").css("border","2px solid white");
 			$("p.info").hide();
 		}
     });

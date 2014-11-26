@@ -48,6 +48,7 @@ li.item {
 	min-height: 20px;
 	max-height: 200px;
 	overflow-y: auto;
+	width: 99%;
 }
 #editSequenceSteps li.item
 {

@@ -36,18 +36,24 @@ echo "#> Hidden form"
 echo "form:`basename $0`	hidden"
 echo "	code	Code	text	$code"
 echo "	desc	Description	text	$desc"
-echo "	action	Action	text	$action"
-echo "	rules	Rules	text	$rules"
+echo "	action	Action	readonly	$action"
+echo "	rules	Rules	hidden	$rules"
 echo 
 
 echo "#> Conditions"
 echo "list:ruleListContainer.sh	detailed"
 for i in `grep ^test $RULE | sed  -e 's/ /+/g' `
 do
-	val1=`echo $i | cut -f2 -d+ | sed 's/[^a-zA-Z0-9\.]//g' `
+	val1=`echo $i | cut -f2 -d+ | sed 's/[^a-zA-Z0-9\.\(\)]//g' `
 	comp=`echo $i | cut -f3 -d+ | sed -e 's/=/equal/g' -e 's/-gt/greater/g' -e 's/-lt/smaller/g' `
 	val2=`echo $i | cut -f4 -d+ `
-	desc=`grep '#desc' /usr/local/opendomo/bin/$val1 | cut -f2 -d:` 
+	
+	if test -f $val1; then
+		desc=`grep '#desc' $val1 | cut -f2 -d:` 
+	else
+		desc=`grep '#desc' /usr/local/opendomo/bin/$val1 | cut -f2 -d:` 
+	fi
+	
 	#comments=`echo $i | cut -f2 -d# | sed 's/+/ /g'`
 	echo "	-$val1 	$desc	condition $comp	$val2 "
 done
@@ -59,11 +65,11 @@ echo "#> Edit conditions"
 echo "list:editConditions.sh	iconlist"
 
 echo "	sepTime		Time	separator	Time"
-echo "	minute.sh+[0-59]	Minute	item time"
-echo "	hour.sh+[0-23]	Hour	item time"
-echo "	day.sh+[1-31]	Day 	item time"
-echo "	weekday.sh+[0-7]	Weekday	item time"
-echo "	month.sh+[1-12]	Month	item time"
+echo "	(minute.sh)+[0-59]	Minute	item time"
+echo "	(hour.sh)+[0-23]	Hour	item time"
+echo "	(day.sh)+[1-31]	Day 	item time"
+echo "	(weekday.sh)+[0-7]	Weekday	item time"
+echo "	(month.sh)+[1-12]	Month	item time"
 
 if test -d /etc/opendomo/control/ ; then
 	cd /etc/opendomo/control/
@@ -75,7 +81,7 @@ if test -d /etc/opendomo/control/ ; then
 			source $port
 			test -z "$desc" && desc=$port
 			pname=`echo $port | cut -f1 -d.`
-			echo "	portval.sh+$pname+[$values]	$desc	item port $tag"
+			echo "	($pname)+[$values]	$desc	item port $tag"
 		fi
 	done
 

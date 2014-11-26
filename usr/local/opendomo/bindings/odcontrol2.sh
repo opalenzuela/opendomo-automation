@@ -143,7 +143,13 @@ do
 								echo "Port $PNAME exists"
 							else
 								echo "Creating $CTRLDIR/$DEVNAME/$PNAME"
-								echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf  \n wget -q $URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null " > $CTRLDIR/$DEVNAME/$PNAME
+								echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf  \n" > $CTRLDIR/$DEVNAME/$PNAME
+								echo -e "#desc:$PNAME" >> $CTRLDIR/$DEVNAME/$PNAME
+								echo -e "if test -z \$1; then \n" >> $CTRLDIR/$DEVNAME/$PNAME
+								echo -e "	cat $0.value \n" >> $CTRLDIR/$DEVNAME/$PNAME
+								echo -e "else \n" >> $CTRLDIR/$DEVNAME/$PNAME
+								echo -e "	wget -q $URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null " >> $CTRLDIR/$DEVNAME/$PNAME
+								echo -e "fi\n" >> $CTRLDIR/$DEVNAME/$PNAME
 								chmod +x $CTRLDIR/$DEVNAME/$PNAME  
 							fi		
 						;;

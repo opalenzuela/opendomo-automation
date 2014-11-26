@@ -69,6 +69,18 @@ do
 					;;
 				esac
 			fi
+			PORTFILE=$CTRLDIR/$DEVNAME/$PNAME
+			if ! test -f $PORTFILE; then
+				echo "Creating $PORTFILE"
+				echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf  \n" > $PORTFILE
+				echo -e "#desc:$PNAME" >> $PORTFILE
+				echo -e "if test -z \$1; then \n" >> $PORTFILE
+				echo -e "	cat $0.value \n" >> $PORTFILE
+				echo -e "else \n" >> $PORTFILE
+				echo -e "	exit 1 \n " >> $PORTFILE
+				echo -e "fi\n" >> $PORTFILE
+				chmod +x $PORTFILE  
+			fi
 			
 			
 			PNAME=$param
