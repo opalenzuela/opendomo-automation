@@ -47,7 +47,7 @@ do
 	val1=`echo $i | cut -f2 -d+ | sed 's/[^a-zA-Z0-9\.\(\)\/]//g' `
 	comp=`echo $i | cut -f3 -d+ | sed -e 's/=/equal/g' -e 's/-gt/greater/g' -e 's/-lt/smaller/g' `
 	val2=`echo $i | cut -f4 -d+ `
-	script=`echo $val1 | sed  's/[^a-zA-Z0-9\.]//g' `
+	script=`echo $val1 | sed  's/[^a-zA-Z0-9\.\/]//g' `
 	if test -f $script; then
 		desc=`grep '#desc' $script | cut -f2 -d:` 
 	else
