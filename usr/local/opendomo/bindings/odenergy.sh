@@ -60,19 +60,28 @@ do
 				echo "way='in'" > $INFOFILE
 				echo "tag='power'" >> $INFOFILE
 				echo "desc='$param'" >> $INFOFILE
+				case $param in
+					voltage_L1|voltage_L2|voltage_L3)
+						echo "values='100-400'" >> $INFOFILE
+					;;
+					current_L1|current_L2|current_L3)
+						echo "values='0-100000'" >> $INFOFILE
+					;;
+				esac
 			fi
 			
-			PVAL=`cat $CTRLDIR/$DEVNAME/$PNAME.value`
+			
 			PNAME=$param
 			PTYPE="AI"
 			PTAG="power"
 			
-			grep $param $TMPFILE | tail -n1 | cut -f2 -d'>' | cut -f1 -d'<' > $CTRLDIR/$DEVNAME/$PNAME
-
-			#TODO Launch an event if port has changed
-			
+			PVAL=`grep $param $TMPFILE | tail -n1 | cut -f2 -d'>' | cut -f1 -d'<' `
+			OLDVAL=`cat $CTRLDIR/$DEVNAME/$PNAME.value`
 			# Always, refresh the port value
-			cat $CTRLDIR/$DEVNAME/$PNAME  > $CTRLDIR/$DEVNAME/$PNAME.value
+			echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
+			if test "$PVAL" != "$OLDVAL"; then
+				/bin/logevent portchange odauto "$DEVNAME/$PNAME $PVAL"
+			fi
 				
 			# Finally, generate JSON fragment
 			if test "$status" != "disabled"
