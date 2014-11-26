@@ -62,6 +62,8 @@ do
 	# Avoid duplicated call error (E003)
 	wget -q $URL/ver --http-user=$USER --http-password=$PASS -O - > /dev/null
 	
+	echo >  /var/www/data/$DEVNAME.odauto.tmp
+	
 	# Making the actual call
 	if	wget -q $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
 	then
@@ -71,7 +73,7 @@ do
 			# Filtering and formatting output, removing system ports ($)
 			grep -v '\$' $TMPFILE | sed 's/ /+/g' > $LISTFILE
 			
-			echo >  /var/www/data/$DEVNAME.odauto.tmp
+			
 			
 			# LSTFILE contiene el listado correcto
 			for line in `cat $LISTFILE | xargs -L 1` 
@@ -182,7 +184,7 @@ do
 	fi
 	
 	# A very quick replacement of the old file with the new one:
-	mv /var/www/data/$DEVNAME.odauto.tmp /var/www/data/$DEVNAME.odauto
+	mv /var/www/data/$DEVNAME.odauto.tmp /var/www/data/$DEVNAME.odauto 2>/dev/null
 	
 	# Cleanup
 	rm -fr $TMPFILE $LISTFILE

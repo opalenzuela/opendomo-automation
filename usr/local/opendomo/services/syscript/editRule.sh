@@ -41,7 +41,7 @@ echo "	rules	Rules	text	$rules"
 echo 
 
 echo "#> Conditions"
-echo "list:ruleListContainer.sh	tabform"
+echo "list:ruleListContainer.sh	detailed"
 for i in `grep ^test $RULE | sed  -e 's/ /+/g' `
 do
 	val1=`echo $i | cut -f2 -d+ | sed 's/[^a-zA-Z0-9\.]//g' `
@@ -71,7 +71,8 @@ if test -d /etc/opendomo/control/ ; then
 	for port in */*.info; do
 		if test -f $port; then
 			values="on,off"
-			desc=`grep desc: $port | cut -f2 -d:`
+			source $port
+			test -z "$desc" && desc=$port
 			pname=`echo $port | cut -f1 -d.`
 			echo "	portval.sh+$pname+[$values]	$desc	item port"
 		fi
