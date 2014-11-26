@@ -70,11 +70,12 @@ if test -d /etc/opendomo/control/ ; then
 	echo "	sepPorts		Ports 	separator	Ports"
 	for port in */*.info; do
 		if test -f $port; then
+			tag="light"
 			values="on,off"
 			source $port
 			test -z "$desc" && desc=$port
 			pname=`echo $port | cut -f1 -d.`
-			echo "	portval.sh+$pname+[$values]	$desc	item port"
+			echo "	portval.sh+$pname+[$values]	$desc	item port $tag"
 		fi
 	done
 

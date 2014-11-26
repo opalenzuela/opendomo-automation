@@ -1,4 +1,6 @@
-/** Adding some icons for the tags */
+/* Adding some icons for the tags */
+/* TODO Move this iconset to the main CSS */
+li.time a,
 li.wait a {
 	background-image: url("/images/timer.png");
 }
@@ -61,5 +63,8 @@ li.item {
 	background-size: 32px;
 	background-position: center;
 	background-repeat: no-repeat;
-
+}
+/* Provisional bugfix for CGI */
+li.separator {
+	display: none!important;
 }

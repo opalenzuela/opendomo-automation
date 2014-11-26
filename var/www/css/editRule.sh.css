@@ -27,3 +27,35 @@
 li.greater p:before {	content:">  ";}
 li.equal p:before { 	content:"=  ";}
 li.smaller p:before {	content:"<  ";}
+
+li.time a,
+li.wait a {
+	background-image: url("/images/timer.png");
+}
+li.power a,
+li.energy a {
+	background-image: url("/images/energy.png");
+}
+li.measure a,
+li.climate a {
+	background-image: url("/images/climate.png");
+}
+li.light a{
+	background-image: url("/images/light.png") ;
+}
+li.exit a,
+li.access a,
+li.security a{
+	background-image: url("/images/security.png");
+}
+li.water a{
+	background-image: url("/images/water.png");
+}
+li.gas a{
+	background-image: url("/images/gas.png");
+}
+
+/* Provisional bugfix for CGI */
+li.separator {
+	display: none!important;
+}
