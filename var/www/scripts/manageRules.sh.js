@@ -57,7 +57,7 @@ function ruleDragandropEnable(){
 										var cmdcomp = "-gt";
 										break;
 								}
-								command = "(" + ui.item.find("input").val().split("+")[0] + ")+" + cmdcomp + "+" + value;
+								command =  ui.item.find("input").val().split("+")[0] + cmdcomp + "+" + value;
 								$(ui.item).find("input").val(command);								
 								$(ui.item).find("p").text(value);
 								$(ui.item).addClass(comparison);

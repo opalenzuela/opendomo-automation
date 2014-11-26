@@ -76,7 +76,6 @@ do_stop () {
 	do
 		source ./$device
 		echo -n "($DEVNAME)"
-		rm -fr $CTRLDIR/$device
 	done	
 	rm /var/www/data/odauto.json
 	rm $PIDFILE 2>/dev/null

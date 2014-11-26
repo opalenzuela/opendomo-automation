@@ -81,7 +81,7 @@ if test -d /etc/opendomo/control/ ; then
 			source $port
 			test -z "$desc" && desc=$port
 			pname=`echo $port | cut -f1 -d.`
-			echo "	($pname)+[$values]	$desc	item port $tag"
+			echo "	(/var/opendomo/control/$pname)+[$values]	$desc	item port $tag"
 		fi
 	done
 

@@ -160,3 +160,4 @@ do
 	rm -fr $TMPFILE $LISTFILE
 	sleep $REFRESH
 done
+rm -fr $CTRLDIR/$DEVNAME
