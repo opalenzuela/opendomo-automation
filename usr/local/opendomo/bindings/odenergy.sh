@@ -84,9 +84,7 @@ do
 			
 			
 			PNAME=$param
-			PTYPE="AI"
-			PTAG="power"
-			
+		
 			PVAL=`grep $param $TMPFILE | tail -n1 | cut -f2 -d'>' | cut -f1 -d'<' `
 			OLDVAL=`cat $CTRLDIR/$DEVNAME/$PNAME.value`
 			# Always, refresh the port value
@@ -98,7 +96,7 @@ do
 			# Finally, generate JSON fragment
 			if test "$status" != "disabled"
 			then
-				echo "{\"Name\":\"$desc\",\"Type\":\"$PTYPE\",\"Tag\":\"$tag\",\"Value\":\"$PVAL\",\"Min\":\"$min\",\"Max\":\"$max\",\"Id\":\"$DEVNAME/$PNAME\"}," >> /var/www/data/$DEVNAME.odauto.tmp
+				echo "{\"Name\":\"$desc\",\"Type\":\"AI\",\"Tag\":\"power\",\"Value\":\"$PVAL\",\"Min\":\"$min\",\"Max\":\"$max\",\"Id\":\"$DEVNAME/$PNAME\"}," >> /var/www/data/$DEVNAME.odauto.tmp
 			fi
 		done
 	else

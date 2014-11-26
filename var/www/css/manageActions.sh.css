@@ -66,6 +66,6 @@ li.item {
 	background-repeat: no-repeat;
 }
 /* Provisional bugfix for CGI */
-li.separator {
+li.separator, div.separator p {
 	display: none!important;
 }
