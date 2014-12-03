@@ -55,6 +55,7 @@ LISTFILE="/var/opendomo/tmp/$DEVNAME.lst"
 
 # Preparations:
 test -d $CTRLDIR/$DEVNAME/ || mkdir -p $CTRLDIR/$DEVNAME/
+test -d $CFGDIR/$DEVNAME/ || mkdir -p $CFGDIR/$DEVNAME/
 test -d /var/www/data || mkdir -p /var/www/data
 
 # The actual loop 
