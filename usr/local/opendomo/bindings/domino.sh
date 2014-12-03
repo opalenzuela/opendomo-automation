@@ -159,7 +159,7 @@ do
 	
 	else
 		logevent "warning" $DEVNAME "Device [$DEVNAME] did not respond"
-		echo "#WARN: ODControl not responding. Trying later"
+		echo "#WARN: DominoOSE not responding. Trying later"
 	fi
 	
 	# A very quick replacement of the old file with the new one:

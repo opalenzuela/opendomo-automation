@@ -63,9 +63,13 @@ do_background() {
 	
 do_start () {
 	log_action_begin_msg "Starting ODAUTO service"
-	mkdir -p $CTRLDIR > /dev/null
-	cd /usr/local/opendomo/daemons/
-	$0 background > /dev/null &
+	if test -f $PIDFILE; then
+		echo -n "(already started!)"
+	else
+		mkdir -p $CTRLDIR > /dev/null
+		cd /usr/local/opendomo/daemons/
+		$0 background > /dev/null &
+	fi
 	log_action_end_msg $?
 }
 
