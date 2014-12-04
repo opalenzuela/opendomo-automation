@@ -79,7 +79,7 @@ do
 				then
 					PNAME=`echo $line | cut -f1 -d:`
 					PTYPE=`echo $line | cut -f2 -d:  | cut -b1-2`
-					PVAL=`echo $line | cut -f3 -d:`
+					PVAL=`echo -n $line | cut -f3 -d: `
 					PTAG=`echo $line | cut -f2 -d:  | cut -b4`
 					
 					INFOFILE="$CFGDIR/$DEVNAME/$PNAME.info"
