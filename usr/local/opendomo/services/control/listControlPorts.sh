@@ -29,9 +29,24 @@ echo "#> Control ports"
 echo "form:listControlPorts.sh"
 if /usr/local/opendomo/daemons/odauto.sh status >/dev/null
 then
-	#Note that in this version, the population of the ports will be entirely JavaScript
-	#Hence, no server-side processing is needed here.
-	echo "	loading	loading	loading"
+	cd /var/opendomo/control
+	for device in *; do 
+		cd $device
+		for port in *; do
+			if test -f /etc/opendomo/control/$device/$port.info; then
+				values=""
+				way="disabled"
+				source /etc/opendomo/control/$device/$port.info
+				if test "$way" = "out"; then
+					echo "	$device-$port	$desc	list[$values] $tag"
+				fi
+				if test "$way" = "in"; then
+					echo "	$device-$port	$desc	readonly $tag	"
+				fi				
+			fi
+		done
+		cd ..
+	done
 	echo "actions:"
 	if test -z "$DEVICES"; then
 		if test -x /usr/local/opendomo/addControlDevice.sh; then
