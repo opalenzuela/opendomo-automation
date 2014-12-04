@@ -60,7 +60,7 @@ found=0
 if test -z "$PORT"
 then
 	echo "#> Select port"
-	echo "list:`basename $0`	listbox selectable"
+	echo "list:`basename $0`	listbox filterable"
 	cd $CFGPATH
 	for device in *; do
 		if test -d "$device"; then
