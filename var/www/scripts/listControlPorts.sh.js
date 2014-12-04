@@ -24,6 +24,11 @@ function updatePorts()
 						case "DI":
 							//li.find("p").find("a").attr("class",p.Value.toLowerCase());
 							field.val(p.Value.toLowerCase());
+							if (p.Value.toLowerCase()=="on") {
+								field.parent().parent().addClass("sw_on").removeClass("sw_off");
+							} else {
+								field.parent().parent().addClass("sw_off").removeClass("sw_on");
+							}
 							break;
 						case "AI":
 							//li.find("p").innerHTML =  parseFloat(p.Value);
@@ -31,7 +36,7 @@ function updatePorts()
 							break;
 						case "AO":
 							//li.find("input").val(parseFloat(p.Value));
-							field.val(parseFloat(p.Value));
+							field.val(parseFloat(p.Value)).trigger("change");
 							//li.trigger("change");
 							break;
 						case "TXT":							
