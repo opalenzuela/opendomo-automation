@@ -68,7 +68,7 @@ do
 		then
 			echo "Response with DONE. Continue."
 			# Filtering and formatting output, removing system ports ($)
-			cut -f1,2,3 -d: $TMPFILE  | grep -v '\$' > $LISTFILE
+			cut -f1,2,3 -d: $TMPFILE  | grep -v '\$' | sed 's/\r//g' > $LISTFILE
 			
 			echo >  /var/www/data/$DEVNAME.odauto.tmp
 			
@@ -79,7 +79,7 @@ do
 				then
 					PNAME=`echo $line | cut -f1 -d:`
 					PTYPE=`echo $line | cut -f2 -d:  | cut -b1-2`
-					PVAL=`echo -n $line | cut -f3 -d: `
+					PVAL=`echo $line | cut -f3 -d:`
 					PTAG=`echo $line | cut -f2 -d:  | cut -b4`
 					
 					INFOFILE="$CFGDIR/$DEVNAME/$PNAME.info"
