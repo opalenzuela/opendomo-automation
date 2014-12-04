@@ -38,10 +38,18 @@ then
 				way="disabled"
 				source /etc/opendomo/control/$device/$port.info
 				if test "$way" = "out"; then
-					echo "	$device-$port	$desc	list[$values] switch $tag"
+					if echo "$values" | grep -q "," ; then
+						echo "	$device-$port	$desc	list[$values] switch DO $tag"
+					else
+						echo "	$device-$port	$desc	range $tag AO"
+					fi
 				fi
 				if test "$way" = "in"; then
-					echo "	$device-$port	$desc	readonly $tag	"
+					if echo "$values" | grep -q "," ; then
+						echo "	$device-$port	$desc	readonly $tag DI	"
+					else
+						echo "	$device-$port	$desc	readonly $tag AI	"
+					fi
 				fi				
 			fi
 		done

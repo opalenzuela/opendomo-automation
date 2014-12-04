@@ -37,7 +37,7 @@ function updatePorts()
 					}
 				}
 			} else {  // It does not exists, we create it:	
-				if ((p.Value) && (p.Value !="") && (p.Name.indexOf("$")==-1)) {
+				/*if ((p.Value) && (p.Value !="") && (p.Name.indexOf("$")==-1)) {
 					
 					var li = document.createElement("li");
 					li.setAttribute("title",p.Id);
@@ -98,7 +98,7 @@ function updatePorts()
 							li.innerHTML="<a><b>"+p.Name+ "</b></a><p class='img'><img src='" + p.Value + "'></p>";
 							break;							
 					}
-				}
+				}*/
 			}
 		}
 	} else {
