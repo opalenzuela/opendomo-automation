@@ -9,7 +9,18 @@
 		width: 100px;
 		text-align: right;
 	}
+	input[type=readonly] {
+		width: 100px;
+		min-width: 100px;
+	}
+	.tabform ul li.readonly p,
+	.tabform ul li.readonly label
+	{
+		display: inline-block;
+	}
 }
+
+
 
 li.DO a.on {
 	background: transparent url('/images/on.png') center center no-repeat;
@@ -84,7 +95,9 @@ li.water {
 li.gas {
 	background: url("/images/gas.png") no-repeat left center;
 }
-
+li p {
+	background: white;
+}
 fieldset.tabform #listControlPorts li a{
 	height: 35px;
 	padding-left: 32px;		

@@ -36,7 +36,7 @@ function updatePorts()
 							break;
 						case "AO":
 							//li.find("input").val(parseFloat(p.Value));
-							field.val(parseFloat(p.Value)).trigger("change");
+							field.val(parseFloat(p.Value));
 							//li.trigger("change");
 							break;
 						case "TXT":							
