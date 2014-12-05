@@ -117,7 +117,7 @@ function updatePorts()
 
 setInterval(updatePorts,5000);
 $(function(){
-	$("input[type=range]").on("change",function() 
+	$("input[type=range]").on("change",function() {
 		var value = $(this).val();
 		var portid = $(this).prop("id");
 		var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port=" + portid.replace("-","/") + "&value=" + value;
