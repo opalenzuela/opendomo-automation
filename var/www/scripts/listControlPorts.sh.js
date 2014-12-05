@@ -130,7 +130,7 @@ $(function(){
 	$("select").on("change",function() {
 		var value = $(this).val();
 		var portid = $(this).prop("id");
-		var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port="+ portid.replace("-","/") +"&value="+(value=="on"?"OFF":"ON");
+		var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port="+ portid.replace("-","/") +"&value="+value.toUpperCase();
 		$.get(uri,function(){
 			setTimeout(updatePorts,1000);
 			}
