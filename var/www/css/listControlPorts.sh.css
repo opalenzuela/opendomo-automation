@@ -9,9 +9,10 @@
 		width: 100px;
 		text-align: right;
 	}
-	input[type=readonly] {
+	li.readonly input {
 		width: 100px;
-		min-width: 100px;
+		min-width: 100px!important;
+		text-align: right;
 	}
 	.tabform ul li.readonly p,
 	.tabform ul li.readonly label
