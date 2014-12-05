@@ -116,3 +116,24 @@ function updatePorts()
 }
 
 setInterval(updatePorts,5000);
+$(function(){
+	$("input[type=range]").on("change",function() 
+		var value = $(this).val();
+		var portid = $(this).prop("id");
+		var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port=" + portid.replace("-","/") + "&value=" + value;
+		$("#" + this.id + "_disp").val(this.value);
+		$.get(uri,function(){
+			setTimeout(updatePorts,1000);
+			}
+		);	
+	});
+	$("select").on("change",function() {
+		var value = $(this).val();
+		var portid = $(this).prop("id");
+		var uri = "/cgi-bin/od.cgi/listControlPorts.sh?port="+ portid.replace("-","/") +"&value="+(value=="on"?"OFF":"ON");
+		$.get(uri,function(){
+			setTimeout(updatePorts,1000);
+			}
+		);	
+	});
+});

@@ -1,4 +1,16 @@
 
+@media (max-width: 480px) {
+	li.AI label,
+	li.AI p {
+		display: inline-block;
+		width: 49%;
+	}
+	li.AI p input[type=readonly] {
+		width: 100px;
+		text-align: right;
+	}
+}
+
 li.DO a.on {
 	background: transparent url('/images/on.png') center center no-repeat;
 	display: block;
@@ -44,31 +56,32 @@ li.AO .preview {
 	min-width: 35px;
 	vertical-align: middle
 }
+/*
 li.AI p{
 	height: 35px;
 	border: 1px solid #ccc;
-}
+}*/
 
 /** Adding some icons for the tags */
-li.power a,
-li.energy a {
+li.power label,
+li.energy label {
 	background: url("/images/energy.png") no-repeat left center;
 }
-li.measure a,
-li.climate a {
+li.measure label,
+li.climate label {
 	background: url("/images/climate.png") no-repeat left center;
 }
-li.light a{
+li.light label{
 	background: url("/images/light.png") no-repeat left center;
 }
-li.access a,
-li.security a{
+li.access label,
+li.security label{
 	background: url("/images/security.png") no-repeat left center;
 }
-li.water a{
+li.water label{
 	background: url("/images/water.png") no-repeat left center;
 }
-li.gas a{
+li.gas label{
 	background: url("/images/gas.png") no-repeat left center;
 }
 
