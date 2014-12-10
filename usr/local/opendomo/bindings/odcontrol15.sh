@@ -9,7 +9,8 @@ if test "$1" == "validate"; then
 	source "$2"
 	IP=`basename $URL | cut -f1 -d:`
 	PORT=`basename $URL | cut -f2 -d:`
-	test -z $PORT && PORT=1729
+	#test -z $PORT && 
+	PORT=1729
 	# Validation command
 	VERSION= `echo "ver" |  nc $IP $PORT `
     if test -z "$VERSION"
@@ -36,7 +37,8 @@ fi
 
 IP=`basename $URL | cut -f1 -d:`
 PORT=`basename $URL | cut -f2 -d:`
-test -z $PORT && PORT=1729
+#test -z $PORT && 
+PORT=1729
 
 PIDFILE="/var/opendomo/run/odauto.pid"
 TMPFILE=/var/opendomo/tmp/$DEVNAME.tmp
@@ -48,10 +50,6 @@ CTRLDIR=/var/opendomo/control
 test -d $CTRLDIR/$DEVNAME/ || mkdir -p $CTRLDIR/$DEVNAME/
 test -d $CFGDIR/$DEVNAME/ || mkdir -p $CFGDIR/$DEVNAME/
 test -d /var/www/data || mkdir -p /var/www/data
-
-
-
-
 
 while test -f $PIDFILE
 do
