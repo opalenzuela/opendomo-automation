@@ -62,9 +62,13 @@ do
 				echo "desc='$param'" >> $INFOFILE
 				case $param in
 					voltage_L1|voltage_L2|voltage_L3)
+						echo "min='0'" >> $INFOFILE
+						echo "max='400'" >> $INFOFILE
 						echo "values='100-400'" >> $INFOFILE
 					;;
 					current_L1|current_L2|current_L3)
+						echo "min='0'" >> $INFOFILE
+						echo "max='100000'" >> $INFOFILE
 						echo "values='0-100000'" >> $INFOFILE
 					;;
 				esac
