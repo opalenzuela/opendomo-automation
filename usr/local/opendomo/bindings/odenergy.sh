@@ -72,6 +72,8 @@ do
 						echo "values='0-100000'" >> $INFOFILE
 					;;
 				esac
+			else
+				source $INFOFILE
 			fi
 			PORTFILE=$CTRLDIR/$DEVNAME/$PNAME
 			if ! test -f $PORTFILE; then
