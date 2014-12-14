@@ -13,7 +13,7 @@ The objective of this plugin is to implement the existing features of OpenDomo O
 How to test it?
 ===============
 
-This plugin is not yet in a stable version, so it's required to be installed via oddevel package. To do so, install oddevel to your OpenDomoOS2 system, and execute the following lines as "admin", from the command line:
+This plugin has already a stable version that can be installed from the Manage Plugins option, in the Configuration section. To test the development branch, it's required to be installed via oddevel package. To do so, install oddevel to your OpenDomoOS2 system, and execute the following lines as "admin", from the command line:
 
     $ plugin_add_from_gh.sh opalenzuela opendomo-automation
     
