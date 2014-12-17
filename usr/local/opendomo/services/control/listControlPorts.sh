@@ -36,6 +36,8 @@ then
 		for port in *; do
 			if test -f /etc/opendomo/control/$device/$port.info; then
 				values=""
+				desc="$port"
+				tag=""
 				way="disabled"
 				source /etc/opendomo/control/$device/$port.info
 				if test "$way" = "out"; then

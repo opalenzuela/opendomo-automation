@@ -108,7 +108,12 @@ fieldset.iconlist #listControlPorts li {
 	height: 75px;
 	width: 80px;	
 }
-
+#listControlPorts li b {
+	font-weight: normal;
+}
+#listControlPorts li label{
+	text-indent: 30px;
+}
 #listControlPorts li a
 {
 	vertical-align: middle;
