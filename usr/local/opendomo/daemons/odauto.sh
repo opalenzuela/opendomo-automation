@@ -34,6 +34,7 @@ do_background() {
 			USER=""
 			PASS=""
 			DEVICE=`basename $devicecfg | cut -f1 -d.`
+			test -d $CFGDIR/$DEVICE || mkdir -p $CFGDIR/$DEVICE
 			echo "Processing $DEVICE ..."
 			# Load config file
 			. ./$devicecfg
