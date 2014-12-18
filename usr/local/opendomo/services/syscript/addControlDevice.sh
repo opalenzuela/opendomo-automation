@@ -7,7 +7,6 @@
 
 CFGPATH="/etc/opendomo/control"
 
-#TODO: Use a dedicated directory
 cd /usr/local/opendomo/bindings/
 for binding in *.sh
 do
