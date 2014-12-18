@@ -34,7 +34,7 @@ then
 	for device in *; do 
 		cd $device
 		for port in *; do
-			if test -f /etc/opendomo/control/$device/$port.info; then
+			if test -f "/etc/opendomo/control/$device/$port.info"; then
 				values=""
 				desc="$port"
 				tag=""
