@@ -58,7 +58,7 @@ if test -d $DETECTEDPATH; then
 			DEVNAME="$i"
 			URL=""
 			TYPE="unknown"
-			source $i
+			source $DETECTEDPATH/$i
 			echo "	-$i	$DEVNAME	$TYPE	$URL"
 		fi
 	done
