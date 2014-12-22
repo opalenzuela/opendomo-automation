@@ -43,7 +43,7 @@ do_background() {
 			then
 				/bin/sh /usr/local/opendomo/bindings/$TYPE.sh /etc/opendomo/control/$DEVICE.conf >/dev/null 2>/dev/null &
 			else
-				logevent odauto error "Unknown device type $TYPE"
+				logevent error odauto "Unknown device type $TYPE"
 			fi
 		fi
 	done	

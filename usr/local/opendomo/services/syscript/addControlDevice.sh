@@ -76,6 +76,6 @@ echo "form:`basename $0`"
 echo "	type	Type	list[$DEVICETYPELIST]	$TYPE"
 echo "	username	Username	text	$USER"
 echo "	password	Password	text	$PASS"
-echo "	ipaddress	URL	text	$URL"
-echo "	refresh	Refresh	text	$REFRESH"
+echo "	ipaddress	URL 	text	$URL"
+echo "	refresh 	Refresh 	text	$REFRESH"
 echo
