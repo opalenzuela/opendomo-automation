@@ -1,0 +1,1 @@
+With this menu you can add all the supported devices from your facility to be able to control them from OpenDomoOS.
