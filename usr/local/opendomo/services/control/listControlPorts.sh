@@ -1,5 +1,4 @@
 #!/bin/sh
-#name:List controllers
 #desc:List controllers
 #package:odauto
 #group:users
