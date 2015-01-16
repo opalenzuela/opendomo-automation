@@ -36,6 +36,7 @@ function ruleDragandropEnable(){
 						var def = possible[1].split("-");
 						$("p.dialogval").html("<input id='dialogvalue' type='range' min='" + def[0] +"'  max='"+ def[1] + "'><br/><div id='dialogvaluerender'></div>");
 						$("#dialogvalue").on("change", function(){$("#dialogvaluerender").text($(this).val())});
+						$("#dialogvalue").trigger("change");
 					}
 					//command = possible[0] +  prompt("Choose value between " + possible[1], def[0]) + possible[2];
 					//$(ui.item).find("input").val(command);

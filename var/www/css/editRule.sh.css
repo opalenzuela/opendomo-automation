@@ -9,13 +9,13 @@
 	overflow-y: auto;
 	width: 99%;
 }
-li.item
+li.item.drag
 {
 	height: 60px;
 	width: 60px;
 	background-size: 60px;
 }
-li a {
+#ruleListContainer li a {
 	background-size: 24px;
 	background-position: left center;
 	background-repeat: no-repeat;
@@ -60,4 +60,13 @@ li.gas a{
 /* Provisional bugfix for CGI */
 li.separator, div.separator p {
 	display: none!important;
+}
+#dialogvaluerender {
+	text-align: center;
+	font-size: large;
+	margin: 5px;
+}
+.ui-dialog-title button {
+	border: none;
+	background-color:transparent;
 }

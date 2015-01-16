@@ -18,11 +18,11 @@ else
 		code="$1"
 		desc="$2"
 		action="$3"
-		echo "#!/bin/sh -e" > $RULESDIR/$code
-		echo '#desc:' $desc >> $RULESDIR/$code
-		echo $4 | sed -e 's/+/ /g' -e 's/!/\n/g' -e 's/(DOLLAR)/\$/g' >> $RULESDIR/$code
-		echo $action >> $RULESDIR/$code
-		chmod +x $RULESDIR/$code
+		echo "#!/bin/sh -e" > $RULE
+		echo '#desc:' $desc >> $RULE
+		echo $4 | sed -e 's/+/ /g' -e 's/!/\n/g' -e 's/(DOLLAR)/\$/g' >> $RULE
+		echo $action >> $RULE
+		chmod +x $RULE
 	else
 		# Else, just load file
 		code=$1
@@ -67,20 +67,20 @@ fi
 echo 
 
 echo "#> Time conditions"
-echo "list:editConditions.sh	iconlist foldable"
-
+echo "list:editConditionsTime.sh	iconlist foldable"
 #echo "	sepTime		Time	separator	Time"
 echo "	(minute.sh)+[0-59]	Minute	item drag time"
 echo "	(hour.sh)+[0-23]	Hour	item drag time"
 echo "	(day.sh)+[1-31]	Day 	item drag time"
 echo "	(weekday.sh)+[0-7]	Weekday	item drag time"
 echo "	(month.sh)+[1-12]	Month	item drag time"
+echo
 
 if test -d /etc/opendomo/control/ ; then
 	echo "#> Ports"
-	echo "list:editConditions.sh	iconlist foldable"
+	echo "list:editConditionsPorts.sh	iconlist foldable"
 	cd /etc/opendomo/control/
-	echo "	sepPorts		Ports 	separator	Ports"
+	#echo "	sepPorts		Ports 	separator	Ports"
 	for port in */*.info; do
 		if test -f $port; then
 			tag="light"
