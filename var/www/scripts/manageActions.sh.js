@@ -92,7 +92,7 @@ function saveSequence(event) {
 		var literal = $(this).find("p").text();
 		result = result + value + " # " + literal + "!";
 	});
-	console.log(result)	
+	/* console.log(result) */
 	$("#steplist").val(result);
 	submitFormCallback("manageActions_frm",
 		function(){window.location.replace("./manageActions.sh");},
