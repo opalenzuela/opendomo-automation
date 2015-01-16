@@ -54,6 +54,7 @@ li.item {
 {
 	height: 60px;
 	width: 60px;
+	background-size: 60px;
 }
 #stepListContainer li a {
 	background-size: 24px;

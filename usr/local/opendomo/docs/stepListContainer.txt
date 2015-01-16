@@ -1,0 +1,1 @@
+An action is an ordered sequence of steps. 

@@ -2,7 +2,7 @@ include_script("/scripts/vendor/jquery-ui.js");
 
 $(function($) {
 	setTimeout(sequenceDragandropEnable,100);
-	$('button[name="submit_manageActions.sh"]').on("click",saveSequence);
+	$('#submit-manageActions').on("click",saveSequence);
 	$("body").append("<div id='dialog' title='Enter a value'><p></p></div>");
 });
 var sortableIn = 0;
@@ -94,5 +94,17 @@ function saveSequence(event) {
 	});
 	console.log(result)	
 	$("#steplist").val(result);
-	submitForm("manageActions_frm");
+	submitFormCallback("manageActions_frm",
+		function(){window.location.replace("./manageActions.sh");},
+		function(){alert("Something went wrong");});
+}
+
+function submitFormCallback(formID,onsuccess,onfail) {
+	var dataString = $("#"+formID).serialize();
+	var url = $("#"+formID).attr("action")+"?GUI=XML";
+ 
+	$.post(url,dataString)
+		.done(onsuccess)
+		.fail(onfail);
+	return true;
 }
