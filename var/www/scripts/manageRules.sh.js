@@ -17,6 +17,7 @@ function ruleDragandropEnable(){
 			var htmlcode = "";
 			if (sortableIn == 0) {
 				ui.item.remove();
+				$("#submit-manageRules").show();
 			} else {
 				var command = $(ui.item).find("input").val();
 				$("p.dialogcomp").html("<select id='dialogcomparison'><option value='smaller'>Smaller</option><option selected value='equal'>Equal</option><option value='greater'>Greater</option></select>");
@@ -84,6 +85,7 @@ function ruleDragandropEnable(){
 		 // Hide the helper once user started dragging
 			$("#ruleListContainer").css("border","2px solid white");
 			$("p.info").hide();
+			$("#submit-manageRules").show();
 		}
     });
     $( "ul, li" ).disableSelection();
@@ -102,4 +104,6 @@ function saverule(event) {
 	console.log(result)	
 	$("#rules").val(result);
 	submitForm("editRule_frm");
+	$("#submit-manageRules").hide();
 }
+
