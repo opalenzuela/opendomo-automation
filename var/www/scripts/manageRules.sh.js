@@ -74,7 +74,7 @@ function ruleDragandropEnable(){
 			}
 		}
     });
-    $( "#editConditions li.item" ).draggable({
+    $( "li.item.drag" ).draggable({
 		connectToSortable: "#ruleListContainer",
 		helper: "clone",
 		revert: "invalid",

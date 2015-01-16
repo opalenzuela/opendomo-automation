@@ -66,17 +66,19 @@ if test -x /usr/local/opendomo/manageEventHandlers.sh; then
 fi
 echo 
 
-echo "#> Edit conditions"
-echo "list:editConditions.sh	iconlist"
+echo "#> Time conditions"
+echo "list:editConditions.sh	iconlist foldable"
 
-echo "	sepTime		Time	separator	Time"
-echo "	(minute.sh)+[0-59]	Minute	item time"
-echo "	(hour.sh)+[0-23]	Hour	item time"
-echo "	(day.sh)+[1-31]	Day 	item time"
-echo "	(weekday.sh)+[0-7]	Weekday	item time"
-echo "	(month.sh)+[1-12]	Month	item time"
+#echo "	sepTime		Time	separator	Time"
+echo "	(minute.sh)+[0-59]	Minute	item drag time"
+echo "	(hour.sh)+[0-23]	Hour	item drag time"
+echo "	(day.sh)+[1-31]	Day 	item drag time"
+echo "	(weekday.sh)+[0-7]	Weekday	item drag time"
+echo "	(month.sh)+[1-12]	Month	item drag time"
 
 if test -d /etc/opendomo/control/ ; then
+	echo "#> Ports"
+	echo "list:editConditions.sh	iconlist foldable"
 	cd /etc/opendomo/control/
 	echo "	sepPorts		Ports 	separator	Ports"
 	for port in */*.info; do
@@ -86,7 +88,7 @@ if test -d /etc/opendomo/control/ ; then
 			source $port
 			test -z "$desc" && desc=$port
 			pname=`echo $port | cut -f1 -d.`
-			echo "	(/var/opendomo/control/$pname)+[$values]	$desc	item port $tag"
+			echo "	(/var/opendomo/control/$pname)+[$values]	$desc	item drag port $tag"
 		fi
 	done
 
