@@ -1,7 +1,9 @@
 #!/bin/sh
 #desc:Manage rules
 #type:local
-#package:odcommon
+#package:odauto
+
+# Copyright(c) 2015 OpenDomo Services SL. Licensed under GPL v3 or later
 
 RULESDIR="/etc/opendomo/rules"
 
@@ -15,8 +17,8 @@ test -d "$RULESDIR" ||mkdir "$RULESDIR"
 	echo "#> Rules available"
 	echo "list:editRule.sh	selectable"
 	EXISTS=0;
-	for r in *; do
-		if test "$r" != "*"; then
+	for r in *.rule; do
+		if test -f "$r"; then
 			DESC=`grep '#desc' $r | cut -f2 -d: `
 			echo "	-$r	$DESC	rule"
 			EXISTS=1

@@ -3,7 +3,7 @@
 #type:local
 #package:odauto
 
-# Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
+# Copyright(c) 2015 OpenDomo Services SL. Licensed under GPL v3 or later
 
 RULESDIR="/etc/opendomo/rules"
 
@@ -14,7 +14,7 @@ if test -z "$1"; then
 else
 	# 4 parameters, we are posting data
 	if ! test -z "$4"; then
-		RULE=$RULESDIR/$1
+		RULE=$RULESDIR/$1.rule
 		code="$1"
 		desc="$2"
 		action="$3"
@@ -26,7 +26,8 @@ else
 	else
 		# Else, just load file
 		code=$1
-		RULE=$RULESDIR/$1
+		RULE=$RULESDIR/$code.rule
+		touch $RULE
 		desc=`head -n2 $RULE | grep '#desc' | cut -f2 -d:`
 		action=`grep -v ^test $RULE | tail -n1`
 	fi
