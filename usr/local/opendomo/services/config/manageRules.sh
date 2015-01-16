@@ -10,7 +10,7 @@ RULESDIR="/etc/opendomo/rules"
 # A rule is a condition (or a set of conditions) and a pair of 
 # actions
 
-test -d "$RULESDIR" ||mkdir "$RULESDIR"
+test -d "$RULESDIR" || mkdir "$RULESDIR"
 
 #if test -z "$1";then
 	cd $RULESDIR
@@ -19,8 +19,10 @@ test -d "$RULESDIR" ||mkdir "$RULESDIR"
 	EXISTS=0;
 	for r in *.rule; do
 		if test -f "$r"; then
+			CODE=`echo $r | cut -f1 -d.`
 			DESC=`grep '#desc' $r | cut -f2 -d: `
-			echo "	-$r	$DESC	rule"
+			test -z "$DESC" && DESC="$CODE"
+			echo "	-$CODE	$DESC	rule"
 			EXISTS=1
 		fi
 	done
