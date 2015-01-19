@@ -1,0 +1,4 @@
+A condition will be triggered when multiple pre-requirements are met. For single conditions better use event handlers.
+
+To compose a condition, drag the desired elements into the condition box.
+

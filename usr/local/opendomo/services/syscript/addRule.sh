@@ -27,5 +27,5 @@ echo "form:editRule.sh"
 echo "	code	Code	hidden"
 echo "	name	Name	text"
 echo "	action	Action	list[$COMMANDS]"
-
+echo "	rules	Rules	hidden	"
 echo 
