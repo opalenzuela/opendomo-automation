@@ -13,7 +13,7 @@ if test -z "$1"; then
 	exit
 else
 	# 4 parameters, we are posting data
-	if ! test -z "$4"; then
+	if ! test -z "$3"; then
 		RULE=$RULESDIR/$1.rule
 		code="$1"
 		desc="$2"
