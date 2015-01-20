@@ -1,14 +1,14 @@
 include_script("/scripts/vendor/jquery-ui.js");
 
-$(function($) {
-	setTimeout(ruleDragandropEnable,100);
+$("body").on("load",function() {
+	$("#ruleListContainer").on("load",ruleDragandropEnable);
 	$('button[name="submit_manageRules.sh"]').on("click",saverule);
 	$("body").append("<div id='dialog' title='Enter a value'><p class='dialogcomp'></p><p class='dialogval'></p></div>");
 });
 var sortableIn = 0;
 function ruleDragandropEnable(){
 	$("#editConditions a").prop("href","#");
-	$( "#ruleListContainer" ).sortable({
+	$("#ruleListContainer").sortable({
 		revert: true,
 		receive: function(event, ui){sortableIn = 1;},
 		over: function(event, ui){sortableIn = 1;},
