@@ -5,7 +5,13 @@
 
 # Copyright(c) 2015 OpenDomo Services SL. Licensed under GPL v3 or later
 
-COMMANDS="updateInstalledPackages.sh:Update installed packages,updateLanguageFiles.sh:Update language files"
+cd /usr/local/opendomo/
+for i in *.sh ; do
+	if test -x $i; then
+		desc=`head -n3 $i | grep desc | cut -f2 -d:`
+		COMMANDS="$COMMANDS,$i:$desc"
+	fi
+done
 
 
 if test -d /etc/opendomo/actions; then

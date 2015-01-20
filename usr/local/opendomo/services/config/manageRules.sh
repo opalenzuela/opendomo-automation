@@ -15,7 +15,7 @@ test -d "$RULESDIR" || mkdir "$RULESDIR"
 #if test -z "$1";then
 	cd $RULESDIR
 	echo "#> Rules available"
-	echo "list:editRule.sh	selectable"
+	echo "list:editRule.sh	listbox selectable"
 	EXISTS=0;
 	for r in *.rule; do
 		if test -f "$r"; then
