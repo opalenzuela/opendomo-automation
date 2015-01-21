@@ -56,6 +56,7 @@ do
 	fi
 	test -z "$desc" && desc=$script
 	
+
 	#comments=`echo $i | cut -f2 -d# | sed 's/+/ /g'`
 	echo "	-$val1 	$desc	condition $comp	$val2 "
 done

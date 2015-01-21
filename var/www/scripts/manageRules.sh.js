@@ -59,8 +59,8 @@ function ruleDragandropEnable(){
 										var cmdcomp = "-gt+" + value;
 										break;
 								}
-								command =  ui.item.find("input").val().split("+")[0] + "+" + cmdcomp;
-								$(ui.item).find("input").val(command);								
+								command =  ui.item.find("input").val().split("+")[0];
+								$(ui.item).find("input").val(command+"+"+cmdcomp);								
 								$(ui.item).find("p").text(value);
 								$(ui.item).addClass(comparison);
 								$( this ).dialog( "close" );
@@ -100,8 +100,8 @@ function saverule(event) {
 	result = "";
 	$('#ruleListContainer li').each(function() {
 		var value = $(this).find("input").val().replace("+"," ");
-		var operation = $(this).find("p").text();
-		result = result + "test (DOLLAR)" + value + "= " + operation + "!";
+		//var operation = $(this).find("p").text();
+		result = result + "test (DOLLAR)" + value + "!"; // + "= " + operation + "!";
 	});
 	console.log(result)	
 	$("#rules").val(result);
