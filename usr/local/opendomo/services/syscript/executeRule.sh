@@ -9,6 +9,7 @@ RULESDIR="/etc/opendomo/rules"
 
 if ! test -z "$1"
 then
+	PATH="$PATH:/usr/local/opendomo/bin"
 	RULE="$RULESDIR/$1.rule"
 	if test -x "$RULE"
 	then
