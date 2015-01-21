@@ -99,7 +99,7 @@ function saverule(event) {
 	event.preventDefault();
 	result = "";
 	$('#ruleListContainer li').each(function() {
-		var value = $(this).find("input").val().replace(/+/g," ");
+		var value = $(this).find("input").val().replace(/\+/g," ");
 		//var operation = $(this).find("p").text();
 		result = result + "test (DOLLAR)" + value + "!"; // + "= " + operation + "!";
 	});
