@@ -1,7 +1,8 @@
 include_script("/scripts/vendor/jquery-ui.js");
 
 jQuery( document ).ready(function( $ ) {
-	$('button[name="submit_manageRules.sh"]').on("click",saverule);
+	$('#submit-manageRules').on("click",saveRule);
+	$('#submit-executeRule').on("click",testRule);
 	$("body").append("<div id='dialog' title='Enter a value'><p class='dialogcomp'></p><p class='dialogval'></p></div>");
 	setTimeout(ruleDragandropEnable,500);
 });
@@ -95,7 +96,7 @@ function ruleDragandropEnable(){
 
 
 var result;
-function saverule(event) {
+function saveRule(event) {
 	event.preventDefault();
 	result = "";
 	$('#ruleListContainer li').each(function() {
@@ -109,3 +110,13 @@ function saverule(event) {
 	$("#submit-manageRules").hide();
 }
 
+function testRule(event) {
+	event.preventDefault();
+	var ruleid = $("#code").val();
+	var response = loadRAW("/cgi-bin/od.cgi/executeRule.sh?odcgioptionsel[]=" + ruleid + "&GUI=XML");
+	if (response.indexOf("ERR")>-1) {
+		alert("Condition is FALSE");
+	} else {
+		alert("Condition is TRUE");
+	}
+}

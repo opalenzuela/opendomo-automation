@@ -63,6 +63,7 @@ do
 done
 echo "actions:"
 echo "	manageRules.sh	Save"
+echo "	executeRule.sh	Test"
 if test -x /usr/local/opendomo/manageEventHandlers.sh; then
 	echo "	manageEventHandlers.sh	Event manager"
 fi
