@@ -53,6 +53,25 @@ do_background() {
 	touch /var/www/data/null.odauto
 	while test -f $PIDFILE
 	do
+		echo "Processing rules ..."
+		for rule in /etc/opendomo/rules/*.rule; do
+			if test -f "$rule"; then
+				bname=`basename $rule` 
+				tmpfile="/var/opendomo/tmp/$bname.laststatus"
+				prev=`cat $tmpfile 2>/dev/null`
+				action=`tail -n1 $rule | cut -b2-`
+				if $rule; then
+					if test "$prev" != "true"; then
+						logevent rulechange rules "Rule [$bname] has changed" $rule
+						$action
+					fi
+					echo "true" > $tmpfile
+				else
+					echo "false" > $tmpfile
+				fi
+			fi
+		done
+		
 		echo "Compacting information ..."
 		echo -n "{\"ports\":[" > /var/www/data/odauto.json.tmp
 		cat /var/www/data/*.odauto  >> /var/www/data/odauto.json.tmp 2>/dev/null

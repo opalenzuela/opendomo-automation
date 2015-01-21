@@ -114,7 +114,7 @@ function testRule(event) {
 	event.preventDefault();
 	var ruleid = $("#code").val();
 	var response = loadRAW("/cgi-bin/od.cgi/executeRule.sh?odcgioptionsel[]=" + ruleid + "&GUI=XML");
-	if (response.indexOf("ERR")>-1) {
+	if (response.indexOf("error")>-1) {
 		alert("Condition is FALSE");
 	} else {
 		alert("Condition is TRUE");

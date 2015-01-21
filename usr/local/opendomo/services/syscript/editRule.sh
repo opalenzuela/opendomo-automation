@@ -21,7 +21,7 @@ else
 		echo "#!/bin/sh -e" > $RULE
 		echo '#desc:' $desc >> $RULE
 		echo $4 | sed -e 's/+/ /g' -e 's/!/\n/g' -e 's/(DOLLAR)/\$/g' >> $RULE
-		echo $action >> $RULE
+		echo "#$action" >> $RULE
 		chmod +x $RULE
 	else
 		# Else, just load file
@@ -29,7 +29,7 @@ else
 		RULE=$RULESDIR/$code.rule
 		touch $RULE
 		desc=`head -n2 $RULE | grep '#desc' | cut -f2 -d:`
-		action=`grep -v ^test $RULE | tail -n1`
+		action=`tail -n1 $RULE | cut -b2-`
 	fi
 fi
 
