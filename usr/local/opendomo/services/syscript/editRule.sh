@@ -45,6 +45,7 @@ echo "#> Conditions"
 echo "list:ruleListContainer.sh	detailed"
 for i in `grep ^test $RULE | sed  -e 's/ /+/g' `
 do
+	cmdid=`echo $i | cut -b6-`
 	val1=`echo $i | cut -f2 -d+ | sed 's/[^a-zA-Z0-9\.\(\)\/]//g' `
 	comp=`echo $i | cut -f3 -d+ | sed -e 's/=/equal/g' -e 's/-gt/greater/g' -e 's/-lt/smaller/g' `
 	val2=`echo $i | cut -f4 -d+ `
@@ -58,7 +59,7 @@ do
 	
 
 	#comments=`echo $i | cut -f2 -d# | sed 's/+/ /g'`
-	echo "	-$val1 	$desc	condition $comp	$val2 "
+	echo "	-$cmdid 	$desc	condition $comp	$val2 "
 done
 echo "actions:"
 echo "	manageRules.sh	Save"
