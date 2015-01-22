@@ -3,6 +3,8 @@ include_script("/scripts/vendor/jquery-ui.js");
 jQuery( document ).ready(function( $ ) {
 	$('#submit-manageRules').on("click",saveRule);
 	$('#submit-executeRule').on("click",testRule);
+	$('#submit-editDetails').on("click",editDetails);
+	$('#submit-editRule').on("click",hideDetails);
 	$("body").append("<div id='dialog' title='Enter a value'><p class='dialogcomp'></p><p class='dialogval'></p></div>");
 	setTimeout(ruleDragandropEnable,500);
 });
@@ -120,4 +122,14 @@ function testRule(event) {
 	} else {
 		alert("Condition is TRUE");
 	}
+}
+
+function editDetails(event) {
+	event.preventDefault();
+	$("#editRule_frm fieldset").removeClass("hidden");
+}
+function hideDetails(event) {
+	event.preventDefault();
+	$("#editRule_frm fieldset").addClass("hidden");
+	saveRule(event);
 }

@@ -13,7 +13,6 @@ for i in *.sh ; do
 	fi
 done
 
-
 if test -d /etc/opendomo/actions; then
 	COMMANDS="$COMMANDS,@seq:Actions"
 	cd /etc/opendomo/actions

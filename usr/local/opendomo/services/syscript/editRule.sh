@@ -33,12 +33,36 @@ else
 	fi
 fi
 
+# Events and Actions (duplicated from ADDRULE)
+cd /usr/local/opendomo/eventhandlers
+for i in *.sh ; do
+	if test -x $i; then
+		desc=`head -n3 $i | grep desc | cut -f2 -d:`
+		COMMANDS="$COMMANDS,$i:$desc"
+	fi
+done
+if test -d /etc/opendomo/actions; then
+	COMMANDS="$COMMANDS,@seq:Actions"
+	cd /etc/opendomo/actions
+	for i in *; do
+		if test "$i" != "*"; then
+			desc=`grep '#desc' $i | cut -f2 -d:`
+			if test -z "$desc"; then
+				desc="$i"
+			fi
+			COMMANDS="$COMMANDS,$i:$desc"
+		fi
+	done
+fi
+
 echo "#> Hidden form"
 echo "form:`basename $0`	hidden"
-echo "	code	Code	text	$code"
+echo "	code	Code	hidden	$code"
 echo "	desc	Description	text	$desc"
-echo "	action	Action	readonly	$action"
+echo "	action	Action	list[$COMMANDS]	$action"
 echo "	rules	Rules	hidden	$rules"
+echo "actions:"
+echo "	editRule.sh	Done"
 echo 
 
 echo "#> Conditions"
@@ -65,6 +89,7 @@ echo "actions:"
 echo "	goback	Back"
 echo "	manageRules.sh	Save"
 echo "	executeRule.sh	Test"
+echo "	editDetails.sh	Details"
 echo 
 
 echo "#> Time conditions"
