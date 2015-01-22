@@ -21,8 +21,10 @@ test -d "$RULESDIR" || mkdir "$RULESDIR"
 		if test -f "$r"; then
 			CODE=`echo $r | cut -f1 -d.`
 			DESC=`grep '#desc' $r | cut -f2 -d: `
+			ACTION=`tail -n1 $r | cut -b2- | cut -f1 -d' '`
+			ACTIONDESC=`grep '#desc' /usr/local/opendomo/eventhandlers/$ACTION | cut -f2 -d:`
 			test -z "$DESC" && DESC="$CODE"
-			echo "	-$CODE	$DESC	rule"
+			echo "	-$CODE	$DESC	rule	$ACTIONDESC"
 			EXISTS=1
 		fi
 	done
@@ -34,6 +36,9 @@ test -d "$RULESDIR" || mkdir "$RULESDIR"
 	echo "actions:"
 	echo "	addRule.sh	Add"
 	echo "	delRule.sh	Delete"
+	if test -x /usr/local/opendomo/manageEventHandlers.sh; then
+		echo "	manageEventHandlers.sh	Event manager"
+	fi	
 	echo 
 #else
 #	echo "#ERR Unexpected parameter $1"

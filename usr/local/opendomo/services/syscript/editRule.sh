@@ -62,11 +62,9 @@ do
 	echo "	-$cmdid 	$desc	condition $comp	$val2 "
 done
 echo "actions:"
+echo "	goback	Back"
 echo "	manageRules.sh	Save"
 echo "	executeRule.sh	Test"
-if test -x /usr/local/opendomo/manageEventHandlers.sh; then
-	echo "	manageEventHandlers.sh	Event manager"
-fi
 echo 
 
 echo "#> Time conditions"
