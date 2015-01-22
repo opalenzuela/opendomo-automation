@@ -15,15 +15,16 @@ test -d "$RULESDIR" || mkdir "$RULESDIR"
 #if test -z "$1";then
 	cd $RULESDIR
 	echo "#> Rules available"
-	echo "list:editRule.sh	listbox selectable"
+	echo "list:editRule.sh	detailed selectable"
 	EXISTS=0;
 	for r in *.rule; do
 		if test -f "$r"; then
 			CODE=`echo $r | cut -f1 -d.`
 			DESC=`grep '#desc' $r | cut -f2 -d: `
 			ACTION=`tail -n1 $r | cut -b2- | cut -f1 -d' '`
-			ACTIONDESC=`grep '#desc' /usr/local/opendomo/eventhandlers/$ACTION | cut -f2 -d:`
+			ACTIONDESC=`grep '#desc' /usr/local/opendomo/eventhandlers/$ACTION | cut -f2 -d: 2>/dev/null`
 			test -z "$DESC" && DESC="$CODE"
+			test -z "$ACTIONDESC" && ACTIONDESC="$ACTION"
 			echo "	-$CODE	$DESC	rule	$ACTIONDESC"
 			EXISTS=1
 		fi
