@@ -10,13 +10,14 @@
 # Description:       Automation
 #
 ### END INIT INFO
-### Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
+
+# Copyright(c) 2015 OpenDomo Services SL. Licensed under GPL v3 or later
 
 . /lib/lsb/init-functions
 PIDFILE="/var/opendomo/run/odauto.pid"
 CFGDIR=/etc/opendomo/control
 CTRLDIR=/var/opendomo/control
-	
+PATH="$PATH:/usr/local/opendomo/bin/"
 
 do_background() {
 	# 1. Saving PID file
