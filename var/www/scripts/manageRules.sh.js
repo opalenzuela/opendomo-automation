@@ -111,6 +111,7 @@ function saveRule(event) {
 }
 
 function testRule(event) {
+	saveRule(event); // We need to save it first before testing!
 	event.preventDefault();
 	var ruleid = $("#code").val();
 	var response = loadRAW("/cgi-bin/od.cgi/executeRule.sh?odcgioptionsel[]=" + ruleid + "&GUI=XML");
