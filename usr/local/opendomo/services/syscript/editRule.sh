@@ -37,8 +37,8 @@ fi
 cd /usr/local/opendomo/eventhandlers
 for i in *.sh ; do
 	if test -x $i; then
-		desc=`head -n3 $i | grep desc | cut -f2 -d:`
-		COMMANDS="$COMMANDS,$i:$desc"
+		descevent=`head -n3 $i | grep desc | cut -f2 -d:`
+		COMMANDS="$COMMANDS,$i:$descevent"
 	fi
 done
 if test -d /etc/opendomo/actions; then
@@ -46,11 +46,11 @@ if test -d /etc/opendomo/actions; then
 	cd /etc/opendomo/actions
 	for i in *; do
 		if test "$i" != "*"; then
-			desc=`grep '#desc' $i | cut -f2 -d:`
-			if test -z "$desc"; then
-				desc="$i"
+			descaction=`grep '#desc' $i | cut -f2 -d:`
+			if test -z "$descaction"; then
+				descaction="$i"
 			fi
-			COMMANDS="$COMMANDS,$i:$desc"
+			COMMANDS="$COMMANDS,$i:$descaction"
 		fi
 	done
 fi
