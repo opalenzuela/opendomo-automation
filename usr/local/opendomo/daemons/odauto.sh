@@ -90,6 +90,8 @@ do_start () {
 	if test -f $PIDFILE; then
 		echo -n "(already started!)"
 	else
+		touch /var/www/data/prompts.json 
+		
 		mkdir -p $CTRLDIR > /dev/null
 		cd /usr/local/opendomo/daemons/
 		$0 background > /dev/null &

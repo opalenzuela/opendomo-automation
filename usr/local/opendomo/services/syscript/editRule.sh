@@ -55,7 +55,7 @@ if test -d /etc/opendomo/actions; then
 	done
 fi
 
-echo "#> Hidden form"
+echo "#> Details"
 echo "form:`basename $0`	hidden"
 echo "	code	Code	hidden	$code"
 echo "	desc	Description	text	$desc"
