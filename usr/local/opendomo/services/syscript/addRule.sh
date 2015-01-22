@@ -5,7 +5,7 @@
 
 # Copyright(c) 2015 OpenDomo Services SL. Licensed under GPL v3 or later
 
-cd /usr/local/opendomo/
+cd /usr/local/opendomo/eventhandlers
 for i in *.sh ; do
 	if test -x $i; then
 		desc=`head -n3 $i | grep desc | cut -f2 -d:`

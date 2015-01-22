@@ -59,11 +59,14 @@ do_background() {
 				bname=`basename $rule` 
 				tmpfile="/var/opendomo/tmp/$bname.laststatus"
 				prev=`cat $tmpfile 2>/dev/null`
+				desc=`head -n3 $rule | grep desc | cut -f2 -d:`
 				action=`tail -n1 $rule | cut -b2-`
+				test -z "$desc" && desc="$bname"
+				
 				if $rule; then
 					if test "$prev" != "true"; then
 						logevent rulechange rules "Rule [$bname] has changed" $rule
-						$action
+						$action rulechange rules $desc $rule
 					fi
 					echo "true" > $tmpfile
 				else
