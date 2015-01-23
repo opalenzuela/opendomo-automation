@@ -3,25 +3,26 @@
 #type:local
 #package:odauto
 
-# Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
+# Copyright(c) 2015 OpenDomo Services SL. Licensed under GPL v3 or later
 
-SEQPATH="/etc/opendomo/actions"
+ACTIONPATH="/etc/opendomo/actions"
 
 
-if ! test -d "$SEQPATH"; then
-	mkdir -p $SEQPATH
+if ! test -d "$ACTIONPATH"; then
+	mkdir -p $ACTIONPATH
 fi
 
 # NO parameters? Invoke manageSequences and exit
 if test -z "$1"
 then
-	cd $SEQPATH
+	cd $ACTIONPATH
 	echo "list:`basename $0`	selectable"
-	for s in *.*
+	for s in *.action
 	do
 		if test -f $s; then
-			code="$s"
+			code=`echo $s cut -f1 -d.`
 			desc=`head -n2 $s | grep desc: | cut -f2 -d:`
+			test -z "$desc" && desc="$code"
 			echo "	-$code	$desc	action"
 		fi
 	done
@@ -35,10 +36,10 @@ then
 	exit 0
 else
 	code="$1"
-	SEQ=$SEQPATH/$1
+	SEQ=$ACTIONPATH/$1.action
 	touch $SEQ
 	chmod +x $SEQ
-	#source $SEQPATH/$1
+	#source $ACTIONPATH/$1
 fi
 
 # Saving action!!
@@ -47,7 +48,7 @@ then
 	code="$1"
 	desc="$2"
 	steplist="$3"
-	SEQ=$SEQPATH/$code
+	SEQ=$ACTIONPATH/$code.action
 	echo '#!/bin/sh' > $SEQ
 	echo '#desc:' $desc | sed 's/+/ /g' >> $SEQ
 	echo $steplist | sed -e 's/!/\n/g' -e 's/+/ /g'  -e 's/_/\//g'  -e 's/(OR)/||/g' -e 's/(AND)/&&/g' >> $SEQ
@@ -56,7 +57,7 @@ fi
 
 if test -z "$desc"
 then
-	desc=`head -n2 $SEQPATH/$1 | grep desc: | cut -f2 -d:`
+	desc=`head -n2 $ACTIONPATH/$1.action | grep desc: | cut -f2 -d:`
 fi
 
 par1=""

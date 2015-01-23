@@ -39,6 +39,9 @@ li.separator {
 li.item {
 	background-color:white;
 }
+li.item.drag {
+	background-position: center center;
+}
 .dialogvaluerender {
 	font-size: large;
 	text-align: center;
