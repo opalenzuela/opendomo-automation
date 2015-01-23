@@ -106,6 +106,7 @@ function saveRule(event) {
 		//var operation = $(this).find("p").text();
 		result = result + "test (DOLLAR)" + value + "!"; // + "= " + operation + "!";
 	});
+	result = result.replace(/\$/g,"");
 	console.log(result)	
 	$("#rules").val(result);
 	submitForm("editRule_frm");
