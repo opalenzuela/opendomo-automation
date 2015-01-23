@@ -102,22 +102,27 @@ echo "	(weekday.sh)+[0-7]	Weekday	item drag time"
 echo "	(month.sh)+[1-12]	Month	item drag time"
 echo
 
+TMPDIR=/var/opendomo/tmp
+
 if test -d /etc/opendomo/control/ ; then
+	echo > $TMPDIR/listcontrolportscache.tmp
 	echo "#> Ports"
 	echo "list:editConditionsPorts.sh	iconlist foldable"
-	cd /etc/opendomo/control/
-	#echo "	sepPorts		Ports 	separator	Ports"
-	for port in */*.info; do
-		if test -f $port; then
-			tag="light"
-			values="on,off"
-			source $port
-			test -z "$desc" && desc=$port
-			pname=`echo $port | cut -f1 -d.`
-			echo "	(/var/opendomo/control/$pname)+[$values]	$desc	item drag port $tag"
-		fi
-	done
-
+	if ! test -f $TMPDIR/listcontrolportscache.tmp; then
+		cd /etc/opendomo/control/
+		#echo "	sepPorts		Ports 	separator	Ports"
+		for port in */*.info; do
+			if test -f $port; then
+				tag="light"
+				values="on,off"
+				source $port
+				test -z "$desc" && desc=$port
+				pname=`echo $port | cut -f1 -d.`
+				echo "	(/var/opendomo/control/$pname)+[$values]	$desc	item drag port $tag" >> $TMPDIR/listcontrolportscache.tmp
+			fi
+		done
+	fi
+	cat $TMPDIR/listcontrolportscache.tmp
 fi
 echo
 
