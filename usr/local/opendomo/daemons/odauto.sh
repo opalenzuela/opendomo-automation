@@ -18,6 +18,7 @@ PIDFILE="/var/opendomo/run/odauto.pid"
 CFGDIR=/etc/opendomo/control
 CTRLDIR=/var/opendomo/control
 PATH="$PATH:/usr/local/opendomo/bin/"
+TMPDIR=/var/opendomo/tmp
 
 do_background() {
 	# 1. Saving PID file
@@ -91,6 +92,7 @@ do_start () {
 		echo -n "(already started!)"
 	else
 		touch /var/www/data/prompts.json 
+		rm -fr $TMPDIR/listcontrolportscache.tmp
 		
 		mkdir -p $CTRLDIR > /dev/null
 		cd /usr/local/opendomo/daemons/
