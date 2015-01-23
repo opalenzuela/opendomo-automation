@@ -65,7 +65,7 @@ function sequenceDragandropEnable(){
 			}
 		}
     });
-    $( "#editSequenceSteps li.item" ).draggable({
+    $( "li.item.drag" ).draggable({
 		connectToSortable: "#stepListContainer",
 		helper: "clone",
 		revert: "invalid",

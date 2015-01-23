@@ -85,28 +85,29 @@ echo "	manageActions.sh	Save"
 echo
 
 
-echo "#> Add new step"
+echo "#> Timers"
 # List of all supported scripts in /usr/local/bin
-echo "list:editSequenceSteps.sh	iconlist"
-
-echo "	sepTM	Timers	separator"
-echo "	wait.sh+1s	1s	item wait	Wait for [1] second"
-echo "	wait.sh+5s	5s	item wait	Wait for [5] seconds"
-echo "	wait.sh+10s	10s	item wait	Wait for [10] seconds"
-echo "	wait.sh+1m	1m	item wait	Wait for [1] minute"
-
+echo "list:editSequenceTime.sh	iconlist foldable"
+echo "	wait.sh+1s	1s	item drag wait	Wait for [1] second"
+echo "	wait.sh+5s	5s	item drag wait	Wait for [5] seconds"
+echo "	wait.sh+10s	10s	item drag wait	Wait for [10] seconds"
+echo "	wait.sh+1m	1m	item drag wait	Wait for [1] minute"
+echo
 # Only if audio is available
 if test -x /usr/local/bin/play.sh; then
-	echo "	sepAU	Audio	separator"
-	echo "	play.sh+beep	beep	item play	Play a [beep] sound"
-	echo "	play.sh+notify	notify	item play	Play a [notify] sound"
-	echo "	say.sh+???  	say 	item say 	Say [???]"
+	echo "#> Audio"
+	echo "list:editSequenceAudio.sh	iconlist foldable"
+	echo "	play.sh+beep	beep	item drag play	Play a [beep] sound"
+	echo "	play.sh+notify	notify	item drag play	Play a [notify] sound"
+	echo "	say.sh+???  	say 	item drag say 	Say [???]"
+	echo
 fi
 
 # Only if Control directory exists (hence, control devices are configured)
 if test -d /etc/opendomo/control/
 then
-	echo "	sepDP	Ports 	separator"
+	echo "#> Ports"
+	echo "list:editSequencePorts.sh	iconlist foldable"
 	cd /etc/opendomo/control/
 	for port in `grep  -n "way='out'" */* | cut -f1 -d.`
 	do
@@ -115,13 +116,15 @@ then
 		source /etc/opendomo/control/$port.info
 		bname=`basename $port`
 		pname=`echo $port |  sed 's/\//_/g'`
-		echo "	setport.sh+$pname+[$values]	$bname	item setport	$desc ???"
+		echo "	setport.sh+$pname+[$values]	$bname	item drag setport	$desc ???"
 	done
+	echo
 fi
 
-echo "	sepLOG	Logical operators	separator"
-echo "	exit+0	Finish	item logical 	Finish successfully	"
-echo "	exit+1	Abort	item logical	Finish with error code"
+echo "#> Logical operators"
+echo "list:editSequenceLogic.sh	iconlist foldable"
+echo "	exit+0	Finish	item drag logical 	Finish successfully	"
+echo "	exit+1	Abort	item drag logical	Finish with error code"
 echo
 
 
