@@ -105,7 +105,6 @@ echo
 TMPDIR=/var/opendomo/tmp
 
 if test -d /etc/opendomo/control/ ; then
-	echo > $TMPDIR/listcontrolportscache.tmp
 	echo "#> Ports"
 	echo "list:editConditionsPorts.sh	iconlist foldable"
 	if ! test -f $TMPDIR/listcontrolportscache.tmp; then
