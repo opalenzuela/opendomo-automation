@@ -50,11 +50,12 @@ do_background() {
 		fi
 	done	
 	
-	# 3. Preparing JSON information
+	
 	test -d /var/www/data/ || mkdir -p /var/www/data/
 	touch /var/www/data/null.odauto
 	while test -f $PIDFILE
 	do
+		# 3. Updating rule state
 		echo "Processing rules ..."
 		for rule in /etc/opendomo/rules/*.rule; do
 			if test -f "$rule"; then
@@ -68,7 +69,7 @@ do_background() {
 				if $rule; then
 					if test "$prev" != "true"; then
 						logevent rulechange rules "Rule [$bname] has changed" $rule
-						$action rulechange rules $desc $rule
+						$action rulechange rules $desc $rule 2>/dev/null
 					fi
 					echo "true" > $tmpfile
 				else
@@ -77,10 +78,12 @@ do_background() {
 			fi
 		done
 		
+		# 4. Preparing JSON information
 		echo "Compacting information ..."
 		echo -n "{\"ports\":[" > /var/www/data/odauto.json.tmp
 		cat /var/www/data/*.odauto  >> /var/www/data/odauto.json.tmp 2>/dev/null
 		echo "0]}" >> /var/www/data/odauto.json.tmp
+		#TODO Make sure that the format is valid
 		mv /var/www/data/odauto.json.tmp /var/www/data/odauto.json
 		sleep 1
 	done
