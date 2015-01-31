@@ -31,7 +31,6 @@ else
 	fi
 fi
 
-
 PIDFILE="/var/opendomo/run/odauto.pid"
 TMPFILE=/var/opendomo/tmp/$DEVNAME.tmp
 LISTFILE=/var/opendomo/tmp/$DEVNAME.lst
