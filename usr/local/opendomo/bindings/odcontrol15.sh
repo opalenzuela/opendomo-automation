@@ -3,7 +3,7 @@
 #package:odauto
 
 ### Copyright(c) 2015 OpenDomo Services SL. Licensed under GPL v3 or later
-
+ 
 # validate device
 if test "$1" == "validate"; then
 	source "$2"

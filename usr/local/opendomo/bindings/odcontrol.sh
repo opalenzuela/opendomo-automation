@@ -6,7 +6,7 @@
  
 # validate device
 if test "$1" == "validate"; then
-	source "$2"
+	source "$2" 
 
 	# Validation command
         if
