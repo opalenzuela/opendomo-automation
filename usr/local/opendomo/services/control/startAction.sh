@@ -39,11 +39,11 @@ if test -z "$1"; then
 	done
 	if test "$EXIST" = "0" ; then
 		if test -x /usr/local/opendomo/addAction.sh; then
-			echo "# There are no actions configured. Please, go to Add."
+			echo "#INFO No actions defined. To create one, press Add"
 			echo "actions:"
 			echo "	addAction.sh	Add"
 		else
-			echo "# There are no actions configured. Please ask your installer."
+			echo "#INFO There are no actions configured. Please ask your installer."
 		fi
 		echo
 		exit 0
