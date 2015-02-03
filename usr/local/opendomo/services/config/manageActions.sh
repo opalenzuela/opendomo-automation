@@ -16,7 +16,7 @@ fi
 if test -z "$1"
 then
 	cd $ACTIONPATH
-	echo "list:`basename $0`	selectable"
+	echo "list:`basename $0`	listbox selectable"
 	for s in *.action
 	do
 		if test -f $s; then
@@ -33,6 +33,7 @@ then
 	echo "	addAction.sh	Add"
 	echo "	manageActions.sh	Edit"
 	echo "	delAction.sh	Delete"
+	echo
 	exit 0
 else
 	code="$1"
@@ -61,6 +62,7 @@ then
 fi
 
 par1=""
+code=`echo $code | cut -f1 -d.`
 echo "#> Steps in [$desc]"
 echo "form:`basename $0`	hidden"
 echo "	code	code	text	$code"
