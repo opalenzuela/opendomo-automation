@@ -20,7 +20,7 @@ then
 	for s in *.action
 	do
 		if test -f $s; then
-			code=`echo $s cut -f1 -d.`
+			code=`echo $s | cut -f1 -d.`
 			desc=`head -n2 $s | grep desc: | cut -f2 -d:`
 			test -z "$desc" && desc="$code"
 			echo "	-$code	$desc	action"
