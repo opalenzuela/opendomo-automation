@@ -49,6 +49,7 @@ then
 	code="$1"
 	desc="$2"
 	steplist="$3"
+	code=`echo $code | cut -f1 -d.`
 	SEQ=$ACTIONPATH/$code.action
 	echo '#!/bin/sh' > $SEQ
 	echo '#desc:' $desc | sed 's/+/ /g' >> $SEQ
