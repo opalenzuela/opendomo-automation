@@ -1,3 +1,4 @@
+var repositoryURL="https://github.com/opalenzuela/opendomo-automation/";
 $(function(){
 	$("#type").on("change",function() {
 		switch($(this).val()){

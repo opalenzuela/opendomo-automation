@@ -1,3 +1,4 @@
+var repositoryURL="https://github.com/opalenzuela/opendomo-automation/";
 /*setInterval(function(){
 	var manageZones_frm = document.getElementById("manageZones_frm");
 	var addZone_frm = document.getElementById("addZone_frm");

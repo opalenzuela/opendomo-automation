@@ -1,3 +1,4 @@
+var repositoryURL="https://github.com/opalenzuela/opendomo-automation/";
 include_script("/scripts/vendor/jquery-ui.js");
 
 $(function($) {

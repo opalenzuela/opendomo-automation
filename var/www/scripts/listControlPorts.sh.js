@@ -1,3 +1,4 @@
+var repositoryURL="https://github.com/opalenzuela/opendomo-automation/";
 
 jQuery(function($) {
 	updatePorts();
