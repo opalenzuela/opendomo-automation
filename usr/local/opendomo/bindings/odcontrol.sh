@@ -10,7 +10,7 @@ if test "$1" == "validate"; then
 
 	# Validation command
         if
-	wget $URL/ver+ --http-user=$USER --http-password=$PASS -O - &>/dev/null
+	curl -s --user $USERNAME:$PASS $URL:81/ver+ &>/dev/null
 	then
 		exit 0
 	else
@@ -49,7 +49,7 @@ test -d /var/www/data || mkdir -p /var/www/data
 while test -f $PIDFILE
 do
 	# Making the actual call
-	if wget -q $URL/lst --http-user=$USER --http-password=$PASS -O $TMPFILE
+	if curl -o $TMPFILE -s --user $USERNAME:$PASS $URL:81/lst
 	then
 		
 		echo "Response with DONE. Continue."
@@ -64,10 +64,10 @@ do
 		do
 			if test "$line" != "DONE"
 			then
-				PNAME=`echo $line | cut -f1 -d:`
-				PTYPE=`echo $line | cut -f2 -d:  | cut -b1-2`
-				PVAL=`echo $line | cut -f3 -d:`
-				PTAG=`echo $line | cut -f2 -d:  | cut -b4`
+				PNAME=`echo $line | cut -f2 -d:`
+				PTYPE=`echo $line | cut -f1 -d:  | cut -b1-2`
+ 				PVAL=`echo $line | cut -f3 -d:`
+				PTAG=`echo $line | cut -f2 -d:`
 					
 				INFOFILE="$CFGDIR/$DEVNAME/$PNAME.info"
 				# Only if the port was never configured, generate INFOFILE
@@ -82,8 +82,8 @@ do
 								echo "Port $PNAME exists"
 							else
 								echo "Creating $CTRLDIR/$DEVNAME/$PNAME"
-								echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf  \n wget -q $URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null " > $CTRLDIR/$DEVNAME/$PNAME
-								chmod +x $CTRLDIR/$DEVNAME/$PNAME  
+								echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf \n curl -s --user $USERNAME:$PASS $URL:81/set+$PNAME+\$1" > $CTRLDIR/$DEVNAME/$PNAME
+							chmod +x $CTRLDIR/$DEVNAME/$PNAME  
 							fi					
 							# Saving info
 							echo "way='out'" > $INFOFILE
