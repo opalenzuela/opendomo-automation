@@ -18,7 +18,7 @@ done
 # If we are passing all 5 parameters, 
 if ! test -z "$5"; then
 	TYPE="$1"
-	USER="$2"
+	USERNAME="$2"
 	PASS="$3"
 	URL="$4"
 	
@@ -30,7 +30,7 @@ if ! test -z "$5"; then
 	mkdir -p /etc/opendomo/control/$DEVICENAME
 	CFGFILE="/etc/opendomo/control/$DEVICENAME.conf"
 	echo "URL=$URL" > $CFGFILE
-	echo "USER=$USER" >> $CFGFILE
+	echo "USERNAME=$USERNAME" >> $CFGFILE
 	echo "PASS=$PASS" >> $CFGFILE
 	echo "TYPE=$TYPE" >> $CFGFILE
 	echo "REFRESH=$REFRESH" >> $CFGFILE

@@ -9,7 +9,7 @@ if test "$1" == "validate"; then
 	source "$2"
 
 	# Validation command
-	if wget $URL/data.xml --http-user=$USER --http-password=$PASS -O - 
+	if wget $URL/data.xml --http-user=$USERNAME --http-password=$PASS -O - 
 	then
 		exit 0
 	else
@@ -48,7 +48,7 @@ do
 	echo >  /var/www/data/$DEVNAME.odauto.tmp
 
 	# Making the actual call
-	if wget -q $URL/data.xml --http-user=$USER --http-password=$PASS -O $TMPFILE
+	if wget -q $URL/data.xml --http-user=$USERNAME --http-password=$PASS -O $TMPFILE
 	then
 		
 			

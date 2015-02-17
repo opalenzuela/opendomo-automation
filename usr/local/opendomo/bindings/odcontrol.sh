@@ -82,7 +82,7 @@ do
 								echo "Port $PNAME exists"
 							else
 								echo "Creating $CTRLDIR/$DEVNAME/$PNAME"
-								echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf \n curl -s --user $USERNAME:$PASS $URL:81/set+$PNAME+\$1" > $CTRLDIR/$DEVNAME/$PNAME
+								echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf \n curl -s --user \$USERNAME:\$PASS $URL:81/set+$PNAME+\$1" > $CTRLDIR/$DEVNAME/$PNAME
 							chmod +x $CTRLDIR/$DEVNAME/$PNAME  
 							fi					
 							# Saving info

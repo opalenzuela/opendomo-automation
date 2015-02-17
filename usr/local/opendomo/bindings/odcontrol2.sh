@@ -17,7 +17,7 @@ then
 	TMPFILE="/var/opendomo/tmp/$DEVNAME.tmp"
 	#TODO Whenever "ver" is adapted to indicate the UID, adapt this query to obtain it
 	# and use it as the device internal name instead of the URL/IP
-	if	wget $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
+	if	wget $URL/lsc --http-user=$USERNAME --http-password=$PASS -O $TMPFILE 
 	then
 		if grep DONE $TMPFILE
 		then
@@ -60,12 +60,12 @@ test -d /var/www/data || mkdir -p /var/www/data
 while test -f $PIDFILE
 do
 	# Avoid duplicated call error (E003)
-	wget -q $URL/ver --http-user=$USER --http-password=$PASS -O - > /dev/null
+	wget -q $URL/ver --http-user=$USERNAME --http-password=$PASS -O - > /dev/null
 	
 	echo >  /var/www/data/$DEVNAME.odauto.tmp
 	
 	# Making the actual call
-	if	wget -q $URL/lsc --http-user=$USER --http-password=$PASS -O $TMPFILE 
+	if	wget -q $URL/lsc --http-user=$USERNAME --http-password=$PASS -O $TMPFILE 
 	then
 		if grep -q DONE $TMPFILE
 		then
@@ -148,7 +148,7 @@ do
 								echo -e "if test -z \$1; then \n" >> $CTRLDIR/$DEVNAME/$PNAME
 								echo -e "	cat \$0.value \n" >> $CTRLDIR/$DEVNAME/$PNAME
 								echo -e "else \n" >> $CTRLDIR/$DEVNAME/$PNAME
-								echo -e "	wget -q $URL/set+$PNAME+\$1 --http-user=\$USER --http-password=\$PASS -O /dev/null " >> $CTRLDIR/$DEVNAME/$PNAME
+								echo -e "	wget -q $URL/set+$PNAME+\$1 --http-user=\$USERNAME --http-password=\$PASS -O /dev/null " >> $CTRLDIR/$DEVNAME/$PNAME
 								echo -e "fi\n" >> $CTRLDIR/$DEVNAME/$PNAME
 								chmod +x $CTRLDIR/$DEVNAME/$PNAME  
 							fi		
