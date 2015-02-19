@@ -91,7 +91,7 @@ do
 			# Always, refresh the port value
 			echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
 			if test "$PVAL" != "$OLDVAL"; then
-				/bin/logevent odauto portchange "$DEVNAME/$PNAME $PVAL"
+				logevent odauto portchange "$DEVNAME/$PNAME $PVAL"
 			fi
 				
 			# Finally, generate JSON fragment
@@ -102,7 +102,7 @@ do
 		done
 	else
 		echo "#WARN: Device [$DEVNAME] not responding. We will keep trying"
-		/bin/logevent odauto warning "Device [$DEVNAME] not responding. We will keep trying"
+		logevent odauto warning "Device [$DEVNAME] not responding. We will keep trying"
 	fi
 	
 	# A very quick replacement of the old file with the new one:
