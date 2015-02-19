@@ -50,13 +50,11 @@ do
 	# Making the actual call
 	if wget -q $URL/data.xml --http-user=$USERNAME --http-password=$PASS -O $TMPFILE
 	then
-		
-			
 		# LSTFILE contiene el listado correcto
 		for PNAME in voltage_L1 voltage_L2 voltage_L3 current_L1 current_L2 current_L3
 		do
 			INFOFILE=$CFGDIR/$DEVNAME/$PNAME.info
-			if ! test -f $INFOFILE; then
+			if ! test -f "$INFOFILE"; then
 				echo "way='in'" > $INFOFILE
 				echo "tag='power'" >> $INFOFILE
 				echo "desc='$PNAME'" >> $INFOFILE
@@ -76,7 +74,7 @@ do
 				source $INFOFILE
 			fi
 			PORTFILE=$CTRLDIR/$DEVNAME/$PNAME
-			if ! test -f $PORTFILE; then
+			if ! test -f "$PORTFILE"; then
 				echo "Creating $PORTFILE"
 				echo -e "#!/bin/sh \n . $CFGDIR/$DEVNAME.conf  \n" > $PORTFILE
 				echo -e "#desc:$PNAME" >> $PORTFILE
@@ -88,12 +86,12 @@ do
 				chmod +x $PORTFILE  
 			fi
 		
-			PVAL=`grep $param $TMPFILE | tail -n1 | cut -f2 -d'>' | cut -f1 -d'<' `
+			PVAL=`grep $PNAME $TMPFILE | tail -n1 | cut -f2 -d'>' | cut -f1 -d'<' `
 			OLDVAL=`cat $CTRLDIR/$DEVNAME/$PNAME.value`
 			# Always, refresh the port value
 			echo $PVAL  > $CTRLDIR/$DEVNAME/$PNAME.value
 			if test "$PVAL" != "$OLDVAL"; then
-				/bin/logevent portchange odauto "$DEVNAME/$PNAME $PVAL"
+				/bin/logevent odauto portchange "$DEVNAME/$PNAME $PVAL"
 			fi
 				
 			# Finally, generate JSON fragment
@@ -103,7 +101,8 @@ do
 			fi
 		done
 	else
-		echo "#WARN: Device $DEVNAME not responding. We will keep trying"
+		echo "#WARN: Device [$DEVNAME] not responding. We will keep trying"
+		/bin/logevent odauto warning "Device [$DEVNAME] not responding. We will keep trying"
 	fi
 	
 	# A very quick replacement of the old file with the new one:
