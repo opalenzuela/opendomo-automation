@@ -6,33 +6,7 @@ jQuery(function($) {
 
 var portdata;
 function updatePorts()
-{
-	try {
-		/*
-		var url= "/data/odauto.json";		
-		var xmlhttp=new XMLHttpRequest();
-		xmlhttp.open("GET",url);
-		if (mimeType != null) {
-			if (xmlhttp.overrideMimeType) {
-				xmlhttp.overrideMimeType(mimeType);
-			}
-		}
-		xmlhttp.send();
-		if (xmlhttp.status==200)
-		{
-			return xmlhttp.responseText;
-		}
-		else {
-			// TODO Throw exception
-			return null;
-		}
-		portdata = loadJSON(url);		
-		*/
-	} catch(e) {
-		// Do nothing 
-		return null;
-	}	
-	
+{	
 	$.ajax({url:"/data/odauto.json",dataType:"json"})
 		.done(function(portdata){
 			var list = document.getElementById("listControlPorts");
