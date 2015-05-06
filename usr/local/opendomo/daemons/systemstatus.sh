@@ -10,8 +10,8 @@
 # Description:       System information
 #
 ### END INIT INFO
-### Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
-
+### Copyright(c) 2015 OpenDomo Services SL. Licensed under GPL v3 or later
+. /lib/lsb/init-functions
 
 CFGPATH="/etc/opendomo/control/system"
 CTRLPATH="/var/opendomo/control/system"
