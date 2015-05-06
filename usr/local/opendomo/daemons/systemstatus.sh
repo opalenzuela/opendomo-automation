@@ -31,7 +31,7 @@ do_background() {
 		PORTS="cpuusage bootdisk totaldisk"
 		
 		grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage}' > $CTRLPATH/cpuusage.value
-		df / | awk '{ print "bootdisk:AIM_:" $5 }' | tail -n 1 | sed -e 's/%//' > $CTRLPATH/bootdisk.value
+		df / | awk '{ print $5 }' | tail -n 1 | sed -e 's/%//' > $CTRLPATH/bootdisk.value
 		cd /media
 		for d in *; do
 			df  /media/$d | tail -n 1 | awk '{ print $5 }' | sed -e 's/%//'  > $CTRLPATH/$d.value
