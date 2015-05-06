@@ -29,15 +29,19 @@ do_background() {
 	while test -f $PIDFILE
 	do
 		touch $CTRLPATH/cpuusage
+		echo "way=in" >  $CFGPATH/cpuusage.info
 		grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage}' > $CTRLPATH/cpuusage.value
 		touch $CTRLPATH/bootdisk
+		echo "way=in" >  $CFGPATH/bootdisk.info
 		df / | awk '{ print "bootdisk:AIM_:" $5 }' | tail -n 1 | sed -e 's/%//' > $CTRLPATH/bootdisk.value
 		cd /media
 		for d in *; do
 			touch $CTRLPATH/$d
+			echo "way=in" >  $CFGPATH/$d.info
 			df  /media/$d | tail -n 1 | awk '{ print $5 }' | sed -e 's/%//'  > $CTRLPATH/$d.value
 		done
 		touch $CTRLPATH/totaldisk
+		echo "way=in" > $CFGPATH/totaldisk.info
 		df --total | grep total | awk '{ print $5 }' | sed -e 's/%//' > $CTRLPATH/totaldisk.value
 		sleep 60
 	done
