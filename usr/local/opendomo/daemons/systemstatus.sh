@@ -6,13 +6,15 @@
 # Should-Start:      
 # Default-Start:     1 2 3 4 5
 # Default-Stop:      0 6
-# Short-Description: System information
-# Description:       System information
+# Short-Description: System status
+# Description:       System status service collects important information from the system and renders it as a virtual device
 #
 ### END INIT INFO
 ### Copyright(c) 2015 OpenDomo Services SL. Licensed under GPL v3 or later
+
 . /lib/lsb/init-functions
 
+DESC="System status"
 CFGPATH="/etc/opendomo/control/system"
 CTRLPATH="/var/opendomo/control/system"
 PIDFILE="/var/opendomo/run/systemstatus.pid"
@@ -38,11 +40,11 @@ do_background() {
 }
 	
 do_start () {
-	log_action_begin_msg "Starting ODAUTO service"
+	log_action_begin_msg "Starting $DESC service"
 	if test -f $PIDFILE; then
 		echo -n "(already started!)"
 	else
-		mkdir -p $CTRLDIR > /dev/null
+		mkdir -p $CTRLPATH > /dev/null
 		cd /usr/local/opendomo/daemons/
 		$0 background > /dev/null &
 	fi
@@ -50,7 +52,7 @@ do_start () {
 }
 
 do_stop () {
-	log_action_begin_msg "Stoping ODAUTO service"
+	log_action_begin_msg "Stopping $DESC service"
 	rm $PIDFILE 2>/dev/null	
 	log_action_end_msg $?
 }
