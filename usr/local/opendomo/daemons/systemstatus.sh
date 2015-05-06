@@ -28,12 +28,16 @@ do_background() {
 	echo -n >$PIDFILE
 	while test -f $PIDFILE
 	do
+		touch $CTRLPATH/cpuusage
 		grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage}' > $CTRLPATH/cpuusage.value
+		touch $CTRLPATH/bootdisk
 		df / | awk '{ print "bootdisk:AIM_:" $5 }' | tail -n 1 | sed -e 's/%//' > $CTRLPATH/bootdisk.value
 		cd /media
 		for d in *; do
+			touch $CTRLPATH/$d
 			df  /media/$d | tail -n 1 | awk '{ print $5 }' | sed -e 's/%//'  > $CTRLPATH/$d.value
 		done
+		touch $CTRLPATH/totaldisk
 		df --total | grep total | awk '{ print $5 }' | sed -e 's/%//' > $CTRLPATH/totaldisk.value
 		sleep 60
 	done
