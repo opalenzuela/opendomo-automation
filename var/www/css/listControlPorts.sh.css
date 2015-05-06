@@ -3,7 +3,7 @@
 	li.AI label,
 	li.AI p {
 		display: inline-block;
-		width: 49%;
+		width: 48%;
 	}
 	li.AI p input[type=readonly] {
 		width: 100px;

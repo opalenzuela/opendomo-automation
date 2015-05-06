@@ -66,16 +66,17 @@ do_start () {
 
 do_stop () {
 	log_action_begin_msg "Stopping $DESC service"
+	rm -fr /var/www/data/system.odauto 2>/dev/null
 	rm $PIDFILE 2>/dev/null	
 	log_action_end_msg $?
 }
 
 do_status () {
 	if test -f $PIDFILE; then
-		echo "$basename $0 is running"
+		echo "$DESC is running"
 		exit 0
 	else
-		echo "$basename $0 is not running"
+		echo "$DESC is not running"
 		exit 1
 	fi
 }
