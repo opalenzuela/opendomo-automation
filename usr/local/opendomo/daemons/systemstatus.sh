@@ -28,27 +28,31 @@ do_background() {
 	echo -n >$PIDFILE
 	while test -f $PIDFILE
 	do
-		touch $CTRLPATH/cpuusage
-		echo "way=in" >  $CFGPATH/cpuusage.info
+		PORTS="cpuusage bootdisk totaldisk"
+		
 		grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage}' > $CTRLPATH/cpuusage.value
-		touch $CTRLPATH/bootdisk
-		echo "way=in" >  $CFGPATH/bootdisk.info
 		df / | awk '{ print "bootdisk:AIM_:" $5 }' | tail -n 1 | sed -e 's/%//' > $CTRLPATH/bootdisk.value
 		cd /media
 		for d in *; do
-			touch $CTRLPATH/$d
-			echo "way=in" >  $CFGPATH/$d.info
 			df  /media/$d | tail -n 1 | awk '{ print $5 }' | sed -e 's/%//'  > $CTRLPATH/$d.value
+			PORTS="$PORTS $d"
 		done
-		touch $CTRLPATH/totaldisk
-		echo "way=in" > $CFGPATH/totaldisk.info
 		df --total | grep total | awk '{ print $5 }' | sed -e 's/%//' > $CTRLPATH/totaldisk.value
+		
+		echo > /var/www/data/system.odauto
+		for p in $PORTS; do
+			touch $CTRLPATH/$p
+			echo "way=in" >  $CFGPATH/$p.info
+			v=`cat $CTRLPATH/$p.value`
+		done
+		
 		sleep 60
 	done
 }
 	
 do_start () {
 	log_action_begin_msg "Starting $DESC service"
+	touch /etc/opendomo/control/system.conf
 	if test -f $PIDFILE; then
 		echo -n "(already started!)"
 	else
