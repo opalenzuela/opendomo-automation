@@ -54,7 +54,9 @@ function updatePorts()
 				console.log("No port data available");
 			}			
 		})
-		.fail(function(){});
+		.fail(function(obj,status,text){
+			console.log(text);
+		});
 	
 	
 }
