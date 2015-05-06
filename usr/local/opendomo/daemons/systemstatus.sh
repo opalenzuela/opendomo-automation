@@ -44,6 +44,7 @@ do_background() {
 			touch $CTRLPATH/$p
 			echo "way=in" >  $CFGPATH/$p.info
 			v=`cat $CTRLPATH/$p.value`
+			echo "{'Name':'$p','Type':'AI','Tag':'system','Value':'$v','Id':'system/$p'}," >> /var/www/data/system.odauto
 		done
 		
 		sleep 60
