@@ -7,13 +7,20 @@
 # validate device
 if test "$1" == "validate"; then
 	source "$2" 
-
+	PORT=`echo $URL | cut -f3 -d:`
+	if test -z "$PORT" ; then 
+		# Port should be specified in the URL. Updating configuration
+		URL="$URL:81"
+		addControlDevice.sh "$TYPE" "$USERNAME" "$PASS" "$URL" > /dev/null
+	fi
+	
 	# Validation command
-        if
-	curl -s --user $USERNAME:$PASS $URL:81/ver+ &>/dev/null
+	if curl -s --user $USERNAME:$PASS $URL/ver+ &>/dev/null
 	then
+		echo "#INFO Device found" 
 		exit 0
 	else
+		echo "#ERR: Invalid device"
 		exit 1
 	fi
 fi
@@ -43,13 +50,10 @@ test -d $CFGDIR/$DEVNAME/ || mkdir -p $CFGDIR/$DEVNAME/
 test -d /var/www/data || mkdir -p /var/www/data
 
 
-
-
-
 while test -f $PIDFILE
 do
 	# Making the actual call
-	if curl -o $TMPFILE -s --user $USERNAME:$PASS $URL:81/lst
+	if curl -o $TMPFILE -s --user $USERNAME:$PASS $URL/lst
 	then
 		
 		echo "Response with DONE. Continue."
