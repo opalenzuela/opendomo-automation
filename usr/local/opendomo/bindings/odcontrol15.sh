@@ -16,8 +16,10 @@ if test "$1" == "validate"; then
     if test -z "$VERSION"
 	then
 		# ERROR
+		echo "#ERR: Invalid device"
 		exit 1
 	else
+		echo "#INFO Device found" 
 		exit 0
 	fi
 fi
@@ -37,8 +39,7 @@ fi
 
 IP=`basename $URL | cut -f1 -d:`
 PORT=`basename $URL | cut -f2 -d:`
-#test -z $PORT && 
-PORT=1729
+test -z "$PORT" && PORT=1729
 
 PIDFILE="/var/opendomo/run/odauto.pid"
 TMPFILE=/var/opendomo/tmp/$DEVNAME.tmp
