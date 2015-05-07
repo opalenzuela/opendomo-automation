@@ -11,6 +11,7 @@ if test "$1" == "validate"; then
 	if test -z "$PORT" ; then 
 		# Port should be specified in the URL. Updating configuration
 		URL="$URL:81"
+		echo "#INFO URL is missing the port. Fixing it"
 		addControlDevice.sh "$TYPE" "$USERNAME" "$PASS" "$URL" > /dev/null
 	fi
 	

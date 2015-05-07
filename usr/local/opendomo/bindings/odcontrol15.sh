@@ -9,8 +9,12 @@ if test "$1" == "validate"; then
 	source "$2"
 	IP=`basename $URL | cut -f1 -d:`
 	PORT=`basename $URL | cut -f2 -d:`
-	#test -z $PORT && 
-	PORT=1729
+	if test -z "$PORT"; then 
+		PORT=1729
+		URL="$URL:$PORT"
+		echo "#INFO URL is missing the port. Fixing it"
+		addControlDevice.sh "$TYPE" "$USERNAME" "$PASS" "$URL" > /dev/null
+	fi
 	# Validation command
 	VERSION= `echo "ver" |  nc $IP $PORT `
     if test -z "$VERSION"
