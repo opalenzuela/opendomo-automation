@@ -2,8 +2,7 @@
 #desc:ODControl2
 #package:odauto
 
-### Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
-
+### Copyright(c) 2015 OpenDomo Services SL. Licensed under GPL v3 or later
 
 PIDFILE="/var/opendomo/run/odauto.pid"
 CFGDIR="/etc/opendomo/control"
@@ -21,8 +20,10 @@ then
 	then
 		if grep DONE $TMPFILE
 		then
+			echo "#INFO Device found" 
 			exit 0
 		else
+			echo "#ERR: Invalid device"
 			exit 2
 		fi
 	else
