@@ -77,24 +77,24 @@ li.AI p{
 /** Adding some icons for the tags */
 li.power ,
 li.energy  {
-	background: url("/images/energy.png") no-repeat left center;
+	background: url("/images/energy.png") no-repeat left top;
 }
 li.measure ,
 li.climate  {
-	background: url("/images/climate.png") no-repeat left center;
+	background: url("/images/climate.png") no-repeat left top;
 }
 li.light {
-	background: url("/images/light.png") no-repeat left center;
+	background: url("/images/light.png") no-repeat left top;
 }
 li.access ,
 li.security {
-	background: url("/images/security.png") no-repeat left center;
+	background: url("/images/security.png") no-repeat left top;
 }
 li.water {
-	background: url("/images/water.png") no-repeat left center;
+	background: url("/images/water.png") no-repeat left top;
 }
 li.gas {
-	background: url("/images/gas.png") no-repeat left center;
+	background: url("/images/gas.png") no-repeat left top;
 }
 li p {
 	background: white;
