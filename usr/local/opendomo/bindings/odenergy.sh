@@ -2,7 +2,7 @@
 #desc:ODEnergy
 #package:odauto
 
-### Copyright(c) 2014 OpenDomo Services SL. Licensed under GPL v3 or later
+### Copyright(c) 2015 OpenDomo Services SL. Licensed under GPL v3 or later
 
 # validate device
 if test "$1" == "validate"; then
@@ -53,6 +53,7 @@ do
 		# LSTFILE contiene el listado correcto
 		for PNAME in voltage_L1 voltage_L2 voltage_L3 current_L1 current_L2 current_L3
 		do
+			status="enabled"
 			INFOFILE=$CFGDIR/$DEVNAME/$PNAME.info
 			if ! test -f "$INFOFILE"; then
 				echo "way='in'" > $INFOFILE
