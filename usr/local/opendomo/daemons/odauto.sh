@@ -21,6 +21,8 @@ PATH="$PATH:/usr/local/opendomo/bin/"
 TMPDIR=/var/opendomo/tmp
 
 do_background() {
+	test -f $PIDFILE && exit 1
+
 	# 1. Saving PID file
 	echo -n >$PIDFILE
 	
@@ -84,7 +86,7 @@ do_background() {
 		cat /var/www/data/*.odauto  >> /var/www/data/odauto.json.tmp 2>/dev/null
 		echo "0]}" >> /var/www/data/odauto.json.tmp
 		#TODO Make sure that the format is valid
-		mv /var/www/data/odauto.json.tmp /var/www/data/odauto.json
+		mv /var/www/data/odauto.json.tmp /var/www/data/odauto.json 2>/dev/null
 		sleep 1
 	done
 }
